@@ -33,8 +33,10 @@ export default function Board() {
 
   function removeColumn(id: number) {
     const filteredColumns = [...columns].filter((column) => column !== id);
+    setColumnNumber(columnNumber - 1);
     setColumns(filteredColumns);
   }
+  console.log(columns);
 
   return (
     <div className={classes.root}>
