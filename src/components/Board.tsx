@@ -21,16 +21,27 @@ const useStyles = makeStyles((theme: any) => ({
 export default function Board() {
   const classes = useStyles();
   const [columnNumber, setColumnNumber] = useState(3);
+  const [columns, setColumns] = useState(
+    Array.from(Array(columnNumber).keys())
+  );
 
   function addColumn(event: MouseEvent) {
     event.preventDefault();
     setColumnNumber(columnNumber + 1);
+    setColumns(Array.from(Array(columnNumber).keys()));
+  }
+
+  function removeColumn(id: number) {
+    const filteredColumns = [...columns].filter((column) => column !== id);
+    setColumns(filteredColumns);
   }
 
   return (
     <div className={classes.root}>
-      {Array.from(Array(columnNumber).keys()).map((key: number) => {
-        return <Column key={key} />;
+      {columns.map((key: number) => {
+        return (
+          <Column key={key} cardNumber={key} removeColumn={removeColumn} />
+        );
       })}
       <Button variant="outlined" className={classes.button} onClick={addColumn}>
         Add Column
