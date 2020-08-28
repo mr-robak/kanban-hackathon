@@ -8,15 +8,15 @@ const useStyles = makeStyles((theme: any) => ({
     flexGrow: 1,
   },
   paper: {
-    height: 140,
-    width: 100,
+    height: 500,
+    width: 250,
   },
 }));
 
 export default function Column() {
   const classes = useStyles();
   return (
-    <Grid container className={classes.root}>
+    <Grid container>
       <Grid item xs={12}>
         <Grid container justify="center">
           <Grid>

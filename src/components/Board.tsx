@@ -18,7 +18,6 @@ export default function Board() {
       <Column />
       <Column />
       <Column />
-      <Column />
     </div>
   );
 }
