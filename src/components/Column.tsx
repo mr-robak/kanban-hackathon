@@ -1,6 +1,7 @@
-import React, { useState, MouseEvent, FormEvent } from "react";
+import React, { useState, MouseEvent, FormEvent, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
@@ -12,10 +13,20 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-export default function Column() {
+export default function Column(props: any) {
   const classes = useStyles();
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState("Title");
+
+  useEffect(() => {
+    if (props.cardNumber === 0) {
+      setTitle("To Do");
+    } else if (props.cardNumber === 1) {
+      setTitle("In Progress");
+    } else if (props.cardNumber === 2) {
+      setTitle("Done");
+    }
+  }, []);
 
   function setToEdit(event: MouseEvent) {
     event.preventDefault();
@@ -25,6 +36,11 @@ export default function Column() {
   function setToNotEdit(event: FormEvent) {
     event.preventDefault();
     setEditTitle(false);
+  }
+
+  function deleteColumn(event: MouseEvent) {
+    event.preventDefault();
+    props.removeColumn(props.cardNumber);
   }
 
   return (
@@ -44,6 +60,7 @@ export default function Column() {
               ) : (
                 <header onClick={setToEdit}>{title}</header>
               )}
+              <Button onClick={deleteColumn}>Delete</Button>
             </Paper>
           </Grid>
         </Grid>

@@ -27,10 +27,16 @@ export default function Board() {
     setColumnNumber(columnNumber + 1);
   }
 
+  function removeColumn(id: number) {
+    console.log(id);
+  }
+
   return (
     <div className={classes.root}>
       {Array.from(Array(columnNumber).keys()).map((key: number) => {
-        return <Column key={key} />;
+        return (
+          <Column key={key} cardNumber={key} removeColumn={removeColumn} />
+        );
       })}
       <Button variant="outlined" className={classes.button} onClick={addColumn}>
         Add Column
