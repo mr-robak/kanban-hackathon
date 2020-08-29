@@ -52,4 +52,4 @@ export const initialState: State = isInLocalStorage
 
 const BoardContext = createContext<ContextValue>(initialState);
 
-export default initialState;
+export default BoardContext;

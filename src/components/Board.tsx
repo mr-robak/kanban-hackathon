@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Column from "./Column";
+import BoardContext from "../state/BoardContext";
 
 // import Button from "@material-ui/core/Button";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -24,7 +25,8 @@ const useStyles = makeStyles((theme: any) => ({
 
 export default function Board() {
   const classes = useStyles();
-  const [state, setState] = useState(initialState);
+  const { state, dispatch } = useContext(BoardContext);
+  const [istate, setState] = useState(state);
 
   //need to update
   function onDragEnd(result: any) {
@@ -44,8 +46,8 @@ export default function Board() {
     }
 
     //reorder task-id array
-    const start = state.columns[source.droppableId];
-    const finish = state.columns[destination.droppableId];
+    const start = istate.columns[source.droppableId];
+    const finish = istate.columns[destination.droppableId];
 
     //if moving in same column
     if (start === finish) {
@@ -58,10 +60,12 @@ export default function Board() {
       const newColumn = { ...start, taskIds: newTaskIds };
 
       //update state
-      setState({
+      const newState = {
         ...state,
         columns: { ...state.columns, [newColumn.id]: newColumn },
-      });
+      };
+      setState(newState);
+      dispatch(newState);
       return;
     }
 
@@ -87,15 +91,18 @@ export default function Board() {
       },
     };
     setState(newState);
+    dispatch(newState);
     return;
   }
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={classes.root}>
-        {state.columnOrder.map((columnId) => {
+        {state.columnOrder.map((columnId: any) => {
           const column = state.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
+          const tasks = column.taskIds.map(
+            (taskId: any) => state.tasks[taskId]
+          );
           return <Column key={column.id} column={column} tasks={tasks} />;
         })}
       </div>
