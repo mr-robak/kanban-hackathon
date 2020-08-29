@@ -1,16 +1,5 @@
 import React, { createContext } from "react";
-
-interface Column {
-  id: number;
-  name: string;
-  cards: Array<Card>;
-}
-
-interface Card {
-  id: number;
-  title: string;
-  description: string;
-}
+import { Column } from "../models/index";
 
 export const initialState: Array<Column> = [
   {
