@@ -1,11 +1,19 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  withTheme,
+} from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { NavLink } from "react-router-dom";
+
+import "./Navbar.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,10 +44,23 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+
+          <NavLink
+            exact
+            to="/"
+            className={classes.title}
+            style={{ textDecoration: "none" }}
+          >
             Home
-          </Typography>
-          <Button color="inherit">Create a Board</Button>
+          </NavLink>
+          <NavLink
+            exact
+            to="/board"
+            className="CreateButton"
+            style={{ textDecoration: "none" }}
+          >
+            Create a Board
+          </NavLink>
         </Toolbar>
       </AppBar>
     </div>
