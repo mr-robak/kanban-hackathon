@@ -49,7 +49,7 @@ export default function Navbar() {
             exact
             to="/"
             className={classes.title}
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none", color: "white" }}
           >
             Home
           </NavLink>
