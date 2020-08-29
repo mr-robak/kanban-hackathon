@@ -1,12 +1,14 @@
+//import useContext and BoardContext
 import React, { useState, useContext } from "react";
-import Column from "./Column";
 import BoardContext from "../state/BoardContext";
+
+import Column from "./Column";
 
 // import Button from "@material-ui/core/Button";
 import { DragDropContext } from "react-beautiful-dnd";
 
 import { makeStyles } from "@material-ui/core/styles";
-import initialState from "../state/BoardContext";
+// import initialState from "../state/BoardContext";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -25,6 +27,10 @@ const useStyles = makeStyles((theme: any) => ({
 
 export default function Board() {
   const classes = useStyles();
+
+  //in your functional component use the useContext hook to gain access to state
+  //and dispatch function
+
   const { state, dispatch } = useContext(BoardContext);
   const [istate, setState] = useState(state);
 
@@ -61,8 +67,8 @@ export default function Board() {
 
       //update state
       const newState = {
-        ...state,
-        columns: { ...state.columns, [newColumn.id]: newColumn },
+        ...istate,
+        columns: { ...istate.columns, [newColumn.id]: newColumn },
       };
       setState(newState);
       dispatch(newState);
@@ -83,9 +89,9 @@ export default function Board() {
       taskIds: finishTaskIds,
     };
     const newState = {
-      ...state,
+      ...istate,
       columns: {
-        ...state.columns,
+        ...istate.columns,
         [newStart.id]: newStart,
         [newFinish.id]: newFinish,
       },
@@ -98,10 +104,10 @@ export default function Board() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={classes.root}>
-        {state.columnOrder.map((columnId: string) => {
-          const column = state.columns[columnId];
+        {istate.columnOrder.map((columnId: string) => {
+          const column = istate.columns[columnId];
           const tasks = column.taskIds.map(
-            (taskId: string) => state.tasks[taskId]
+            (taskId: string) => istate.tasks[taskId]
           );
           return <Column key={column.id} column={column} tasks={tasks} />;
         })}

@@ -23,7 +23,6 @@ interface PropsItem {
     title: string;
     description: string;
   };
-  // innerRef: any;
 }
 
 const useStyles = makeStyles((theme) => ({
