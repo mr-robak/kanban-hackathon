@@ -17,4 +17,4 @@ export interface Card {
 
 export type State = Array<Column>;
 
-export type ContextValue = {state: State; dispatch: React.Dispatch<Action>} | null;
+export type ContextValue = {state: State; dispatch: React.Dispatch<Action>} | any;
