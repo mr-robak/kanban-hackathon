@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import BoardContext from "../state/BoardContext";
-import { SingleTask } from "../models/index";
 
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -52,7 +51,7 @@ export default function Task(props: PropsItem) {
     task: { id, title, description },
     index,
   } = props;
-  // const { dispatch } = useContext(BoardContext);
+  const { dispatch } = useContext(BoardContext);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -67,7 +66,7 @@ export default function Task(props: PropsItem) {
   };
   const handleDelete = () => {
     handleClose();
-    // dispatch({ type: "deleteTask", payload: id });
+    dispatch({ type: "deleteTask", payload: id });
   };
 
   //handlers for expand

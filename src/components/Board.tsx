@@ -93,9 +93,9 @@ export default function Board() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={classes.root}>
-        {state.columnOrder.map((columnId) => {
+        {state.columnOrder.map((columnId: string) => {
           const column = state.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
+          const tasks = column.taskIds.map((taskId: string) => state.tasks[taskId]);
           return <Column key={column.id} column={column} tasks={tasks} />;
         })}
       </div>
