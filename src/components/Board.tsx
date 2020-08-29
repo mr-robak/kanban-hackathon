@@ -36,7 +36,6 @@ export default function Board() {
     setColumnNumber(columnNumber - 1);
     setColumns(filteredColumns);
   }
-  console.log(columns);
 
   return (
     <div className={classes.root}>
