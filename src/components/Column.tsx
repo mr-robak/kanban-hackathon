@@ -1,7 +1,9 @@
-import React, { useState, MouseEvent, FormEvent, useEffect } from "react";
+import React, { useState, MouseEvent, FormEvent } from "react";
+import Item from "./Item";
+import { Droppable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
@@ -10,28 +12,33 @@ const useStyles = makeStyles((theme: any) => ({
     height: 500,
     width: 250,
     margin: 20,
+    display: "flex",
+    flexDirection: "column",
   },
 }));
 
-interface PropsItem {
-  cardNumber: number;
-  removeColumn: (id: number) => void;
+interface Task {
+  id: string;
+  title: string;
+  description: string;
 }
 
-export default function Column(props: PropsItem) {
+interface iColumn {
+  id: string;
+  title: string;
+  taskIds: string[];
+}
+
+// make interface
+interface PropItem {
+  column: iColumn;
+  tasks: Task[];
+}
+
+export default function Column(props: PropItem) {
   const classes = useStyles();
   const [editTitle, setEditTitle] = useState(false);
-  const [title, setTitle] = useState("Title");
-
-  useEffect(() => {
-    if (props.cardNumber === 0) {
-      setTitle("To Do");
-    } else if (props.cardNumber === 1) {
-      setTitle("In Progress");
-    } else if (props.cardNumber === 2) {
-      setTitle("Done");
-    }
-  }, [props.cardNumber]);
+  const [title, setTitle] = useState(props.column.title);
 
   function setToEdit(event: MouseEvent) {
     event.preventDefault();
@@ -41,11 +48,6 @@ export default function Column(props: PropsItem) {
   function setToNotEdit(event: FormEvent) {
     event.preventDefault();
     setEditTitle(false);
-  }
-
-  function deleteColumn(event: MouseEvent) {
-    event.preventDefault();
-    props.removeColumn(props.cardNumber);
   }
 
   return (
@@ -65,7 +67,22 @@ export default function Column(props: PropsItem) {
               ) : (
                 <header onClick={setToEdit}>{title}</header>
               )}
-              <Button onClick={deleteColumn}>Delete</Button>
+              <Droppable droppableId={props.column.id}>
+                {(provided) => {
+                  return (
+                    <div
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      style={{ flexGrow: 1, minHeight: "100px" }}
+                    >
+                      {props.tasks.map((task: Task, index: number) => {
+                        return <Item key={task.id} task={task} index={index} />;
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  );
+                }}
+              </Droppable>
             </Paper>
           </Grid>
         </Grid>

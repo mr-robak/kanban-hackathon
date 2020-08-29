@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useReducer } from "react";
+import React, { useMemo, useReducer, useEffect } from "react";
 import BoardContext, { initialState } from "./state/BoardContext";
+
 import reducer from "./state/reducer";
 import "./App.css";
 import Board from "./components/Board";
@@ -20,7 +21,7 @@ function App() {
   }, [state, dispatch]);
 
   return (
-    <div className="App">
+    <div className="App" style={{ background: "#b19cd9", height: "1000px" }}>
       <Navbar />
       <Switch>
         <Route path="/board">
