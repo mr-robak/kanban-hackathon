@@ -1,7 +1,10 @@
 import { createContext } from "react";
 import { State, ContextValue } from "../models/index";
+import { getState } from "../utils/index";
 
-export const initialState: State = {
+const isInLocalStorage: boolean = !!localStorage.columns && !!localStorage.tasks && !!localStorage.columnOrder;
+
+export const initialState: State =  isInLocalStorage ?  getState() : {
   tasks: {
     "task-1": {
       id: "task-1",
