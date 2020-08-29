@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+//import useContext and BoardContext
+import React, { useState, useContext } from "react";
+import BoardContext from "../state/BoardContext";
 import Column from "./Column";
 
 // import Button from "@material-ui/core/Button";
 import { DragDropContext } from "react-beautiful-dnd";
 
 import { makeStyles } from "@material-ui/core/styles";
-import initialState from "../state/BoardContext";
+// import initialState from "../state/BoardContext";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -24,7 +26,11 @@ const useStyles = makeStyles((theme: any) => ({
 
 export default function Board() {
   const classes = useStyles();
-  const [state, setState] = useState(initialState);
+
+  //in your functional component use the useContext hook to gain access to state
+  //and dispatch function
+  const { state, dispatch } = useContext(BoardContext);
+  const [istate, setState] = useState(state);
 
   //need to update
   function onDragEnd(result: any) {
@@ -44,8 +50,8 @@ export default function Board() {
     }
 
     //reorder task-id array
-    const start = state.columns[source.droppableId];
-    const finish = state.columns[destination.droppableId];
+    const start = istate.columns[source.droppableId];
+    const finish = istate.columns[destination.droppableId];
 
     //if moving in same column
     if (start === finish) {
@@ -58,10 +64,12 @@ export default function Board() {
       const newColumn = { ...start, taskIds: newTaskIds };
 
       //update state
-      setState({
-        ...state,
-        columns: { ...state.columns, [newColumn.id]: newColumn },
-      });
+      const newState = {
+        ...istate,
+        columns: { ...istate.columns, [newColumn.id]: newColumn },
+      };
+      setState(newState);
+      dispatch(newState);
       return;
     }
 
@@ -79,23 +87,26 @@ export default function Board() {
       taskIds: finishTaskIds,
     };
     const newState = {
-      ...state,
+      ...istate,
       columns: {
-        ...state.columns,
+        ...istate.columns,
         [newStart.id]: newStart,
         [newFinish.id]: newFinish,
       },
     };
     setState(newState);
+    dispatch(newState);
     return;
   }
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={classes.root}>
-        {state.columnOrder.map((columnId: string) => {
-          const column = state.columns[columnId];
-          const tasks = column.taskIds.map((taskId: string) => state.tasks[taskId]);
+        {istate.columnOrder.map((columnId: string) => {
+          const column = istate.columns[columnId];
+          const tasks = column.taskIds.map(
+            (taskId: string) => istate.tasks[taskId]
+          );
           return <Column key={column.id} column={column} tasks={tasks} />;
         })}
       </div>
