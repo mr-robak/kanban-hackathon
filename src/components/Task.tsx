@@ -64,7 +64,7 @@ export default function Task(props: PropsItem) {
   };
   const handleDelete = () => {
     handleClose();
-    dispatch({ type: "deleteTask", payload: id });
+    // dispatch({ type: "deleteTask", payload: id });
   };
 
   //handlers for expand
