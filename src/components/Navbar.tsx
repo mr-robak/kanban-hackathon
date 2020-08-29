@@ -59,7 +59,7 @@ export default function Navbar() {
             className="CreateButton"
             style={{ textDecoration: "none" }}
           >
-            Create a Board
+            Create a board
           </NavLink>
         </Toolbar>
       </AppBar>
