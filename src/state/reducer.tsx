@@ -12,7 +12,7 @@ export default function reducer(state: State, action: Action) {
       return state;
     }
     case "deleteTask": {
-      const { id } = action.payload;
+      //const { id } = action.payload;
       // const newState = {};
       // for(const key in state.tasks) {
       //   if(key !== id) {
