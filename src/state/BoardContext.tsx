@@ -50,6 +50,6 @@ export const initialState: State = isInLocalStorage
       columnOrder: ["column-1", "column-2", "column-3"],
     };
 
-const BoardContext = createContext<ContextValue>(initialState);
+const BoardContext: ContextValue = createContext<ContextValue>(null);
 
 export default BoardContext;
