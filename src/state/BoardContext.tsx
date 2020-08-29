@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
-import { Column } from "../models/index";
+import { State } from "../models/index";
 
-export const initialState: Array<Column> = [
+export const initialState: State = [
   {
     id: 1,
     name: "To do",
@@ -19,6 +19,6 @@ export const initialState: Array<Column> = [
   },
 ];
 
-const BoardContext = createContext<Array<Column>>(initialState);
+const BoardContext = createContext<State>(initialState);
 
 export default BoardContext;
