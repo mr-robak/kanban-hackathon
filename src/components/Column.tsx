@@ -60,7 +60,7 @@ export default function Column(props: any) {
               ) : (
                 <header onClick={setToEdit}>{title}</header>
               )}
-              <Button>Delete</Button>
+              <Button onClick={deleteColumn}>Delete</Button>
             </Paper>
           </Grid>
         </Grid>
