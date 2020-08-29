@@ -1,5 +1,5 @@
 import React, { useState, MouseEvent, FormEvent } from "react";
-import Item from "./Item";
+import Task from "./Task";
 import { Droppable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -76,7 +76,7 @@ export default function Column(props: PropItem) {
                       style={{ flexGrow: 1, minHeight: "100px" }}
                     >
                       {props.tasks.map((task: Task, index: number) => {
-                        return <Item key={task.id} task={task} index={index} />;
+                        return <Task key={task.id} task={task} index={index} />;
                       })}
                       {provided.placeholder}
                     </div>
