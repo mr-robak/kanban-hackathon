@@ -3,18 +3,30 @@ export interface Action {
   payload: any;
 }
 
-export interface Column {
-  id: number;
-  name: string;
-  cards: Array<Card>;
+export interface SingleColumn {
+  id: string;
+  title: string;
+  taskIds: string[];
 }
 
-export interface Card {
-  id: number;
+export interface Columns {
+  [propName: string]: SingleColumn
+}
+
+export interface SingleTask {
+  id: string;
   title: string;
   description: string;
 }
 
-export type State = Array<Column>;
+export interface Tasks {
+  [propName: string]: SingleTask
+}
+
+export interface State {
+  tasks: Tasks,
+  columns: Columns,
+  columnOrder: string[]
+}
 
 export type ContextValue = {state: State; dispatch: React.Dispatch<Action>} | any;
