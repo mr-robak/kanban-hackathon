@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { State } from "../models/index";
+import { State, ContextValue } from "../models/index";
 
 export const initialState: State = [
   {
@@ -19,6 +19,6 @@ export const initialState: State = [
   },
 ];
 
-const BoardContext = createContext<State>(initialState);
+const BoardContext = createContext<ContextValue>(null);
 
 export default BoardContext;
