@@ -10,7 +10,7 @@ export interface SingleColumn {
 }
 
 export interface Columns {
-  [propName: string]: SingleColumn
+  [propName: string]: SingleColumn;
 }
 
 export interface SingleTask {
@@ -20,13 +20,14 @@ export interface SingleTask {
 }
 
 export interface Tasks {
-  [propName: string]: SingleTask
+  [propName: string]: SingleTask;
 }
 
 export interface State {
-  tasks: Tasks,
-  columns: Columns,
-  columnOrder: string[]
+  tasks: Tasks;
+  columns: Columns;
+  columnOrder: string[];
 }
 
-export type ContextValue = {state: State; dispatch: React.Dispatch<Action>} | any;
+type reducerType = { state: State; dispatch: React.Dispatch<Action> };
+export type ContextValue = reducerType | any;
