@@ -38,6 +38,11 @@ export default function Column(props: any) {
     setEditTitle(false);
   }
 
+  function deleteColumn(event: MouseEvent) {
+    event.preventDefault();
+    props.removeColumn(props.cardNumber);
+  }
+
   return (
     <Grid container>
       <Grid item xs={12}>
