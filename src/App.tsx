@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useReducer } from "react";
+import React, { useMemo, useReducer } from "react";
 import BoardContext, { initialState } from "./state/BoardContext";
 import reducer from "./state/reducer";
 import "./App.css";
@@ -7,6 +7,7 @@ import Board from "./components/Board";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const contextValue = useMemo(() => {
     return { state, dispatch };
   }, [state, dispatch]);
