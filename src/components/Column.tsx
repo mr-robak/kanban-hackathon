@@ -26,7 +26,7 @@ export default function Column(props: any) {
     } else if (props.cardNumber === 2) {
       setTitle("Done");
     }
-  }, []);
+  }, [props.cardNumber]);
 
   function setToEdit(event: MouseEvent) {
     event.preventDefault();
