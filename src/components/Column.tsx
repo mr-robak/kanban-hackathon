@@ -1,6 +1,6 @@
 import React, { useState, MouseEvent, FormEvent } from "react";
 import Task from "./Task";
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 // import Button from "@material-ui/core/Button";
@@ -33,6 +33,7 @@ interface iColumn {
 interface PropItem {
   column: iColumn;
   tasks: Task[];
+  index: number;
 }
 
 export default function Column(props: PropItem) {
@@ -55,35 +56,47 @@ export default function Column(props: PropItem) {
       <Grid item xs={12}>
         <Grid container justify="center">
           <Grid>
-            <Paper className={classes.paper}>
-              {editTitle ? (
-                <form onSubmit={setToNotEdit}>
-                  <TextField
-                    id="standard-basic"
-                    value={title}
-                    onChange={(event) => setTitle(event.target.value)}
-                  />
-                </form>
-              ) : (
-                <header onClick={setToEdit}>{title}</header>
+            <Draggable draggableId={props.column.id} index={props.index}>
+              {(provided) => (
+                <Paper
+                  className={classes.paper}
+                  {...provided.draggableProps}
+                  ref={provided.innerRef}
+                >
+                  {editTitle ? (
+                    <form onSubmit={setToNotEdit}>
+                      <TextField
+                        id="standard-basic"
+                        value={title}
+                        onChange={(event) => setTitle(event.target.value)}
+                      />
+                    </form>
+                  ) : (
+                    <header onClick={setToEdit} {...provided.dragHandleProps}>
+                      {title}
+                    </header>
+                  )}
+                  <Droppable droppableId={props.column.id} type="task">
+                    {(provided) => {
+                      return (
+                        <div
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                          style={{ flexGrow: 1, minHeight: "100px" }}
+                        >
+                          {props.tasks.map((task: Task, index: number) => {
+                            return (
+                              <Task key={task.id} task={task} index={index} />
+                            );
+                          })}
+                          {provided.placeholder}
+                        </div>
+                      );
+                    }}
+                  </Droppable>
+                </Paper>
               )}
-              <Droppable droppableId={props.column.id}>
-                {(provided) => {
-                  return (
-                    <div
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                      style={{ flexGrow: 1, minHeight: "100px" }}
-                    >
-                      {props.tasks.map((task: Task, index: number) => {
-                        return <Task key={task.id} task={task} index={index} />;
-                      })}
-                      {provided.placeholder}
-                    </div>
-                  );
-                }}
-              </Droppable>
-            </Paper>
+            </Draggable>
           </Grid>
         </Grid>
       </Grid>
