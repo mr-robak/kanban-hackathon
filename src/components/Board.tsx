@@ -1,6 +1,7 @@
 import React, { MouseEvent, useState } from "react";
 import Column from "./Column";
 import Button from "@material-ui/core/Button";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: any) => ({
@@ -36,7 +37,6 @@ export default function Board() {
     setColumnNumber(columnNumber - 1);
     setColumns(filteredColumns);
   }
-  console.log(columns);
 
   return (
     <div className={classes.root}>
