@@ -25,22 +25,6 @@ const useStyles = makeStyles((theme: any) => ({
 export default function Board() {
   const classes = useStyles();
   const [state, setState] = useState(initialState);
-  // const [columnNumber, setColumnNumber] = useState(3);
-  // const [columns, setColumns] = useState(
-  //   Array.from(Array(columnNumber).keys())
-  // );
-
-  // function addColumn(event: MouseEvent) {
-  //   event.preventDefault();
-  //   setColumnNumber(columnNumber + 1);
-  //   setColumns(Array.from(Array(columnNumber).keys()));
-  // }
-
-  // function removeColumn(id: number) {
-  //   const filteredColumns = [...columns].filter((column) => column !== id);
-  //   setColumnNumber(columnNumber - 1);
-  //   setColumns(filteredColumns);
-  // }
 
   //need to update
   function onDragEnd(result: any) {
@@ -109,9 +93,6 @@ export default function Board() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={classes.root}>
-        {/* <Button variant="outlined" className={classes.button} onClick={addColumn}>
-        Add Column
-      </Button> */}
         {state.columnOrder.map((columnId) => {
           const column = state.columns[columnId];
           const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);

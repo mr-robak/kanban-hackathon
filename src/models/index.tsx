@@ -3,7 +3,6 @@ export interface Action {
   payload: any;
 }
 
-
 interface Task {
   id: string;
   title: string;
@@ -24,4 +23,4 @@ export interface State {
 
 export type ContextValue =
   | { state: State; dispatch: React.Dispatch<Action> }
-  | State;
+  | any;

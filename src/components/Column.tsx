@@ -40,16 +40,6 @@ export default function Column(props: PropItem) {
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState(props.column.title);
 
-  // useEffect(() => {
-  //   if (props.cardNumber === 0) {
-  //     setTitle("To Do");
-  //   } else if (props.cardNumber === 1) {
-  //     setTitle("In Progress");
-  //   } else if (props.cardNumber === 2) {
-  //     setTitle("Done");
-  //   }
-  // }, []);
-
   function setToEdit(event: MouseEvent) {
     event.preventDefault();
     setEditTitle(true);
@@ -59,11 +49,6 @@ export default function Column(props: PropItem) {
     event.preventDefault();
     setEditTitle(false);
   }
-
-  // function deleteColumn(event: MouseEvent) {
-  //   event.preventDefault();
-  //   props.removeColumn(props.cardNumber);
-  // }
 
   return (
     <Grid container>
@@ -98,7 +83,6 @@ export default function Column(props: PropItem) {
                   );
                 }}
               </Droppable>
-              {/* <Button onClick={deleteColumn}>Delete</Button> */}
             </Paper>
           </Grid>
         </Grid>
