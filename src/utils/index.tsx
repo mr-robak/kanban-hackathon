@@ -6,3 +6,11 @@ export function saveState(state: State): void {
   localStorage.setItem("columns", JSON.stringify(columns));
   localStorage.setItem("columnOrder", JSON.stringify(columnOrder));
 }
+
+export function getState(): State {
+  return {
+    tasks: JSON.parse(localStorage.tasks),
+    columns: JSON.parse(localStorage.columns),
+    columnOrder: JSON.parse(localStorage.columnOrder),
+  };
+}
