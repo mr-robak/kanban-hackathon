@@ -4,7 +4,7 @@ import BoardContext from "../state/BoardContext";
 import Column from "./Column";
 
 // import Button from "@material-ui/core/Button";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import { makeStyles } from "@material-ui/core/styles";
 // import initialState from "../state/BoardContext";
@@ -34,7 +34,7 @@ export default function Board() {
 
   //need to update
   function onDragEnd(result: any) {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     //no destination - no actions necessary and exit
     if (!destination) {
@@ -49,6 +49,20 @@ export default function Board() {
       return;
     }
 
+    if (type === "column") {
+      const newColumnOrder = Array.from(istate.columnOrder);
+      newColumnOrder.splice(source.index, 1);
+      newColumnOrder.splice(destination.index, 0, draggableId);
+
+      const newState = {
+        ...istate,
+        columnOrder: newColumnOrder,
+      };
+      setState(newState);
+      // need to write this
+      // dispatch(newState)
+      return;
+    }
     //reorder task-id array
     const start = istate.columns[source.droppableId];
     const finish = istate.columns[destination.droppableId];
@@ -69,7 +83,8 @@ export default function Board() {
         columns: { ...istate.columns, [newColumn.id]: newColumn },
       };
       setState(newState);
-      dispatch(newState);
+      // need to write this
+      // dispatch(newState);
       return;
     }
 
@@ -95,21 +110,38 @@ export default function Board() {
       },
     };
     setState(newState);
-    dispatch(newState);
+    // need to write this
+    // dispatch(newState);
     return;
   }
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className={classes.root}>
-        {istate.columnOrder.map((columnId: string) => {
-          const column = istate.columns[columnId];
-          const tasks = column.taskIds.map(
-            (taskId: string) => istate.tasks[taskId]
-          );
-          return <Column key={column.id} column={column} tasks={tasks} />;
-        })}
-      </div>
+      <Droppable droppableId="all-columns" direction="horizontal" type="column">
+        {(provided) => (
+          <div
+            className={classes.root}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {istate.columnOrder.map((columnId: string, index: number) => {
+              const column = istate.columns[columnId];
+              const tasks = column.taskIds.map(
+                (taskId: string) => istate.tasks[taskId]
+              );
+              return (
+                <Column
+                  key={column.id}
+                  column={column}
+                  tasks={tasks}
+                  index={index}
+                />
+              );
+            })}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     </DragDropContext>
   );
 }
