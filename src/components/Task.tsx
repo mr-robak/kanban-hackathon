@@ -58,7 +58,7 @@ export default function Task(props: SingleTask) {
   };
   const handleDelete = () => {
     handleClose();
-    dispatch({ type: "deleteCard", payload: id });
+    dispatch({ type: "deleteTask", payload: id });
   };
 
   //handlers for expand
