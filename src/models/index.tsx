@@ -21,6 +21,5 @@ export interface State {
   columnOrder: string[];
 }
 
-export type ContextValue =
-  | { state: State; dispatch: React.Dispatch<Action> }
-  | any;
+type reducerType = { state: State; dispatch: React.Dispatch<Action> };
+export type ContextValue = reducerType | any;
