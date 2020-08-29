@@ -12,8 +12,6 @@ import { saveState } from "./utils";
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  console.log("state", state);
-
   useEffect(() => {
     saveState(state);
   }, [state]);

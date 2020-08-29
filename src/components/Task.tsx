@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import BoardContext from "../state/BoardContext";
+import { SingleTask } from "../models/index";
+
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -44,8 +47,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Item(props: PropsItem) {
-  const { title, description } = props.task;
+export default function Task(props: PropsItem) {
+  const { task: {id, title, description}, index } = props;
+  // const { dispatch } = useContext(BoardContext);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -60,7 +64,7 @@ export default function Item(props: PropsItem) {
   };
   const handleDelete = () => {
     handleClose();
-    //remove card...pass callback function from column component?
+    // dispatch({ type: "deleteTask", payload: id });
   };
 
   //handlers for expand
@@ -69,7 +73,7 @@ export default function Item(props: PropsItem) {
   };
 
   return (
-    <Draggable draggableId={props.task.id} index={props.index}>
+    <Draggable draggableId={id} index={index}>
       {(provided) => {
         return (
           <div

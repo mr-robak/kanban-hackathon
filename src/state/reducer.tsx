@@ -8,10 +8,17 @@ export default function reducer(state: State, action: Action) {
     case "deleteColumn": {
       return state;
     }
-    case "addCard": {
+    case "addTask": {
       return state;
     }
-    case "deleteCard": {
+    case "deleteTask": {
+      const { id } = action.payload;
+      // const newState = {};
+      // for(const key in state.tasks) {
+      //   if(key !== id) {
+      //     newState = 
+      //   }
+      // }
       return state;
     }
     default: {

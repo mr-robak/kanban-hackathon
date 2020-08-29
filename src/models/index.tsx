@@ -3,21 +3,29 @@ export interface Action {
   payload: any;
 }
 
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-}
-
-interface Column {
+export interface SingleColumn {
   id: string;
   title: string;
   taskIds: string[];
 }
 
+export interface Columns {
+  [propName: string]: SingleColumn;
+}
+
+export interface SingleTask {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export interface Tasks {
+  [propName: string]: SingleTask;
+}
+
 export interface State {
-  tasks: { [key: string]: Task };
-  columns: { [key: string]: Column };
+  tasks: Tasks;
+  columns: Columns;
   columnOrder: string[];
 }
 
