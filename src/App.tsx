@@ -7,7 +7,7 @@ import { Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ background: "#b19cd9", height: "1000px" }}>
       <Navbar />
       <Switch>
         <Route path="/board" component={Board} />

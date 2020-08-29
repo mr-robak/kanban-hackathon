@@ -13,12 +13,7 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-interface PropsItem {
-  cardNumber: number;
-  removeColumn: (id: number) => void;
-}
-
-export default function Column(props: PropsItem) {
+export default function Column(props: any) {
   const classes = useStyles();
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState("Title");
@@ -31,7 +26,7 @@ export default function Column(props: PropsItem) {
     } else if (props.cardNumber === 2) {
       setTitle("Done");
     }
-  }, [props.cardNumber]);
+  }, []);
 
   function setToEdit(event: MouseEvent) {
     event.preventDefault();
@@ -41,11 +36,6 @@ export default function Column(props: PropsItem) {
   function setToNotEdit(event: FormEvent) {
     event.preventDefault();
     setEditTitle(false);
-  }
-
-  function deleteColumn(event: MouseEvent) {
-    event.preventDefault();
-    props.removeColumn(props.cardNumber);
   }
 
   return (
@@ -65,7 +55,7 @@ export default function Column(props: PropsItem) {
               ) : (
                 <header onClick={setToEdit}>{title}</header>
               )}
-              <Button onClick={deleteColumn}>Delete</Button>
+              <Button>Delete</Button>
             </Paper>
           </Grid>
         </Grid>
