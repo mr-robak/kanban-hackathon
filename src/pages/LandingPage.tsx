@@ -9,17 +9,16 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       //   flexGrow: 1,
-      //   spacing: theme.spacing(0),
+
       spacing: 1,
-      // direction: "column",
-      //   alignItems: "top",
-      //   minHeight: "100vh",
+
       marginTop: "1em",
       justify: "space-evenly",
       alignItems: "center",
     },
     descr: {
       marginTop: "5%",
+      margin: "1em",
     },
     illustration: {
       width: "100%",
@@ -63,14 +62,16 @@ export default function LandingPage() {
       <Grid container className={classes.root}>
         <Grid item xs={12}>
           <Typography variant="h2" className={classes.title}>
-            THE KANBAN BOARD
+            THE TRUE KANBAN BOARD
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <Typography variant="h5" className={classes.descr}>
-            The only board you need to help you keep your tabs on the project!
-          </Typography>
-
+            The only board you will ever need to help you keep your tabs on the
+            project!
+          </Typography>{" "}
+        </Grid>
+        <Grid item xs={6}>
           <Typography variant="h6">
             Create your board, add columns and cards to organize and prioritize
             your tasks in the projects! In just few clicks!
@@ -93,7 +94,6 @@ export default function LandingPage() {
         </Grid>
         <Divider />
         <Grid item xs={6}>
-          {" "}
           <img
             src={require("../assets/olympics.jpeg")}
             style={{
@@ -111,10 +111,10 @@ export default function LandingPage() {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h5" className={classes.title}>
+          <Typography variant="h4" className={classes.title}>
             Act now and hire these young guns before someone else sends them an
             offer!
-          </Typography>{" "}
+          </Typography>
         </Grid>
         <Grid container xs={12}>
           {developers.map((dev, idx) => {
