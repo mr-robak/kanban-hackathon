@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme: any) => ({
     height: 500,
     width: 250,
     margin: 20,
+    display: "flex",
+    flexDirection: "column",
   },
 }));
 
@@ -83,7 +85,11 @@ export default function Column(props: PropItem) {
               <Droppable droppableId={props.column.id}>
                 {(provided) => {
                   return (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                    <div
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      style={{ flexGrow: 1, minHeight: "100px" }}
+                    >
                       {props.tasks.map((task: Task, index: number) => {
                         return <Item key={task.id} task={task} index={index} />;
                       })}

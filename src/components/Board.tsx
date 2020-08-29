@@ -1,11 +1,9 @@
-// import React, { MouseEvent, useState } from "react";
 import React, { useState } from "react";
 import Column from "./Column";
 // import Button from "@material-ui/core/Button";
 import { DragDropContext } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 import initialState from "../state/BoardContext";
-// import { State } from "../models/index";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -42,6 +40,7 @@ export default function Board() {
   //   setColumns(filteredColumns);
   // }
 
+  //need to update
   function onDragEnd(result: any) {
     const { destination, source, draggableId } = result;
 
@@ -58,41 +57,65 @@ export default function Board() {
       return;
     }
 
-    //reorder task-id array for column
-    const column = state.columns[source.droppableId];
+    //reorder task-id array
+    const start = state.columns[source.droppableId];
+    const finish = state.columns[destination.droppableId];
 
-    const newTaskIds = Array.from(column.taskIds);
-    //remove the item
-    newTaskIds.splice(source.index, 1);
-    //insert nothing and insert new idea
-    newTaskIds.splice(destination.index, 0, draggableId);
+    //if moving in same column
+    if (start === finish) {
+      const newTaskIds = Array.from(start.taskIds);
+      //remove the item
+      newTaskIds.splice(source.index, 1);
+      //insert nothing and insert new idea
+      newTaskIds.splice(destination.index, 0, draggableId);
 
-    const newColumn = { ...column, taskIds: newTaskIds };
+      const newColumn = { ...start, taskIds: newTaskIds };
 
-    //update state
-    setState({
+      //update state
+      setState({
+        ...state,
+        columns: { ...state.columns, [newColumn.id]: newColumn },
+      });
+      return;
+    }
+
+    //if moving in another column
+    const startTaskIds = Array.from(start.taskIds);
+    startTaskIds.splice(source.index, 1);
+    const newStart = {
+      ...start,
+      taskIds: startTaskIds,
+    };
+    const finishTaskIds = Array.from(finish.taskIds);
+    finishTaskIds.splice(destination.index, 0, draggableId);
+    const newFinish = {
+      ...finish,
+      taskIds: finishTaskIds,
+    };
+    const newState = {
       ...state,
-      columns: { ...state.columns, [newColumn.id]: newColumn },
-    });
+      columns: {
+        ...state.columns,
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
+      },
+    };
+    setState(newState);
+    return;
   }
 
   return (
-    // <div className={classes.root}>
     <DragDropContext onDragEnd={onDragEnd}>
-      {/* {columns.map((key: number) => {
-        return (
-          <Column key={key} cardNumber={key} removeColumn={removeColumn} />
-        );
-      })}
-      <Button variant="outlined" className={classes.button} onClick={addColumn}>
+      <div className={classes.root}>
+        {/* <Button variant="outlined" className={classes.button} onClick={addColumn}>
         Add Column
       </Button> */}
-      {state.columnOrder.map((columnId) => {
-        const column = state.columns[columnId];
-        const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
-        return <Column key={column.id} column={column} tasks={tasks} />;
-      })}
+        {state.columnOrder.map((columnId) => {
+          const column = state.columns[columnId];
+          const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
+          return <Column key={column.id} column={column} tasks={tasks} />;
+        })}
+      </div>
     </DragDropContext>
-    // </div>
   );
 }

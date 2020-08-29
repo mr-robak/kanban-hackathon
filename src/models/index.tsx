@@ -3,35 +3,21 @@ export interface Action {
   payload: any;
 }
 
-export interface Column {
-  id: number;
-  name: string;
-  cards: Array<Card>;
-}
-
-export interface Card {
-  id: number;
-  title: string;
-  description: string;
-}
-
-// export type State = Array<Column>;
-
-interface task {
+interface Task {
   id: string;
   title: string;
   description: string;
 }
 
-interface column {
+interface Column {
   id: string;
   title: string;
   taskIds: string[];
 }
 
 export interface State {
-  tasks: { [key: string]: task };
-  columns: { [key: string]: column };
+  tasks: { [key: string]: Task };
+  columns: { [key: string]: Column };
   columnOrder: string[];
 }
 
