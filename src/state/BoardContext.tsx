@@ -1,13 +1,29 @@
-import React, { createContext } from "react";
-import { State, ContextValue } from "../models/index";
+// import React, { createContext } from "react";
+// import { State, ContextValue } from "../models/index";
+import { State } from "../models/index";
 
-//update interface later
-export const initialState: any = {
+export const initialState: State = {
   tasks: {
-    "task-1": { id: "task-1", content: "Take out garbage" },
-    "task-2": { id: "task-2", content: "Code" },
-    "task-3": { id: "task-3", content: "Clean" },
-    "task-4": { id: "task-4", content: "Apply for job" },
+    "task-1": {
+      id: "task-1",
+      title: "Take out garbage",
+      description: "Make sure to do recycling",
+    },
+    "task-2": {
+      id: "task-2",
+      title: "Code",
+      description: "Hackathon Friday-Monday",
+    },
+    "task-3": {
+      id: "task-3",
+      title: "Clean",
+      description: "Vacuum and mop, clean bathroom",
+    },
+    "task-4": {
+      id: "task-4",
+      title: "Apply for job",
+      description: "Work on resume",
+    },
   },
   columns: {
     "column-1": {
@@ -19,6 +35,6 @@ export const initialState: any = {
   columnOrder: ["column-1"],
 };
 
-const BoardContext = createContext<ContextValue>(null);
+// const BoardContext = createContext<ContextValue>(initialState);
 
-export default BoardContext;
+export default initialState;

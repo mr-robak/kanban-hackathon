@@ -1,7 +1,9 @@
-import React, { useState, MouseEvent, FormEvent, useEffect } from "react";
+import React, { useState, MouseEvent, FormEvent } from "react";
+import Item from "./Item";
+import { Droppable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
@@ -13,20 +15,38 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-export default function Column(props: any) {
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+}
+
+interface iColumn {
+  id: string;
+  title: string;
+  taskIds: string[];
+}
+
+// make interface
+interface PropItem {
+  column: iColumn;
+  tasks: Task[];
+}
+
+export default function Column(props: PropItem) {
   const classes = useStyles();
   const [editTitle, setEditTitle] = useState(false);
-  const [title, setTitle] = useState("Title");
+  const [title, setTitle] = useState(props.column.title);
 
-  useEffect(() => {
-    if (props.cardNumber === 0) {
-      setTitle("To Do");
-    } else if (props.cardNumber === 1) {
-      setTitle("In Progress");
-    } else if (props.cardNumber === 2) {
-      setTitle("Done");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (props.cardNumber === 0) {
+  //     setTitle("To Do");
+  //   } else if (props.cardNumber === 1) {
+  //     setTitle("In Progress");
+  //   } else if (props.cardNumber === 2) {
+  //     setTitle("Done");
+  //   }
+  // }, []);
 
   function setToEdit(event: MouseEvent) {
     event.preventDefault();
@@ -38,10 +58,10 @@ export default function Column(props: any) {
     setEditTitle(false);
   }
 
-  function deleteColumn(event: MouseEvent) {
-    event.preventDefault();
-    props.removeColumn(props.cardNumber);
-  }
+  // function deleteColumn(event: MouseEvent) {
+  //   event.preventDefault();
+  //   props.removeColumn(props.cardNumber);
+  // }
 
   return (
     <Grid container>
@@ -60,7 +80,19 @@ export default function Column(props: any) {
               ) : (
                 <header onClick={setToEdit}>{title}</header>
               )}
-              <Button onClick={deleteColumn}>Delete</Button>
+              <Droppable droppableId={props.column.id}>
+                {(provided) => {
+                  return (
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                      {props.tasks.map((task: Task, index: number) => {
+                        return <Item key={task.id} task={task} index={index} />;
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  );
+                }}
+              </Droppable>
+              {/* <Button onClick={deleteColumn}>Delete</Button> */}
             </Paper>
           </Grid>
         </Grid>

@@ -1,5 +1,6 @@
 import React, { useMemo, useReducer } from "react";
-import BoardContext, { initialState } from "./state/BoardContext";
+// import BoardContext, { initialState } from "./state/BoardContext";
+import { initialState } from "./state/BoardContext";
 import reducer from "./state/reducer";
 import "./App.css";
 import Board from "./components/Board";
@@ -19,9 +20,9 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/board">
-          <BoardContext.Provider value={contextValue}>
-            <Board />
-          </BoardContext.Provider>
+          {/* <BoardContext.Provider value={contextValue}> */}
+          <Board />
+          {/* </BoardContext.Provider> */}
         </Route>
         <Route path="/" component={LandingPage} />
       </Switch>

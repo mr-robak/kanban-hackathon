@@ -15,6 +15,26 @@ export interface Card {
   description: string;
 }
 
-export type State = Array<Column>;
+// export type State = Array<Column>;
 
-export type ContextValue = {state: State; dispatch: React.Dispatch<Action>} | any;
+interface task {
+  id: string;
+  title: string;
+  description: string;
+}
+
+interface column {
+  id: string;
+  title: string;
+  taskIds: string[];
+}
+
+export interface State {
+  tasks: { [key: string]: task };
+  columns: { [key: string]: column };
+  columnOrder: string[];
+}
+
+export type ContextValue =
+  | { state: State; dispatch: React.Dispatch<Action> }
+  | State;
