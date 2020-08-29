@@ -14,3 +14,5 @@ export interface Card {
   title: string;
   description: string;
 }
+
+export type State = Array<Column>;
