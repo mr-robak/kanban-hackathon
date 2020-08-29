@@ -13,7 +13,12 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-export default function Column(props: any) {
+interface PropsItem {
+  cardNumber: number;
+  removeColumn: (id: number) => void;
+}
+
+export default function Column(props: PropsItem) {
   const classes = useStyles();
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState("Title");
