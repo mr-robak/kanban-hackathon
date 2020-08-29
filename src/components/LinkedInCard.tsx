@@ -1,29 +1,16 @@
 import React from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import BG from "../assets/bg.png";
 import { Typography, Button, Grid, Card } from "@material-ui/core";
-import MR from "../assets/MR.jpeg";
+
 import Logo from "../assets/logo_linkedin.png";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // box: {
-    //   width: "160px",
-    //   height: "190px",
-    //   display: "flex-box",
-    //   squared: false,
-
-    //   "& > *": {
-    //     margin: theme.spacing(0),
-    //   },
-    //   justifyContent: "center",
-    // },
-
     card: {
       display: "flex-box",
       width: "180px",
-      height: "300px",
+      height: "310px",
       borderRadius: "17px",
       boxShadow: "0px 9px 16px -2px rgba(0,0,0,0.21)",
     },
@@ -33,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100px",
       height: "100px",
       //   justifyContent: "center",
+      border: "5px solid white",
     },
     text: {
       marginTop: theme.spacing(7),
@@ -50,20 +38,25 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function LinkedInCard() {
+export default function LinkedInCard(props: any) {
+  const { name, img, url } = props;
   const classes = useStyles();
 
   return (
     <Card className={classes.card}>
       <Grid container direction="column" justify="center" alignItems="center">
-        <img src={BG} alt="" />
-        <Avatar src={MR} alt="Marcin Robak" className={classes.avatar} />
+        <img src={require("../assets/bg.png")} alt="" />
+        <Avatar
+          src={require(`../assets/${img}.jpeg`)}
+          alt={img}
+          className={classes.avatar}
+        />
         <Typography variant="h5" className={classes.text}>
-          Marcin Robak
+          {name}
         </Typography>
         <Button variant="contained" color="primary" className={classes.button}>
           <a
-            href="//www.linkedin.com/in/mr-robak/"
+            href={`https://www.linkedin.com/in/${url}/`}
             target="blank"
             style={{ textDecoration: "none", color: "white" }}
           >

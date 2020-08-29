@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Typography, Button, Divider } from "@material-ui/core";
-import { ReactComponent as ScrumBoard } from "../assets/Scrum_board.svg";
 import LinkedInCard from "../components/LinkedInCard";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,6 +38,24 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const developers = [
+  {
+    name: "Nadine Grant",
+    img: "NG",
+    url: "nadine-g-b7158519a",
+  },
+  {
+    name: "Marcin Robak",
+    img: "MR",
+    url: "mr-robak",
+  },
+  {
+    name: "Max Ziegler",
+    img: "MZ",
+    url: "max-z-389a44198",
+  },
+];
+
 export default function LandingPage() {
   const classes = useStyles();
   return (
@@ -54,8 +71,6 @@ export default function LandingPage() {
             The only board you need to help you keep your tabs on the project!
           </Typography>
 
-          <Divider />
-
           <Typography variant="h6">
             Create your board, add columns and cards to organize and prioritize
             your tasks in the projects! In just few clicks!
@@ -69,12 +84,47 @@ export default function LandingPage() {
             </Link>
           </Button>
         </Grid>
-        <Grid item xs={4}>
-          <ScrumBoard className={classes.illustration} />
+        <Grid item xs={6}>
+          <img
+            src={require("../assets/developer.svg")}
+            alt="Developer with Laptop"
+            style={{ width: "100%" }}
+          />
         </Grid>
         <Divider />
-        <Grid item justify="center" spacing={2} xs={12}>
-          <LinkedInCard />
+        <Grid item xs={6}>
+          {" "}
+          <img
+            src={require("../assets/olympics.jpeg")}
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
+            alt="Mintbean's Javascript Bootcamp Olympics"
+          />
+        </Grid>{" "}
+        <Grid item xs={6}>
+          <Typography variant="h5" className={classes.title}>
+            The project was build from scratch by a team of ultra talented
+            developers, over the course of just one weekend as a part of
+            Mintbean's Javascript Bootcamp Olympics!
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h5" className={classes.title}>
+            Act now and hire these young guns before someone else sends them an
+            offer!
+          </Typography>{" "}
+        </Grid>
+        <Grid container xs={12}>
+          {developers.map((dev, idx) => {
+            const { name, img, url } = dev;
+            return (
+              <Grid item justify="center" alignItems="flex-start" xs={4}>
+                <LinkedInCard key={idx} name={name} img={img} url={url} />
+              </Grid>
+            );
+          })}
         </Grid>
       </Grid>
     </div>
