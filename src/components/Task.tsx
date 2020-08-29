@@ -48,7 +48,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Task(props: PropsItem) {
-  const { task: {id, title, description}, index } = props;
+  const {
+    task: { id, title, description },
+    index,
+  } = props;
   // const { dispatch } = useContext(BoardContext);
 
   const classes = useStyles();

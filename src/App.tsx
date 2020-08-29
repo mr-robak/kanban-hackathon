@@ -26,7 +26,7 @@ function App() {
       <Switch>
         <Route path="/board">
           {/* <BoardContext.Provider value={contextValue}> */}
-            <Board />
+          <Board />
           {/* </BoardContext.Provider> */}
         </Route>
         <Route path="/" component={LandingPage} />

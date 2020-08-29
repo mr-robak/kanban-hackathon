@@ -16,7 +16,7 @@ export default function reducer(state: State, action: Action) {
       // const newState = {};
       // for(const key in state.tasks) {
       //   if(key !== id) {
-      //     newState = 
+      //     newState =
       //   }
       // }
       return state;
