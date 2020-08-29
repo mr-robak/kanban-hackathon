@@ -8,10 +8,10 @@ export default function reducer(state: State, action: Action) {
     case "deleteColumn": {
       return state;
     }
-    case "addCard": {
+    case "addTask": {
       return state;
     }
-    case "deleteCard": {
+    case "deleteTask": {
       return state;
     }
     default: {
