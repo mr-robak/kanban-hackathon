@@ -12,7 +12,7 @@ interface Card {
   description: string;
 }
 
-const initialState: Array<Column> = [
+export const initialState: Array<Column> = [
   {
     id: 1,
     name: "To do",
