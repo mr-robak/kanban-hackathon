@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -13,10 +12,16 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { Draggable } from "react-beautiful-dnd";
 
 interface PropsItem {
-  title: string;
-  description: string;
+  index: number;
+  task: {
+    id: string;
+    title: string;
+    description: string;
+  };
+  // innerRef: any;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Item(props: PropsItem) {
-  const { title, description } = props;
+  const { title, description } = props.task;
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -64,49 +69,54 @@ export default function Item(props: PropsItem) {
   };
 
   return (
-    <div>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleDelete}>Delete</MenuItem>
-      </Menu>
-
-      <Card className={classes.root}>
-        <CardHeader
-          action={
-            <IconButton aria-label="settings" onClick={handleClick}>
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={title}
-        />
-        {/* <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      /> */}
-        <CardActions disableSpacing>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
+    <Draggable draggableId={props.task.id} index={props.index}>
+      {(provided) => {
+        return (
+          <div
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
           >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>{description}</Typography>
-          </CardContent>
-        </Collapse>
-      </Card>
-    </div>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleDelete}>Delete</MenuItem>
+            </Menu>
+
+            <Card className={classes.root}>
+              <CardHeader
+                action={
+                  <IconButton aria-label="settings" onClick={handleClick}>
+                    <MoreVertIcon />
+                  </IconButton>
+                }
+                title={title}
+              />
+              <CardActions disableSpacing>
+                <IconButton
+                  className={clsx(classes.expand, {
+                    [classes.expandOpen]: expanded,
+                  })}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
+                  aria-label="show more"
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+              </CardActions>
+              <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                  <Typography paragraph>{description}</Typography>
+                </CardContent>
+              </Collapse>
+            </Card>
+          </div>
+        );
+      }}
+    </Draggable>
   );
 }

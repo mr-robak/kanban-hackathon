@@ -3,30 +3,25 @@ export interface Action {
   payload: any;
 }
 
-export interface SingleColumn {
-  id: string;
-  title: string;
-  taskIds: string[];
-}
 
-export interface Columns {
-  [propName: string]: SingleColumn
-}
-
-export interface SingleTask {
+interface Task {
   id: string;
   title: string;
   description: string;
 }
 
-export interface Tasks {
-  [propName: string]: SingleTask
+interface Column {
+  id: string;
+  title: string;
+  taskIds: string[];
 }
 
 export interface State {
-  tasks: Tasks,
-  columns: Columns,
-  columnOrder: string[]
+  tasks: { [key: string]: Task };
+  columns: { [key: string]: Column };
+  columnOrder: string[];
 }
 
-export type ContextValue = {state: State; dispatch: React.Dispatch<Action>} | any;
+export type ContextValue =
+  | { state: State; dispatch: React.Dispatch<Action> }
+  | State;
