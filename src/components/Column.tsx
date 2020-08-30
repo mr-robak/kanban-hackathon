@@ -185,11 +185,17 @@ export default function Column(props: PropItem) {
                                 : "#f0f0f0",
                             }}
                           >
-                            {props.tasks.map((task: Task, index: number) => {
-                              return (
-                                <Task key={task.id} task={task} index={index} />
-                              );
-                            })}
+                            {props.tasks.map(
+                              (task: SingleTask, index: number) => {
+                                return (
+                                  <Task
+                                    key={task.id}
+                                    task={task}
+                                    index={index}
+                                  />
+                                );
+                              }
+                            )}
                             {provided.placeholder}
                           </div>
                         );
