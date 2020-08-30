@@ -1,11 +1,13 @@
-import React, { useState, MouseEvent, FormEvent } from "react";
+import React, { useState, MouseEvent, FormEvent, useContext } from "react";
 import Task from "./Task";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-// import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+//experiment
+import BoardContext from "../state/BoardContext";
 
 const useStyles = makeStyles((theme: any) => ({
   paper: {
@@ -51,6 +53,14 @@ export default function Column(props: PropItem) {
     setEditTitle(false);
   }
 
+  //experiment with delele
+  const { dispatch } = useContext(BoardContext);
+
+  function deleteTheColumn(event: MouseEvent) {
+    event.preventDefault();
+    dispatch({ type: "deleteColumn", payload: props.column.id });
+  }
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -94,6 +104,7 @@ export default function Column(props: PropItem) {
                       );
                     }}
                   </Droppable>
+                  <Button onClick={deleteTheColumn}>Delete</Button>
                 </Paper>
               )}
             </Draggable>

@@ -118,10 +118,10 @@ export default function Board() {
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
-            {istate.columnOrder.map((columnId: string, index: number) => {
-              const column = istate.columns[columnId];
+            {state.columnOrder.map((columnId: string, index: number) => {
+              const column = state.columns[columnId];
               const tasks = column.taskIds.map(
-                (taskId: string) => istate.tasks[taskId]
+                (taskId: string) => state.tasks[taskId]
               );
               return (
                 <Column
