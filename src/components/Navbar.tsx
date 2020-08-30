@@ -7,9 +7,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import "./Navbar.css";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,31 +33,28 @@ export default function Navbar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-
           <NavLink
             exact
             to="/"
             className={classes.title}
-            style={{ textDecoration: "none", color: "white" }}
+            style={{
+              textDecoration: "none",
+              color: "white",
+              fontSize: "2em",
+              textAlign: "left",
+            }}
           >
-            Home
+            THE TRUE KANBAN BOARD
           </NavLink>
-          <NavLink
-            exact
-            to="/board"
-            className="CreateButton"
-            style={{ textDecoration: "none" }}
-          >
-            Create a board
-          </NavLink>
+
+          <Button variant="contained" color="secondary">
+            <Link
+              to="/board"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Try it now!
+            </Link>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
