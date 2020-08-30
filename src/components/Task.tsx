@@ -177,7 +177,10 @@ export default function Task(props: PropsItem) {
   };
 
   const moveCards = (column: Column) => {
-    console.log(column);
+    dispatch({
+      type: "moveCard",
+      payload: { column, id, startColumn },
+    });
   };
 
   return (

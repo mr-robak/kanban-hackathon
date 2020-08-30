@@ -2,6 +2,14 @@ import { Action, State, Tasks, Columns, SingleTask } from "../models/index";
 
 const usedIds = [1, 2, 3];
 
+interface Column {
+  [key: string]: {
+    id: string;
+    title: string;
+    taskIds: string[];
+  };
+}
+
 export default function reducer(state: State, action: Action) {
   switch (action.type) {
     case "addColumn": {
@@ -64,7 +72,7 @@ export default function reducer(state: State, action: Action) {
         id,
         title: "Edit title",
         description: "Add task's details",
-        imageId: null
+        imageId: null,
       };
       const newTasks = { ...state.tasks, [id]: newTask };
 
@@ -100,6 +108,30 @@ export default function reducer(state: State, action: Action) {
     }
     case "moveColumns": {
       return { ...action.payload };
+    }
+    case "moveCard": {
+      const { column, id, startColumn } = action.payload;
+      const currentColumns = { ...state.columns };
+      const newColumns: Column = {};
+      for (let col in currentColumns) {
+        if (col === column.id) {
+          const newTasks = [...currentColumns[col].taskIds, id];
+          console.log(newTasks);
+          newColumns[col] = { ...currentColumns[col], taskIds: newTasks };
+        } else if (col === startColumn) {
+          console.log("Hello");
+          const updateTasks = [...currentColumns[col].taskIds].filter(
+            (task) => task !== id
+          );
+          newColumns[col] = { ...currentColumns[col], taskIds: updateTasks };
+        } else {
+          newColumns[col] = { ...currentColumns[col] };
+        }
+      }
+      console.log(currentColumns);
+      console.log(newColumns);
+      // return state;
+      return { ...state, columns: newColumns };
     }
     default: {
       return state;
