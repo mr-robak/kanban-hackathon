@@ -176,6 +176,10 @@ export default function Task(props: PropsItem) {
     setShowMoveForm(true);
   };
 
+  const moveCards = (column: Column) => {
+    console.log(column);
+  };
+
   return (
     <Draggable draggableId={id} index={index}>
       {(provided, snapshot) => {
@@ -277,7 +281,9 @@ export default function Task(props: PropsItem) {
                 <DialogContent>
                   {columnTitles.map((column) => {
                     return (
-                      <DialogContentText>{column.title}</DialogContentText>
+                      <DialogContentText onClick={() => moveCards(column)}>
+                        {column.title}
+                      </DialogContentText>
                     );
                   })}
                 </DialogContent>
