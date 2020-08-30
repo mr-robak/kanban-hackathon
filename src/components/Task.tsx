@@ -45,6 +45,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Task(props: PropsItem) {
+  // Right-click context menu code below:
+  // some event handlers might be redundant since
+  // they can be shared with other expandable menu popup (...)
+
+  const initialState = {
+    mouseX: null,
+    mouseY: null,
+  };
+
+  const [state, setState] = React.useState<{
+    mouseX: null | number;
+    mouseY: null | number;
+  }>(initialState);
+
+  const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setState({
+      mouseX: event.clientX - 2,
+      mouseY: event.clientY - 4,
+    });
+  };
+
+  const handleCloseContextMenu = () => {
+    setState(initialState);
+  };
+
+  // Right-click context menu code above
+  // -----------------------------------
+
   const {
     task: { id, title, description },
     index,
@@ -81,43 +110,65 @@ export default function Task(props: PropsItem) {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
+            {/* div below is wrapper for right click menu*/}
+            <div
+              onContextMenu={handleRightClick}
+              style={{ cursor: "context-menu" }}
             >
-              <MenuItem onClick={handleDelete}>Delete</MenuItem>
-            </Menu>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleDelete}>Delete</MenuItem>
+              </Menu>
 
-            <Card className={classes.root}>
-              <CardHeader
-                action={
-                  <IconButton aria-label="settings" onClick={handleClick}>
-                    <MoreVertIcon />
+              <Card className={classes.root}>
+                <CardHeader
+                  action={
+                    <IconButton aria-label="settings" onClick={handleClick}>
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title={title}
+                />
+                <CardActions disableSpacing>
+                  <IconButton
+                    className={clsx(classes.expand, {
+                      [classes.expandOpen]: expanded,
+                    })}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                  >
+                    <ExpandMoreIcon />
                   </IconButton>
+                </CardActions>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                  <CardContent>
+                    <Typography paragraph>{description}</Typography>
+                  </CardContent>
+                </Collapse>
+              </Card>
+              {/*  below is right click menu*/}
+              <Menu
+                keepMounted
+                open={state.mouseY !== null}
+                onClose={handleCloseContextMenu}
+                anchorReference="anchorPosition"
+                anchorPosition={
+                  state.mouseY !== null && state.mouseX !== null
+                    ? { top: state.mouseY, left: state.mouseX }
+                    : undefined
                 }
-                title={title}
-              />
-              <CardActions disableSpacing>
-                <IconButton
-                  className={clsx(classes.expand, {
-                    [classes.expandOpen]: expanded,
-                  })}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label="show more"
-                >
-                  <ExpandMoreIcon />
-                </IconButton>
-              </CardActions>
-              <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                  <Typography paragraph>{description}</Typography>
-                </CardContent>
-              </Collapse>
-            </Card>
+              >
+                <MenuItem onClick={handleCloseContextMenu}>Edit</MenuItem>
+                <MenuItem onClick={handleCloseContextMenu}>Move</MenuItem>
+                <MenuItem onClick={handleDelete}>Delete</MenuItem>
+              </Menu>
+            </div>
           </div>
         );
       }}
