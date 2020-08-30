@@ -1,4 +1,5 @@
 import React, { useState, MouseEvent, FormEvent, useContext } from "react";
+import { SingleTask } from "../models/index";
 import Task from "./Task";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,12 +23,6 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-}
-
 interface iColumn {
   id: string;
   title: string;
@@ -37,7 +32,7 @@ interface iColumn {
 // make interface
 interface PropItem {
   column: iColumn;
-  tasks: Task[];
+  tasks: SingleTask[];
   index: number;
 }
 
