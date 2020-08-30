@@ -1,4 +1,4 @@
-import { Action, State, Tasks } from "../models/index";
+import { Action, State, Tasks, Columns } from "../models/index";
 
 export default function reducer(state: State, action: Action) {
   switch (action.type) {
@@ -6,7 +6,33 @@ export default function reducer(state: State, action: Action) {
       return state;
     }
     case "deleteColumn": {
-      return state;
+      const id = action.payload;
+
+      const tasksToDelete = [...state.columns[action.payload].taskIds];
+      const newTasks: Tasks = {};
+      for (let key in state.tasks) {
+        if (!tasksToDelete.includes(key)) {
+          newTasks[key] = state.tasks[key];
+        }
+      }
+
+      const newColumns: Columns = {};
+      for (let key in state.columns) {
+        if (key !== id) {
+          newColumns[key] = state.columns[key];
+        }
+      }
+
+      const newColumnOrder = [...state.columnOrder].filter(
+        (column) => column !== id
+      );
+
+      return {
+        ...state,
+        columns: newColumns,
+        tasks: newTasks,
+        columnOrder: newColumnOrder,
+      };
     }
     case "addTask": {
       return state;
