@@ -1,14 +1,9 @@
-//import useContext and BoardContext
 import React, { useState, useContext } from "react";
 import BoardContext from "../state/BoardContext";
-
 import Column from "./Column";
-
 // import Button from "@material-ui/core/Button";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-
 import { makeStyles } from "@material-ui/core/styles";
-// import initialState from "../state/BoardContext";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -27,9 +22,6 @@ const useStyles = makeStyles((theme: any) => ({
 
 export default function Board() {
   const classes = useStyles();
-
-  //in your functional component use the useContext hook to gain access to state
-  //and dispatch function
 
   const { state, dispatch } = useContext(BoardContext);
   const [istate, setState] = useState(state);
@@ -51,6 +43,7 @@ export default function Board() {
       return;
     }
 
+    //if type is a column then a column is being moved
     if (type === "column") {
       const newColumnOrder = Array.from(istate.columnOrder);
       newColumnOrder.splice(source.index, 1);
@@ -61,22 +54,21 @@ export default function Board() {
         columnOrder: newColumnOrder,
       };
       setState(newState);
-      // need to write this
-      // dispatch(newState)
+      dispatch({ type: "moveColumns", payload: newState });
       return;
     }
+
     //reorder task-id array
     const start = istate.columns[source.droppableId];
     const finish = istate.columns[destination.droppableId];
 
-    //if moving in same column
+    //if a task is moving in same column (moving a card)
     if (start === finish) {
       const newTaskIds = Array.from(start.taskIds);
       //remove the item
       newTaskIds.splice(source.index, 1);
       //insert nothing and insert new idea
       newTaskIds.splice(destination.index, 0, draggableId);
-
       const newColumn = { ...start, taskIds: newTaskIds };
 
       //update state
@@ -85,8 +77,7 @@ export default function Board() {
         columns: { ...istate.columns, [newColumn.id]: newColumn },
       };
       setState(newState);
-      // need to write this
-      // dispatch(newState);
+      dispatch({ type: "moveTasks", payload: newState });
       return;
     }
 
@@ -112,8 +103,7 @@ export default function Board() {
       },
     };
     setState(newState);
-    // need to write this
-    // dispatch(newState);
+    dispatch({ type: "moveTasks", payload: newState });
     return;
   }
 
