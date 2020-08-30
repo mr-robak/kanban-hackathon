@@ -136,6 +136,10 @@ export default function reducer(state: State, action: Action) {
       }
       return { ...state, columns: newColumns };
     }
+    case "clearColumn": {
+      console.log(action.payload);
+      return state;
+    }
     default: {
       return state;
     }

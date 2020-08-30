@@ -293,9 +293,10 @@ export default function Task(props: PropsItem) {
                 aria-describedby="alert-dialog-slide-description"
               >
                 <DialogContent>
-                  {columnTitles.map((column) => {
+                  {columnTitles.map((column, index) => {
                     return (
                       <DialogContentText
+                        key={index}
                         onClick={() => moveCards(column)}
                         className={classes.movebutton}
                       >
