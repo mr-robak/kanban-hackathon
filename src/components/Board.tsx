@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, MouseEvent } from "react";
 import BoardContext from "../state/BoardContext";
 import Column from "./Column";
 import Button from "@material-ui/core/Button";
@@ -25,7 +25,12 @@ export default function Board() {
   const classes = useStyles();
   const { state, dispatch } = useContext(BoardContext);
 
-  //need to update
+  function addNewColumn(event: MouseEvent) {
+    event.preventDefault();
+    dispatch({ type: "addColumn" });
+  }
+
+  //need to update type
   function onDragEnd(result: any) {
     const { destination, source, draggableId, type } = result;
 
@@ -104,7 +109,6 @@ export default function Board() {
     dispatch({ type: "moveTasks", payload: newState });
     return;
   }
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="all-columns" direction="horizontal" type="column">
@@ -132,7 +136,7 @@ export default function Board() {
           </div>
         )}
       </Droppable>
-      <Button>Add Column</Button>
+      <Button onClick={addNewColumn}>Add Column</Button>
     </DragDropContext>
   );
 }

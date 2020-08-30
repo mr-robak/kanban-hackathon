@@ -2,18 +2,35 @@ import React, { useState, useContext } from "react";
 import BoardContext from "../state/BoardContext";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Collapse from "@material-ui/core/Collapse";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogContent from "@material-ui/core/DialogContent";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
+
+import Slide from "@material-ui/core/Slide";
+import { TransitionProps } from "@material-ui/core/transitions";
+
 import { Draggable } from "react-beautiful-dnd";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & { children?: React.ReactElement<any, any> },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 interface PropsItem {
   index: number;
@@ -44,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: "rotate(180deg)",
   },
+  button: {
+    margin: theme.spacing(1),
+  },
 }));
 
 export default function Task(props: PropsItem) {
@@ -60,6 +80,20 @@ export default function Task(props: PropsItem) {
     mouseX: null | number;
     mouseY: null | number;
   }>(initialState);
+
+  /* --------------------------------------- */
+  //show dialog form for uploading image
+  const [showForm, setShowForm] = useState<boolean>(false);
+
+  const handleOpenForm = () => {
+    handleCloseContextMenu();
+    setShowForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowForm(false);
+  };
+  /* --------------------------------------- */
 
   const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -105,7 +139,8 @@ export default function Task(props: PropsItem) {
 
   return (
     <Draggable draggableId={id} index={index}>
-      {(provided) => {
+      {(provided, snapshot) => {
+        const isDragging = snapshot.isDragging;
         return (
           <div
             {...provided.draggableProps}
@@ -129,7 +164,13 @@ export default function Task(props: PropsItem) {
                 <MenuItem onClick={handleDelete}>Delete task</MenuItem>
               </Menu>
 
-              <Card className={classes.root} elevation={4}>
+               <Card className={classes.root} >
+ 
+              <Card 
+                className={classes.root} elevation={4}
+                style={{ background: isDragging ? "#E4F6F8" : "white" }}
+              >
+ 
                 <CardHeader
                   action={
                     <IconButton aria-label="settings" onClick={handleClick}>
@@ -156,6 +197,35 @@ export default function Task(props: PropsItem) {
                   </CardContent>
                 </Collapse>
               </Card>
+              {/* below is dialog form for adding images */}
+              <Dialog
+                open={showForm}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleCloseForm}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogContent>
+                  <DialogContentText>
+                    Choose an image for your task
+                  </DialogContentText>
+                  <Button
+                    variant="contained"
+                    color="default"
+                    component="label"
+                    className={classes.button}
+                    startIcon={<CloudUploadIcon />}
+                  >
+                    Upload file
+                    <input
+                      type="file"
+                      style={{ display: "none" }}
+                      onChange={handleCloseForm}
+                    />
+                  </Button>
+                </DialogContent>
+              </Dialog>
               {/*  below is right click menu*/}
               <Menu
                 keepMounted
@@ -170,6 +240,7 @@ export default function Task(props: PropsItem) {
               >
                 <MenuItem onClick={handleCloseContextMenu}>Edit</MenuItem>
                 <MenuItem onClick={handleCloseContextMenu}>Move</MenuItem>
+                <MenuItem onClick={handleOpenForm}>Add image</MenuItem>
                 <MenuItem onClick={handleDelete}>Delete</MenuItem>
               </Menu>
             </div>

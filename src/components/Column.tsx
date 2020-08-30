@@ -84,7 +84,7 @@ export default function Column(props: PropItem) {
         <Grid container justify="center">
           <Grid>
             <Draggable draggableId={props.column.id} index={props.index}>
-              {(provided) => (
+               {(provided) => (
                 <Paper
                   elevation={4}
                   className={classes.paper}
@@ -131,35 +131,43 @@ export default function Column(props: PropItem) {
                           <MenuItem onClick={handleClose}>New task</MenuItem>
                           <MenuItem onClick={handleClose}>
                             Clear all tasks
-                          </MenuItem>
-                          <MenuItem onClick={deleteTheColumn}>
-                            Delete column
-                          </MenuItem>
-                        </Menu>
-                      </div>
-                      {/* Menu button end */}
-                    </Grid>
-                  </Grid>
-                  <Droppable droppableId={props.column.id} type="task">
-                    {(provided) => {
-                      return (
-                        <div
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                          style={{ flexGrow: 1, minHeight: "100px" }}
-                        >
-                          {props.tasks.map((task: Task, index: number) => {
-                            return (
-                              <Task key={task.id} task={task} index={index} />
-                            );
-                          })}
-                          {provided.placeholder}
+                          </MenuItem> 
+                            <MenuItem onClick={deleteTheColumn}>
+                              Delete column
+                            </MenuItem>
+                          </Menu>
                         </div>
-                      );
-                    }}
-                  </Droppable>
-                </Paper>
-              )}
+                        {/* Menu button end */}
+                      </Grid>
+                    </Grid>
+                    <Droppable droppableId={props.column.id} type="task">
+                      {(provided, snapshot) => {
+                        const isDraggingOver = snapshot.isDraggingOver;
+                        return (
+                          <div
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                            style={{
+                              flexGrow: 1,
+                              minHeight: "100px",
+                              backgroundColor: isDraggingOver
+                                ? "#FFFFE0"
+                                : "white",
+                            }}
+                          >
+                            {props.tasks.map((task: Task, index: number) => {
+                              return (
+                                <Task key={task.id} task={task} index={index} />
+                              );
+                            })}
+                            {provided.placeholder}
+                          </div>
+                        );
+                      }}
+                    </Droppable>
+                  </Paper>
+                );
+              }}
             </Draggable>
           </Grid>
         </Grid>
