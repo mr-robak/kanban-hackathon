@@ -8,6 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 //experiment
 import BoardContext from "../state/BoardContext";
+import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 
 const useStyles = makeStyles((theme: any) => ({
   paper: {
@@ -43,6 +45,19 @@ export default function Column(props: PropItem) {
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState(props.column.title);
 
+  // Menu button handlers start
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // Menu button handlers end
+
   function setToEdit(event: MouseEvent) {
     event.preventDefault();
     setEditTitle(true);
@@ -73,19 +88,55 @@ export default function Column(props: PropItem) {
                   {...provided.draggableProps}
                   ref={provided.innerRef}
                 >
-                  {editTitle ? (
-                    <form onSubmit={setToNotEdit}>
-                      <TextField
-                        id="standard-basic"
-                        value={title}
-                        onChange={(event) => setTitle(event.target.value)}
-                      />
-                    </form>
-                  ) : (
-                    <header onClick={setToEdit} {...provided.dragHandleProps}>
-                      {title}
-                    </header>
-                  )}
+                  <Grid container>
+                    <Grid item xs={10}>
+                      {editTitle ? (
+                        <form onSubmit={setToNotEdit}>
+                          <TextField
+                            id="standard-basic"
+                            value={title}
+                            onChange={(event) => setTitle(event.target.value)}
+                          />
+                        </form>
+                      ) : (
+                        <header
+                          onClick={setToEdit}
+                          {...provided.dragHandleProps}
+                        >
+                          {title}
+                        </header>
+                      )}
+                    </Grid>
+                    <Grid item xs={2}>
+                      {/* Menu button start*/}
+                      <div>
+                        <IconButton
+                          aria-label="more"
+                          aria-controls="long-menu"
+                          aria-haspopup="true"
+                          onClick={handleClick}
+                        >
+                          <MoreHorizOutlinedIcon />
+                        </IconButton>
+                        <Menu
+                          id="simple-menu"
+                          anchorEl={anchorEl}
+                          keepMounted
+                          open={Boolean(anchorEl)}
+                          onClose={handleClose}
+                        >
+                          <MenuItem onClick={handleClose}>New task</MenuItem>
+                          <MenuItem onClick={handleClose}>
+                            Clear all tasks
+                          </MenuItem>
+                          <MenuItem onClick={deleteTheColumn}>
+                            Delete column
+                          </MenuItem>
+                        </Menu>
+                      </div>
+                      {/* Menu button end */}
+                    </Grid>
+                  </Grid>
                   <Droppable droppableId={props.column.id} type="task">
                     {(provided) => {
                       return (
@@ -104,7 +155,6 @@ export default function Column(props: PropItem) {
                       );
                     }}
                   </Droppable>
-                  <Button onClick={deleteTheColumn}>Delete</Button>
                 </Paper>
               )}
             </Draggable>
