@@ -1,4 +1,4 @@
-import { Action, State, Tasks, Columns } from "../models/index";
+import { Action, State, Tasks, Columns, SingleTask } from "../models/index";
 
 export default function reducer(state: State, action: Action) {
   switch (action.type) {
@@ -35,7 +35,23 @@ export default function reducer(state: State, action: Action) {
       };
     }
     case "addTask": {
-      return state;
+      //id of column to add task to
+      const columnId = action.payload;
+
+      //update tasks
+      const id = `task-${Object.keys(state.tasks)}`;
+      const newTask: SingleTask = {
+        id,
+        title: "Edit title",
+        description: "Add task's details",
+      };
+      const newTasks = { ...state.tasks, newTask };
+
+      //updateColumn
+      const columnCopy = { ...state.columns[columnId] };
+      const newColumn = { ...columnCopy, taskIds: columnCopy.taskIds.push(id) };
+      const newColumns = { ...state.columns, columnId: newColumn };
+      return { ...state, tasks: newTasks, columns: newColumns };
     }
     case "deleteTask": {
       //id of task to delete
