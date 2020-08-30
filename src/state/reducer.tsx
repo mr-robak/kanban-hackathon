@@ -64,7 +64,7 @@ export default function reducer(state: State, action: Action) {
         id,
         title: "Edit title",
         description: "Add task's details",
-        imageId: null
+        imageId: null,
       };
       const newTasks = { ...state.tasks, [id]: newTask };
 
@@ -100,6 +100,14 @@ export default function reducer(state: State, action: Action) {
     }
     case "moveColumns": {
       return { ...action.payload };
+    }
+    case "moveCard": {
+      console.log(action.payload);
+      const { column, id, startColumn } = action.payload;
+      console.log("Column to move to", column);
+      console.log("task id", id);
+      console.log("start column", startColumn);
+      return state;
     }
     default: {
       return state;
