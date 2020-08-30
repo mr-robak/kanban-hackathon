@@ -17,6 +17,7 @@ export interface SingleTask {
   id: string;
   title: string;
   description: string;
+  imageId: string;
 }
 
 export interface Tasks {
