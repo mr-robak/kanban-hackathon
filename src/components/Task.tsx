@@ -83,7 +83,12 @@ const useStyles = makeStyles((theme) => ({
   },
   movebutton: {
     cursor: "pointer",
-    transition: "background-color 0.3s",
+    // transition: "background-color 0.3s",
+    "&:hover": {
+      backgroundColor: "#d3d3d3",
+      color: "black",
+      padding: "5px",
+    },
   },
 }));
 
