@@ -43,6 +43,7 @@ interface PropItem {
 }
 
 export default function Column(props: PropItem) {
+  const { dispatch } = useContext(BoardContext);
   const classes = useStyles();
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState(props.column.title);
@@ -76,7 +77,6 @@ export default function Column(props: PropItem) {
   }
 
   //experiment with delele
-  const { dispatch } = useContext(BoardContext);
 
   function deleteTheColumn(event: MouseEvent) {
     event.preventDefault();
