@@ -80,6 +80,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     fontSize: "2em",
   },
+  movebutton: {
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+  },
 }));
 
 export default function Task(props: PropsItem) {
@@ -290,7 +294,10 @@ export default function Task(props: PropsItem) {
                 <DialogContent>
                   {columnTitles.map((column) => {
                     return (
-                      <DialogContentText onClick={() => moveCards(column)}>
+                      <DialogContentText
+                        onClick={() => moveCards(column)}
+                        className={classes.movebutton}
+                      >
                         {column.title}
                       </DialogContentText>
                     );
