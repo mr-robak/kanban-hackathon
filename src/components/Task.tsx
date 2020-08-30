@@ -104,7 +104,8 @@ export default function Task(props: PropsItem) {
   }>(initialState);
 
   /* --------------------------------------- */
-  //show dialog form for uploading image
+  /* --------------------------------------- */
+  //LOGIC FOR ADDING/REMOVING IMAGES
   const [showForm, setShowForm] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
 
@@ -143,6 +144,15 @@ export default function Task(props: PropsItem) {
       reader.readAsBinaryString(event.target.files[0]);
     }
   };
+
+  const handleDeleteImg = () => {
+    dispatch({ type: "deleteImg", payload: props.task.id });
+    localStorage.removeItem(imgId);
+    setRefresh(!refresh);
+  };
+  //LOGIC FOR ADDING/REMOVING IMAGES
+  //ABOVE
+  /* --------------------------------------- */
   /* --------------------------------------- */
 
   const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -360,7 +370,11 @@ export default function Task(props: PropsItem) {
               >
                 <MenuItem onClick={handleCloseContextMenu}>Edit</MenuItem>
                 <MenuItem onClick={handleMoveCard}>Move</MenuItem>
-                <MenuItem onClick={handleOpenForm}>Add image</MenuItem>
+                {localStorage[imgId] ? (
+                  <MenuItem onClick={handleDeleteImg}>Delete image</MenuItem>
+                ) : (
+                  <MenuItem onClick={handleOpenForm}>Add image</MenuItem>
+                )}
                 <MenuItem onClick={handleDelete}>Delete</MenuItem>
               </Menu>
             </div>
