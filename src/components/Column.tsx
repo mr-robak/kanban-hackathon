@@ -155,7 +155,6 @@ export default function Column(props: PropItem) {
                       );
                     }}
                   </Droppable>
-                  <Button onClick={deleteTheColumn}>Delete</Button>
                 </Paper>
               )}
             </Draggable>
