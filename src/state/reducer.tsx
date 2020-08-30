@@ -3,7 +3,20 @@ import { Action, State, Tasks, Columns, SingleTask } from "../models/index";
 export default function reducer(state: State, action: Action) {
   switch (action.type) {
     case "addColumn": {
-      return state;
+      const numberOfColumns = state.columnOrder.length;
+      //make new id
+      let columnId = `column-${numberOfColumns + 1}`;
+
+      const newColumnOrder = [...state.columnOrder, columnId];
+      const newColumns = { ...state.columns };
+      newColumns[columnId] = { id: columnId, title: "Title", taskIds: [] };
+      console.log({
+        ...state,
+        columnOrder: newColumnOrder,
+        columns: newColumnOrder,
+      });
+      break;
+      // return { ...state, columnOrder: newColumnOrder, columns: newColumnOrder };
     }
     case "deleteColumn": {
       const id = action.payload;
