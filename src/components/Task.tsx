@@ -126,8 +126,7 @@ export default function Task(props: PropsItem) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       //console.log(event.target.files[0]);
-
-      console.log(event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, ""));
+      //console.log(event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, ""));
 
       //src to pass to props
       const srcImg = `data:${event.target.files[0].type};base64,`;
@@ -158,6 +157,7 @@ export default function Task(props: PropsItem) {
   const handleDeleteImg = () => {
     handleCloseContextMenu();
     localStorage.removeItem(imgId);
+    localStorage.removeItem(altText);
     setRefresh(!refresh);
   };
   /* --------------------------------------- */
