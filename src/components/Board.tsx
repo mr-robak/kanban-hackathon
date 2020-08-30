@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: any) => ({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
-    // margin: 10,
+    marginLeft: 20,
     overflowX: "auto",
     overflowY: "hidden",
     backgroundImage: `url(${BackgroundTile})`,
