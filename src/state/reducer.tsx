@@ -2,6 +2,14 @@ import { Action, State, Tasks, Columns, SingleTask } from "../models/index";
 
 const usedIds = [1, 2, 3];
 
+interface Column {
+  [key: string]: {
+    id: string;
+    title: string;
+    taskIds: string[];
+  };
+}
+
 export default function reducer(state: State, action: Action) {
   switch (action.type) {
     case "addColumn": {
@@ -102,8 +110,17 @@ export default function reducer(state: State, action: Action) {
       return { ...action.payload };
     }
     case "moveCard": {
-      console.log(action.payload);
       const { column, id, startColumn } = action.payload;
+      const currentColumns = { ...state.columns };
+      const newColumns: Column = {};
+      for (let col in currentColumns) {
+        if (col === column.id) {
+          const newTasks = [...currentColumns[col].taskIds, id];
+          newColumns[col] = { ...currentColumns[col], taskIds: newTasks };
+        }
+        newColumns[col] = { ...currentColumns[col] };
+      }
+      console.log(currentColumns);
       console.log("Column to move to", column);
       console.log("task id", id);
       console.log("start column", startColumn);
