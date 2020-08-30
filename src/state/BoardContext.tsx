@@ -13,21 +13,25 @@ export const initialState: State = isInLocalStorage
           id: "task-1",
           title: "Take out garbage",
           description: "Make sure to do recycling",
+          imageId: "null",
         },
         "task-2": {
           id: "task-2",
           title: "Code",
           description: "Hackathon Friday-Monday",
+          imageId: "null",
         },
         "task-3": {
           id: "task-3",
           title: "Clean",
           description: "Vacuum and mop, clean bathroom",
+          imageId: "null",
         },
         "task-4": {
           id: "task-4",
           title: "Apply for job",
           description: "Work on resume",
+          imageId: "null",
         },
       },
       columns: {
