@@ -59,18 +59,18 @@ export default function reducer(state: State, action: Action) {
       const columnId = action.payload;
 
       //update tasks
-      const id = `task-${Object.keys(state.tasks)}`;
+      const id = `task-${Object.keys(state.tasks).length + 1}`;
       const newTask: SingleTask = {
         id,
         title: "Edit title",
         description: "Add task's details",
       };
-      const newTasks = { ...state.tasks, newTask };
+      const newTasks = { ...state.tasks, [id]: newTask };
 
       //updateColumn
       const columnCopy = { ...state.columns[columnId] };
-      const newColumn = { ...columnCopy, taskIds: columnCopy.taskIds.push(id) };
-      const newColumns = { ...state.columns, columnId: newColumn };
+      const newColumn = { ...columnCopy, taskIds: [...columnCopy.taskIds, id] };
+      const newColumns = { ...state.columns, [columnId]: newColumn };
       return { ...state, tasks: newTasks, columns: newColumns };
     }
     case "deleteTask": {
