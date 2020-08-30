@@ -26,6 +26,8 @@ import { Draggable } from "react-beautiful-dnd";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 import { Tooltip, Zoom } from "@material-ui/core";
 
+import { SingleTask } from "../models/index";
+
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
   ref: React.Ref<unknown>
@@ -44,11 +46,7 @@ interface Column {
 
 interface PropsItem {
   index: number;
-  task: {
-    id: string;
-    title: string;
-    description: string;
-  };
+  task: SingleTask;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
-    margin: "5%"
+    margin: "5%",
   },
   expand: {
     transform: "rotate(0deg)",
