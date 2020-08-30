@@ -63,6 +63,11 @@ export default function Column(props: PropItem) {
     dispatch({ type: "addTask", payload: props.column.id });
   };
 
+  const clearColumn = () => {
+    handleClose();
+    dispatch({ type: "clearColumn", payload: props.column.id });
+  };
+
   // Menu button handlers end
 
   function setToEdit(event: MouseEvent) {
@@ -158,7 +163,7 @@ export default function Column(props: PropItem) {
                             <MenuItem onClick={handleNewTask}>
                               New task
                             </MenuItem>
-                            <MenuItem onClick={handleClose}>
+                            <MenuItem onClick={clearColumn}>
                               Clear all tasks
                             </MenuItem>
                             <MenuItem onClick={deleteTheColumn}>
