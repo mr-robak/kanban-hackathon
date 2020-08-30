@@ -134,7 +134,7 @@ export default function Column(props: PropItem) {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                           >
-                            <MenuItem onClick={handleClose}>New task</MenuItem>
+                            <MenuItem onClick={handleNewTask}>New task</MenuItem>
                             <MenuItem onClick={handleClose}>
                               Clear all tasks
                             </MenuItem>
