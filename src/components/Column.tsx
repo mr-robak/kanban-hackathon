@@ -3,7 +3,7 @@ import Task from "./Task";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-// import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
@@ -94,6 +94,7 @@ export default function Column(props: PropItem) {
                       );
                     }}
                   </Droppable>
+                  <Button>Delete</Button>
                 </Paper>
               )}
             </Draggable>
