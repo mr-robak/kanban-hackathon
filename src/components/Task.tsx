@@ -116,6 +116,31 @@ export default function Task(props: PropsItem) {
     //for move as well
     setShowMoveForm(false);
   };
+
+  const handleFileSubmit = (event: any) => {
+    handleCloseForm();
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      const imgId = `img-${props.task.id.slice(-1)}`;
+
+      console.log("event.target.files[0]", event.target.files[0]);
+      const srcImg = `data:${event.target.files[0].type};base64,`;
+      localStorage.setItem(imgId, srcImg);
+
+      const handleFileRead = (event: ProgressEvent<FileReader>) => {
+        const imgData: any = reader.result;
+
+        localStorage[imgId] += btoa(imgData);
+        dispatch({
+          type: "addImgToTask",
+          payload: { taskId: props.task.id, imgId },
+        });
+      };
+
+      reader.onloadend = handleFileRead;
+      reader.readAsBinaryString(event.target.files[0]);
+    }
+  };
   /* --------------------------------------- */
 
   const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
