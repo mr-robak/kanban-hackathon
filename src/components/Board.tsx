@@ -63,9 +63,11 @@ export default function Board() {
 
     //if these are true the user dropped the card back in the original position
     //check that it's not the same position in a different column
+
     if (
       destination.droppable === source.droppable &&
       destination.index === source.index &&
+      finish !== undefined &&
       start.id === finish.id
     ) {
       return;
