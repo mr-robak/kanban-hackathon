@@ -32,6 +32,12 @@ export default function reducer(state: State, action: Action) {
 
       return { ...state, columns: newColumns, tasks: newTasks };
     }
+    case "moveTasks": {
+      return { ...action.payload };
+    }
+    case "moveColumns": {
+      return { ...action.payload };
+    }
     default: {
       return state;
     }
