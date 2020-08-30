@@ -18,18 +18,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import Slide from "@material-ui/core/Slide";
+// import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
 
 import { Draggable } from "react-beautiful-dnd";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, Zoom } from "@material-ui/core";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
   ref: React.Ref<unknown>
 ) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  // return <Slide direction="up" ref={ref} {...props} />;
+  return <Zoom ref={ref} {...props} />;
 });
 
 interface Column {
