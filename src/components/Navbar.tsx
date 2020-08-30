@@ -6,7 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { NavLink, Link } from "react-router-dom";
 
 import "./Navbar.css";
-import { Button } from "@material-ui/core";
+import { Button, SvgIcon } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,8 +27,22 @@ export default function Navbar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        style={{
+          height: "auto",
+          width: "100vw",
+          backgroundColor: "#0a82f2",
+          justifyContent: "center",
+        }}
+      >
         <Toolbar>
+          {" "}
+          <Link to="/board" style={{ textDecoration: "none", color: "white" }}>
+            <SvgIcon style={{ fontSize: 40, margin: 10 }}>
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </SvgIcon>
+          </Link>
           <NavLink
             exact
             to="/"
@@ -42,13 +56,18 @@ export default function Navbar() {
           >
             THE TRUE KANBAN BOARD
           </NavLink>
-
-          <Button variant="contained" color="secondary">
+          <Button
+            variant="contained"
+            color="secondary"
+            style={{
+              backgroundColor: "#1aab28",
+            }}
+          >
             <Link
               to="/board"
               style={{ textDecoration: "none", color: "white" }}
             >
-              Try it now!
+              Open your board
             </Link>
           </Button>
         </Toolbar>

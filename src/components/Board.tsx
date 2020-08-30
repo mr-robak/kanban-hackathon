@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: any) => ({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
-    // margin: 10,
+    marginLeft: 20,
     overflowX: "auto",
     overflowY: "hidden",
     backgroundImage: `url(${BackgroundTile})`,
@@ -130,6 +130,7 @@ export default function Board() {
     dispatch({ type: "moveTasks", payload: newState });
     return;
   }
+
   return (
     <div style={{ backgroundImage: `url(${BackgroundTile})` }}>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -159,12 +160,11 @@ export default function Board() {
                 );
               })}
               {provided.placeholder}
-              {/* <Button onClick={addNewColumn}>Add Column</Button> */}
             </div>
           )}
         </Droppable>
       </DragDropContext>
-      <Tooltip title="Add Column" aria-label="add">
+      <Tooltip title="Add a column" aria-label="add">
         <Fab color="primary" className={classes.fab} onClick={addNewColumn}>
           <AddIcon />
         </Fab>

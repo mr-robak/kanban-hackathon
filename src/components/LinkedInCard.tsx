@@ -43,7 +43,7 @@ export default function LinkedInCard(props: any) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} style={{ margin: 10 }}>
       <Grid container direction="column" justify="center" alignItems="center">
         <img src={require("../assets/bg.png")} alt="" />
         <Avatar
