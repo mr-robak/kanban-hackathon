@@ -1,15 +1,23 @@
 import { Action, State, Tasks, Columns, SingleTask } from "../models/index";
 
+const usedIds = [1, 2, 3];
+
 export default function reducer(state: State, action: Action) {
   switch (action.type) {
     case "addColumn": {
-      const numberOfColumns = state.columnOrder.length;
-      //make new id
-      let columnId = `column-${numberOfColumns + 1}`;
+      let newIdNumber = state.columnOrder.length + 1;
+
+      console.log(usedIds);
+      while (usedIds.includes(newIdNumber)) {
+        newIdNumber = newIdNumber + 1;
+      }
+      usedIds.push(newIdNumber);
+      let columnId = `column-${newIdNumber}`;
 
       const newColumnOrder = [...state.columnOrder, columnId];
       const newColumns = { ...state.columns };
       newColumns[columnId] = { id: columnId, title: "Title", taskIds: [] };
+
       console.log({
         ...state,
         columnOrder: newColumns,
