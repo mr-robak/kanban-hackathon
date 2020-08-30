@@ -35,10 +35,15 @@ export default function Board() {
       return;
     }
 
+    const start = istate.columns[source.droppableId];
+    const finish = istate.columns[destination.droppableId];
+
     //if these are true the user dropped the card back in the original position
+    //check that it's not the same position in a different column
     if (
       destination.droppable === source.droppable &&
-      destination.index === source.index
+      destination.index === source.index &&
+      start.id === finish.id
     ) {
       return;
     }
@@ -59,9 +64,6 @@ export default function Board() {
     }
 
     //reorder task-id array
-    const start = istate.columns[source.droppableId];
-    const finish = istate.columns[destination.droppableId];
-
     //if a task is moving in same column (moving a card)
     if (start === finish) {
       const newTaskIds = Array.from(start.taskIds);
