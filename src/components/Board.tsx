@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import BoardContext from "../state/BoardContext";
 import Column from "./Column";
-// import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -131,6 +131,7 @@ export default function Board() {
           </div>
         )}
       </Droppable>
+      <Button>Add Column</Button>
     </DragDropContext>
   );
 }
