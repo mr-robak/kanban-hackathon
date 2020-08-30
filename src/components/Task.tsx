@@ -89,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Task(props: PropsItem) {
   const imgId = `img-${props.task.id.slice(-1)}`;
+  const altText = `${imgId}-alt`;
   // Right-click context menu code below:
   // some event handlers might be redundant since
   // they can be shared with other expandable menu popup (...)
@@ -124,10 +125,19 @@ export default function Task(props: PropsItem) {
     handleCloseForm();
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-      // const imgId = `img-${props.task.id.slice(-1)}`;
+      //console.log(event.target.files[0]);
 
+      console.log(event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, ""));
+
+      //src to pass to props
       const srcImg = `data:${event.target.files[0].type};base64,`;
+      //save source in localStorage
       localStorage.setItem(imgId, srcImg);
+      //alt text for image (stripped file name)
+      localStorage.setItem(
+        altText,
+        event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, "")
+      );
 
       const handleFileRead = (event: ProgressEvent<FileReader>) => {
         const imgData: any = reader.result;
@@ -273,7 +283,7 @@ export default function Task(props: PropsItem) {
                   <CardMedia
                     className={classes.media}
                     image={localStorage[imgId]}
-                    title="Task picture"
+                    title={localStorage[altText]}
                   />
                 ) : null}
 
