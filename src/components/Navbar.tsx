@@ -29,7 +29,12 @@ export default function Navbar() {
     <div className={classes.root}>
       <AppBar
         position="static"
-        style={{ height: 70, backgroundColor: "#0a82f2" }}
+        style={{
+          height: "auto",
+          width: "100vw",
+          backgroundColor: "#0a82f2",
+          justifyContent: "center",
+        }}
       >
         <Toolbar>
           {" "}
@@ -56,9 +61,6 @@ export default function Navbar() {
             color="secondary"
             style={{
               backgroundColor: "#1aab28",
-              color: "black",
-              textDecoration: "red",
-              textDecorationColor: "black",
             }}
           >
             <Link
