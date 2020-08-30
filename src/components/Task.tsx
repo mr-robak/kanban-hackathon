@@ -127,9 +127,6 @@ export default function Task(props: PropsItem) {
     dispatch({ type: "deleteTask", payload: id });
   };
 
-  //handle add image
-  const handleAddImg = () => {};
-
   //handlers for expand
   const handleExpandClick = () => {
     setExpanded(!expanded);
