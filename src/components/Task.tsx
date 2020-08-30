@@ -7,6 +7,7 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
+import CardMedia from "@material-ui/core/CardMedia";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Collapse from "@material-ui/core/Collapse";
 import Dialog from "@material-ui/core/Dialog";
@@ -60,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
+    margin: "5%"
   },
   expand: {
     transform: "rotate(0deg)",
@@ -88,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Task(props: PropsItem) {
+  const imgId = `img-${props.task.id.slice(-1)}`;
   // Right-click context menu code below:
   // some event handlers might be redundant since
   // they can be shared with other expandable menu popup (...)
@@ -105,6 +108,7 @@ export default function Task(props: PropsItem) {
   /* --------------------------------------- */
   //show dialog form for uploading image
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   const handleOpenForm = () => {
     handleCloseContextMenu();
@@ -121,9 +125,8 @@ export default function Task(props: PropsItem) {
     handleCloseForm();
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-      const imgId = `img-${props.task.id.slice(-1)}`;
+      // const imgId = `img-${props.task.id.slice(-1)}`;
 
-      console.log("event.target.files[0]", event.target.files[0]);
       const srcImg = `data:${event.target.files[0].type};base64,`;
       localStorage.setItem(imgId, srcImg);
 
@@ -135,6 +138,7 @@ export default function Task(props: PropsItem) {
           type: "addImgToTask",
           payload: { taskId: props.task.id, imgId },
         });
+        setRefresh(!refresh);
       };
 
       reader.onloadend = handleFileRead;
@@ -258,6 +262,13 @@ export default function Task(props: PropsItem) {
                   }
                   title={title}
                 />
+                {localStorage[imgId] ? (
+                  <CardMedia
+                    className={classes.media}
+                    image={localStorage[imgId]}
+                    title="Task picture"
+                  />
+                ) : null}
 
                 <CardActions>
                   <IconButton
@@ -302,7 +313,7 @@ export default function Task(props: PropsItem) {
                     Upload file
                     <input
                       type="file"
-                      accept=".jpeg .png jpg"
+                      accept="image/jpeg image/png image/jpg"
                       id="file"
                       style={{ display: "none" }}
                       onChange={handleFileSubmit}
