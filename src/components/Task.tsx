@@ -12,8 +12,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Draggable } from "react-beautiful-dnd";
+import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 
 interface PropsItem {
   index: number;
@@ -26,7 +26,9 @@ interface PropsItem {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    // maxWidth: "92%",
+    // padding: "0.2em",
+    margin: "8px 15px",
   },
   media: {
     height: 0,
@@ -122,14 +124,16 @@ export default function Task(props: PropsItem) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                <MenuItem onClick={handleCloseContextMenu}>Edit task</MenuItem>
+                <MenuItem onClick={handleCloseContextMenu}>Move task</MenuItem>
+                <MenuItem onClick={handleDelete}>Delete task</MenuItem>
               </Menu>
 
-              <Card className={classes.root}>
+              <Card className={classes.root} elevation={4}>
                 <CardHeader
                   action={
                     <IconButton aria-label="settings" onClick={handleClick}>
-                      <MoreVertIcon />
+                      <MoreHorizOutlinedIcon />
                     </IconButton>
                   }
                   title={title}
