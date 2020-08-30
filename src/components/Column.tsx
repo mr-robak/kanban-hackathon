@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 //experiment
 import BoardContext from "../state/BoardContext";
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import { IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 
 const useStyles = makeStyles((theme: any) => ({
@@ -106,36 +106,45 @@ export default function Column(props: PropItem) {
                         {editTitle ? (
                           <form onSubmit={setToNotEdit}>
                             <TextField
+                              style={{
+                                textAlign: "center",
+                                fontSize: "1.4em",
+                                padding: "8px",
+                              }}
                               id="standard-basic"
                               value={title}
                               onChange={(event) => setTitle(event.target.value)}
                             />
                           </form>
                         ) : (
-                          <header
-                            style={{
-                              textAlign: "center",
-                              fontSize: "1.4em",
-                              padding: "8px",
-                            }}
-                            onClick={setToEdit}
-                            {...provided.dragHandleProps}
-                          >
-                            {title}
-                          </header>
+                          <Tooltip title="Drag to Move. Click to edit title. Enter to save.">
+                            <header
+                              style={{
+                                textAlign: "center",
+                                fontSize: "1.4em",
+                                padding: "8px",
+                              }}
+                              onClick={setToEdit}
+                              {...provided.dragHandleProps}
+                            >
+                              {title}
+                            </header>
+                          </Tooltip>
                         )}
                       </Grid>
                       <Grid item xs={2}>
                         {/* Menu button start*/}
                         <div>
-                          <IconButton
-                            aria-label="more"
-                            aria-controls="long-menu"
-                            aria-haspopup="true"
-                            onClick={handleClick}
-                          >
-                            <MoreHorizOutlinedIcon />
-                          </IconButton>
+                          <Tooltip title="Manage column">
+                            <IconButton
+                              aria-label="more"
+                              aria-controls="long-menu"
+                              aria-haspopup="true"
+                              onClick={handleClick}
+                            >
+                              <MoreHorizOutlinedIcon />
+                            </IconButton>
+                          </Tooltip>
                           <Menu
                             id="simple-menu"
                             anchorEl={anchorEl}

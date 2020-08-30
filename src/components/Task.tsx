@@ -23,6 +23,7 @@ import { TransitionProps } from "@material-ui/core/transitions";
 
 import { Draggable } from "react-beautiful-dnd";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
+import { Tooltip } from "@material-ui/core";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -180,12 +181,15 @@ export default function Task(props: PropsItem) {
               >
                 <CardHeader
                   action={
-                    <IconButton aria-label="settings" onClick={handleClick}>
-                      <MoreHorizOutlinedIcon />
-                    </IconButton>
+                    <Tooltip title="Manage task">
+                      <IconButton aria-label="settings" onClick={handleClick}>
+                        <MoreHorizOutlinedIcon />
+                      </IconButton>
+                    </Tooltip>
                   }
                   title={title}
                 />
+
                 <CardActions>
                   <IconButton
                     className={clsx(classes.expand, {
@@ -198,12 +202,14 @@ export default function Task(props: PropsItem) {
                     <ExpandMoreIcon />
                   </IconButton>
                 </CardActions>
+
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                   <CardContent>
                     <Typography paragraph>{description}</Typography>
                   </CardContent>
                 </Collapse>
               </Card>
+
               {/* below is dialog form for adding images */}
               <Dialog
                 open={showForm}
