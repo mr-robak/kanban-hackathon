@@ -12,11 +12,10 @@ export default function reducer(state: State, action: Action) {
       newColumns[columnId] = { id: columnId, title: "Title", taskIds: [] };
       console.log({
         ...state,
-        columnOrder: newColumnOrder,
+        columnOrder: newColumns,
         columns: newColumnOrder,
       });
-      break;
-      // return { ...state, columnOrder: newColumnOrder, columns: newColumnOrder };
+      return { ...state, columnOrder: newColumnOrder, columns: newColumns };
     }
     case "deleteColumn": {
       const id = action.payload;
