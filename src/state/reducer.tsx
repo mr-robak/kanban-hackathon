@@ -116,15 +116,22 @@ export default function reducer(state: State, action: Action) {
       for (let col in currentColumns) {
         if (col === column.id) {
           const newTasks = [...currentColumns[col].taskIds, id];
+          console.log(newTasks);
           newColumns[col] = { ...currentColumns[col], taskIds: newTasks };
+        } else if (col === startColumn) {
+          console.log("Hello");
+          const updateTasks = [...currentColumns[col].taskIds].filter(
+            (task) => task !== id
+          );
+          newColumns[col] = { ...currentColumns[col], taskIds: updateTasks };
+        } else {
+          newColumns[col] = { ...currentColumns[col] };
         }
-        newColumns[col] = { ...currentColumns[col] };
       }
       console.log(currentColumns);
-      console.log("Column to move to", column);
-      console.log("task id", id);
-      console.log("start column", startColumn);
-      return state;
+      console.log(newColumns);
+      // return state;
+      return { ...state, columns: newColumns };
     }
     default: {
       return state;
