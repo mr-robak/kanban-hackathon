@@ -10,6 +10,10 @@ interface Column {
   };
 }
 
+interface Task {
+  [key: string]: { id: string; title: string; description: string };
+}
+
 export default function reducer(state: State, action: Action) {
   switch (action.type) {
     case "addColumn": {
@@ -137,8 +141,27 @@ export default function reducer(state: State, action: Action) {
       return { ...state, columns: newColumns };
     }
     case "clearColumn": {
-      console.log(action.payload);
-      return state;
+      const columnId = action.payload;
+      const tasksToDelete = [...state.columns[columnId].taskIds];
+
+      const currentTasks = { ...state.tasks };
+      const newTasks: Task = {};
+      for (let task in currentTasks) {
+        if (!tasksToDelete.includes(task)) {
+          newTasks[task] = currentTasks[task];
+        }
+      }
+
+      const currentColumns = { ...state.columns };
+      const newColumns: Column = {};
+      for (let col in currentColumns) {
+        if (columnId === col) {
+          newColumns[col] = { ...currentColumns[col], taskIds: [] };
+        } else {
+          newColumns[col] = currentColumns[col];
+        }
+      }
+      return { ...state, columns: newColumns, tasks: newTasks };
     }
     default: {
       return state;
