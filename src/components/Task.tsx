@@ -18,7 +18,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-
 import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
 
@@ -164,13 +163,11 @@ export default function Task(props: PropsItem) {
                 <MenuItem onClick={handleDelete}>Delete task</MenuItem>
               </Menu>
 
-               <Card className={classes.root} >
- 
-              <Card 
-                className={classes.root} elevation={4}
+              <Card
+                className={classes.root}
+                elevation={4}
                 style={{ background: isDragging ? "#E4F6F8" : "white" }}
               >
- 
                 <CardHeader
                   action={
                     <IconButton aria-label="settings" onClick={handleClick}>

@@ -84,54 +84,55 @@ export default function Column(props: PropItem) {
         <Grid container justify="center">
           <Grid>
             <Draggable draggableId={props.column.id} index={props.index}>
-               {(provided) => (
-                <Paper
-                  elevation={4}
-                  className={classes.paper}
-                  {...provided.draggableProps}
-                  ref={provided.innerRef}
-                >
-                  <Grid container>
-                    <Grid item xs={10}>
-                      {editTitle ? (
-                        <form onSubmit={setToNotEdit}>
-                          <TextField
-                            id="standard-basic"
-                            value={title}
-                            onChange={(event) => setTitle(event.target.value)}
-                          />
-                        </form>
-                      ) : (
-                        <header
-                          onClick={setToEdit}
-                          {...provided.dragHandleProps}
-                        >
-                          {title}
-                        </header>
-                      )}
-                    </Grid>
-                    <Grid item xs={2}>
-                      {/* Menu button start*/}
-                      <div>
-                        <IconButton
-                          aria-label="more"
-                          aria-controls="long-menu"
-                          aria-haspopup="true"
-                          onClick={handleClick}
-                        >
-                          <MoreHorizOutlinedIcon />
-                        </IconButton>
-                        <Menu
-                          id="simple-menu"
-                          anchorEl={anchorEl}
-                          keepMounted
-                          open={Boolean(anchorEl)}
-                          onClose={handleClose}
-                        >
-                          <MenuItem onClick={handleClose}>New task</MenuItem>
-                          <MenuItem onClick={handleClose}>
-                            Clear all tasks
-                          </MenuItem> 
+              {(provided) => {
+                return (
+                  <Paper
+                    elevation={4}
+                    className={classes.paper}
+                    {...provided.draggableProps}
+                    ref={provided.innerRef}
+                  >
+                    <Grid container>
+                      <Grid item xs={10}>
+                        {editTitle ? (
+                          <form onSubmit={setToNotEdit}>
+                            <TextField
+                              id="standard-basic"
+                              value={title}
+                              onChange={(event) => setTitle(event.target.value)}
+                            />
+                          </form>
+                        ) : (
+                          <header
+                            onClick={setToEdit}
+                            {...provided.dragHandleProps}
+                          >
+                            {title}
+                          </header>
+                        )}
+                      </Grid>
+                      <Grid item xs={2}>
+                        {/* Menu button start*/}
+                        <div>
+                          <IconButton
+                            aria-label="more"
+                            aria-controls="long-menu"
+                            aria-haspopup="true"
+                            onClick={handleClick}
+                          >
+                            <MoreHorizOutlinedIcon />
+                          </IconButton>
+                          <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                          >
+                            <MenuItem onClick={handleClose}>New task</MenuItem>
+                            <MenuItem onClick={handleClose}>
+                              Clear all tasks
+                            </MenuItem>
                             <MenuItem onClick={deleteTheColumn}>
                               Delete column
                             </MenuItem>
