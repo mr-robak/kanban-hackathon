@@ -64,6 +64,7 @@ export default function reducer(state: State, action: Action) {
         id,
         title: "Edit title",
         description: "Add task's details",
+        imageId: null
       };
       const newTasks = { ...state.tasks, [id]: newTask };
 
