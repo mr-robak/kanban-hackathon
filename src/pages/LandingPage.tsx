@@ -64,13 +64,18 @@ export default function LandingPage() {
   return (
     <div>
       <Grid container className={classes.root}>
-        <Grid item xs={6} className={classes.text}>
+        <Grid
+          item
+          xs={6}
+          className={classes.text}
+          style={{ textAlign: "right", padding: 30 }}
+        >
           <Typography variant="h6">
             The only board you will ever need to help you keep your tabs on the
             project! Create your board, add columns and cards to organize and
             prioritize your tasks in the projects! In just few clicks!
           </Typography>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" style={{ margin: 10 }}>
             <Link
               to="/board"
               style={{ textDecoration: "none", color: "white" }}
@@ -97,7 +102,7 @@ export default function LandingPage() {
             alt="Mintbean's Javascript Bootcamp Olympics"
           />
         </Grid>{" "}
-        <Grid item xs={6}>
+        <Grid item xs={6} style={{ textAlign: "left", padding: 30 }}>
           <Typography variant="h5" className={classes.title}>
             The project was build from scratch by a team of ultra talented
             developers, over the course of just one weekend as a part of
@@ -105,7 +110,11 @@ export default function LandingPage() {
           </Typography>
         </Grid>
         <Grid item xs={6} className={classes.text}>
-          <Typography variant="h5" className={classes.title}>
+          <Typography
+            variant="h5"
+            className={classes.title}
+            style={{ textAlign: "right", padding: 30 }}
+          >
             Act now and hire these young guns before someone else sends them an
             offer!
           </Typography>
