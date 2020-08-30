@@ -61,8 +61,8 @@ export default function Column(props: PropItem) {
 
   const handleNewTask = () => {
     handleClose();
-    dispatch({type: "addTask", payload: props.column.id})
-  }
+    dispatch({ type: "addTask", payload: props.column.id });
+  };
 
   // Menu button handlers end
 
@@ -134,7 +134,9 @@ export default function Column(props: PropItem) {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                           >
-                            <MenuItem onClick={handleNewTask}>New task</MenuItem>
+                            <MenuItem onClick={handleNewTask}>
+                              New task
+                            </MenuItem>
                             <MenuItem onClick={handleClose}>
                               Clear all tasks
                             </MenuItem>
