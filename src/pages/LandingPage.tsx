@@ -85,11 +85,11 @@ export default function LandingPage() {
               GitHub repo
             </a>
             )
-          </strong>{" "}
-          !
+          </strong>
+          .
         </Typography>{" "}
         <Typography variant="h6" style={{ margin: 5 }}>
-          YOU ARE WELCOME :)!!!
+          <strong>YOU ARE WELCOME :)</strong>
         </Typography>
         <Typography variant="h6"></Typography>
         <Button
@@ -148,8 +148,8 @@ export default function LandingPage() {
           className={classes.title}
           style={{ textAlign: "right", padding: 20 }}
         >
-          We a group of passionate developers who enjoy a good challenge. We are
-          all graduates of elite{" "}
+          We are a group of passionate developers who enjoy a good challenge. We
+          are all graduates of elite{" "}
           <a
             href="https://codaisseur.com/hire-developers/"
             target="blank"
