@@ -58,6 +58,11 @@ export default function Column(props: PropItem) {
     setAnchorEl(null);
   };
 
+  const handleNewTask = () => {
+    handleClose();
+    dispatch({type: "addTask", payload: props.column.id})
+  }
+
   // Menu button handlers end
 
   function setToEdit(event: MouseEvent) {
