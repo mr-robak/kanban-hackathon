@@ -14,8 +14,6 @@ export default function reducer(state: State, action: Action) {
   switch (action.type) {
     case "addColumn": {
       let newIdNumber = state.columnOrder.length + 1;
-
-      console.log(usedIds);
       while (usedIds.includes(newIdNumber)) {
         newIdNumber = newIdNumber + 1;
       }
@@ -26,11 +24,6 @@ export default function reducer(state: State, action: Action) {
       const newColumns = { ...state.columns };
       newColumns[columnId] = { id: columnId, title: "Title", taskIds: [] };
 
-      console.log({
-        ...state,
-        columnOrder: newColumns,
-        columns: newColumnOrder,
-      });
       return { ...state, columnOrder: newColumnOrder, columns: newColumns };
     }
     case "deleteColumn": {
@@ -128,9 +121,19 @@ export default function reducer(state: State, action: Action) {
           newColumns[col] = { ...currentColumns[col] };
         }
       }
-      console.log(currentColumns);
-      console.log(newColumns);
-      // return state;
+      return { ...state, columns: newColumns };
+    }
+    case "newTitle": {
+      const { id } = action.payload;
+      const currentColumns = { ...state.columns };
+      const newColumns: Column = {};
+      for (let col in currentColumns) {
+        if (id === col) {
+          newColumns[col] = { ...action.payload };
+        } else {
+          newColumns[col] = currentColumns[col];
+        }
+      }
       return { ...state, columns: newColumns };
     }
     default: {

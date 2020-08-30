@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-//experiment
 import BoardContext from "../state/BoardContext";
 import { IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
@@ -74,6 +73,10 @@ export default function Column(props: PropItem) {
   function setToNotEdit(event: FormEvent) {
     event.preventDefault();
     setEditTitle(false);
+    dispatch({
+      type: "newTitle",
+      payload: { ...props.column, title },
+    });
   }
 
   //experiment with delele
