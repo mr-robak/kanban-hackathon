@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme: any) => ({
     flexDirection: "row",
     margin: 10,
     overflowX: "auto",
+    overflow: "hidden",
   },
   button: {
     height: "60px",
