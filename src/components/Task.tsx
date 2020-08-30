@@ -103,7 +103,8 @@ export default function Task(props: PropsItem) {
 
   return (
     <Draggable draggableId={id} index={index}>
-      {(provided) => {
+      {(provided, snapshot) => {
+        const isDragging = snapshot.isDragging;
         return (
           <div
             {...provided.draggableProps}
@@ -125,7 +126,10 @@ export default function Task(props: PropsItem) {
                 <MenuItem onClick={handleDelete}>Delete</MenuItem>
               </Menu>
 
-              <Card className={classes.root}>
+              <Card
+                className={classes.root}
+                style={{ background: isDragging ? "#E4F6F8" : "white" }}
+              >
                 <CardHeader
                   action={
                     <IconButton aria-label="settings" onClick={handleClick}>
