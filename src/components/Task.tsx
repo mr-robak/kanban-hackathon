@@ -277,8 +277,10 @@ export default function Task(props: PropsItem) {
                     Upload file
                     <input
                       type="file"
+                      accept=".jpeg .png jpg"
+                      id="file"
                       style={{ display: "none" }}
-                      onChange={handleCloseForm}
+                      onChange={handleFileSubmit}
                     />
                   </Button>
                 </DialogContent>
