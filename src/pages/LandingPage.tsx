@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       direction: "rtl",
     },
     paper: { height: 250, width: 180 },
+    text: { textAlign: "center" },
   })
 );
 
@@ -63,21 +64,11 @@ export default function LandingPage() {
   return (
     <div>
       <Grid container className={classes.root}>
-        <Grid item xs={12}>
-          <Typography variant="h2" className={classes.title}>
-            THE TRUE KANBAN BOARD
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h5" className={classes.descr}>
-            The only board you will ever need to help you keep your tabs on the
-            project!
-          </Typography>{" "}
-        </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} className={classes.text}>
           <Typography variant="h6">
-            Create your board, add columns and cards to organize and prioritize
-            your tasks in the projects! In just few clicks!
+            The only board you will ever need to help you keep your tabs on the
+            project! Create your board, add columns and cards to organize and
+            prioritize your tasks in the projects! In just few clicks!
           </Typography>
           <Button variant="contained" color="primary">
             <Link
@@ -113,13 +104,13 @@ export default function LandingPage() {
             Mintbean's Javascript Bootcamp Olympics!
           </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h4" className={classes.title}>
+        <Grid item xs={6} className={classes.text}>
+          <Typography variant="h5" className={classes.title}>
             Act now and hire these young guns before someone else sends them an
             offer!
           </Typography>
         </Grid>
-        <Grid container xs={12}>
+        <Grid container xs={6}>
           {developers.map((dev, idx) => {
             const { name, img, url } = dev;
             return (

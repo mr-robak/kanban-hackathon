@@ -42,9 +42,10 @@ interface PropsItem {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // maxWidth: "92%",
+    maxWidth: "90%",
+    // textAlign: "center",
     // padding: "0.2em",
-    margin: "8px 15px",
+    margin: "8px auto",
   },
   media: {
     height: 0,
@@ -62,6 +63,13 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(1),
+  },
+  dropdown: {
+    scale: "50%",
+  },
+  title: {
+    textAlign: "center",
+    fontSize: "2em",
   },
 }));
 
@@ -165,8 +173,10 @@ export default function Task(props: PropsItem) {
 
               <Card
                 className={classes.root}
-                elevation={4}
-                style={{ background: isDragging ? "#E4F6F8" : "white" }}
+                elevation={2}
+                style={{
+                  background: isDragging ? "#f5e36c" : "#f5eebf",
+                }}
               >
                 <CardHeader
                   action={
@@ -176,7 +186,7 @@ export default function Task(props: PropsItem) {
                   }
                   title={title}
                 />
-                <CardActions disableSpacing>
+                <CardActions>
                   <IconButton
                     className={clsx(classes.expand, {
                       [classes.expandOpen]: expanded,

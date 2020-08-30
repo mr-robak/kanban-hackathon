@@ -12,13 +12,13 @@ import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 
 const useStyles = makeStyles((theme: any) => ({
   paper: {
-    minHeight: 500,
+    minHeight: 530,
     width: 250,
-    margin: 20,
+    margin: "20px",
     display: "flex",
     flexDirection: "column",
     // variant: "elevated5",
-    // square: "true",
+    // square: "false",
     // elevation={3}
   },
 }));
@@ -85,19 +85,23 @@ export default function Column(props: PropItem) {
 
   return (
     <Grid container>
-      <Grid item xs={12}>
-        <Grid container justify="center">
+      <Grid item>
+        <Grid
+          container
+          justify="center"
+          // style={{ backgroundImage: `url(${BackgroundTile})` }}
+        >
           <Grid>
             <Draggable draggableId={props.column.id} index={props.index}>
               {(provided) => {
                 return (
                   <Paper
-                    elevation={4}
+                    elevation={8}
                     className={classes.paper}
                     {...provided.draggableProps}
                     ref={provided.innerRef}
                   >
-                    <Grid container>
+                    <Grid container style={{ backgroundColor: "lightgrey" }}>
                       <Grid item xs={10}>
                         {editTitle ? (
                           <form onSubmit={setToNotEdit}>
@@ -109,6 +113,11 @@ export default function Column(props: PropItem) {
                           </form>
                         ) : (
                           <header
+                            style={{
+                              textAlign: "center",
+                              fontSize: "1.4em",
+                              padding: "8px",
+                            }}
                             onClick={setToEdit}
                             {...provided.dragHandleProps}
                           >
@@ -148,6 +157,7 @@ export default function Column(props: PropItem) {
                         {/* Menu button end */}
                       </Grid>
                     </Grid>
+
                     <Droppable droppableId={props.column.id} type="task">
                       {(provided, snapshot) => {
                         const isDraggingOver = snapshot.isDraggingOver;
@@ -159,8 +169,8 @@ export default function Column(props: PropItem) {
                               flexGrow: 1,
                               minHeight: "100px",
                               backgroundColor: isDraggingOver
-                                ? "#FFFFE0"
-                                : "white",
+                                ? "#c6f7d1"
+                                : "#f0f0f0",
                             }}
                           >
                             {props.tasks.map((task: Task, index: number) => {

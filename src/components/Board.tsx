@@ -1,23 +1,42 @@
 import React, { useContext, MouseEvent } from "react";
 import BoardContext from "../state/BoardContext";
 import Column from "./Column";
-import Button from "@material-ui/core/Button";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
+import BackgroundTile from "../assets/hip-square.png";
+
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
+// import DeleteIcon from '@material-ui/icons/Delete';
+// import IconButton from '@material-ui/core/IconButton';
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
-    display: "flex",
-    justifyContent: "center",
+    position: "relative",
+    height: "100vh",
+    display: "inline-flex",
+    // justifyContent: "center",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
     flexDirection: "row",
-    margin: 10,
+    // margin: 10,
     overflowX: "auto",
-    overflow: "hidden",
+    overflowY: "hidden",
+    backgroundImage: `url(${BackgroundTile})`,
+    backgroundRepeat: "repeat",
   },
   button: {
     height: "60px",
     minWidth: "80px",
     alignSelf: "center",
+  },
+  fab: {
+    position: "absolute",
+    top: 70,
+    right: 0,
+    margin: "15px",
+    // width: "200px",
   },
 }));
 
@@ -110,33 +129,44 @@ export default function Board() {
     return;
   }
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="all-columns" direction="horizontal" type="column">
-        {(provided) => (
-          <div
-            className={classes.root}
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-            {state.columnOrder.map((columnId: string, index: number) => {
-              const column = state.columns[columnId];
-              const tasks = column.taskIds.map(
-                (taskId: string) => state.tasks[taskId]
-              );
-              return (
-                <Column
-                  key={column.id}
-                  column={column}
-                  tasks={tasks}
-                  index={index}
-                />
-              );
-            })}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-      <Button onClick={addNewColumn}>Add Column</Button>
-    </DragDropContext>
+    <div style={{ backgroundImage: `url(${BackgroundTile})` }}>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable
+          droppableId="all-columns"
+          direction="horizontal"
+          type="column"
+        >
+          {(provided) => (
+            <div
+              className={classes.root}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {state.columnOrder.map((columnId: string, index: number) => {
+                const column = state.columns[columnId];
+                const tasks = column.taskIds.map(
+                  (taskId: string) => state.tasks[taskId]
+                );
+                return (
+                  <Column
+                    key={column.id}
+                    column={column}
+                    tasks={tasks}
+                    index={index}
+                  />
+                );
+              })}
+              {provided.placeholder}
+              {/* <Button onClick={addNewColumn}>Add Column</Button> */}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      <Tooltip title="Add Column" aria-label="add">
+        <Fab color="primary" className={classes.fab} onClick={addNewColumn}>
+          <AddIcon />
+        </Fab>
+      </Tooltip>
+    </div>
   );
 }

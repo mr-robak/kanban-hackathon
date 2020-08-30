@@ -21,7 +21,15 @@ function App() {
   }, [state, dispatch]);
 
   return (
-    <div className="App" style={{ background: "#b19cd9", height: "1000px" }}>
+    <div
+      className="App"
+      style={{
+        width: "100vw",
+        height: "100vh",
+        overflow: "hide",
+        // textAlign: "center",
+      }}
+    >
       <Navbar />
       <Switch>
         <Route path="/board">
