@@ -104,8 +104,8 @@ export default function Task(props: PropsItem) {
   }>(initialState);
 
   /* --------------------------------------- */
+  /* LOGIC FOR ADDING/REMOVING IMAGES        */
   /* --------------------------------------- */
-  //LOGIC FOR ADDING/REMOVING IMAGES
   const [showForm, setShowForm] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
 
@@ -146,13 +146,12 @@ export default function Task(props: PropsItem) {
   };
 
   const handleDeleteImg = () => {
-    dispatch({ type: "deleteImg", payload: props.task.id });
+    handleCloseContextMenu();
     localStorage.removeItem(imgId);
     setRefresh(!refresh);
   };
-  //LOGIC FOR ADDING/REMOVING IMAGES
-  //ABOVE
   /* --------------------------------------- */
+  /* ABOVE LOGIC FOR ADDING/REMOVING IMAGES  */
   /* --------------------------------------- */
 
   const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
