@@ -43,6 +43,7 @@ interface PropItem {
 }
 
 export default function Column(props: PropItem) {
+  const { dispatch } = useContext(BoardContext);
   const classes = useStyles();
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState(props.column.title);
@@ -58,6 +59,11 @@ export default function Column(props: PropItem) {
     setAnchorEl(null);
   };
 
+  const handleNewTask = () => {
+    handleClose();
+    dispatch({ type: "addTask", payload: props.column.id });
+  };
+
   // Menu button handlers end
 
   function setToEdit(event: MouseEvent) {
@@ -71,7 +77,6 @@ export default function Column(props: PropItem) {
   }
 
   //experiment with delele
-  const { dispatch } = useContext(BoardContext);
 
   function deleteTheColumn(event: MouseEvent) {
     event.preventDefault();
@@ -129,7 +134,9 @@ export default function Column(props: PropItem) {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                           >
-                            <MenuItem onClick={handleClose}>New task</MenuItem>
+                            <MenuItem onClick={handleNewTask}>
+                              New task
+                            </MenuItem>
                             <MenuItem onClick={handleClose}>
                               Clear all tasks
                             </MenuItem>
