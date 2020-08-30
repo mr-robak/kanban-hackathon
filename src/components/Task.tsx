@@ -165,9 +165,9 @@ export default function Task(props: PropsItem) {
                     : undefined
                 }
               >
-                <MenuItem onClick={handleCloseContextMenu}>Edit task</MenuItem>
-                <MenuItem onClick={handleCloseContextMenu}>Move task</MenuItem>
-                <MenuItem onClick={handleDelete}>Delete task</MenuItem>
+                <MenuItem onClick={handleCloseContextMenu}>Edit</MenuItem>
+                <MenuItem onClick={handleCloseContextMenu}>Move</MenuItem>
+                <MenuItem onClick={handleDelete}>Delete</MenuItem>
               </Menu>
             </div>
           </div>
