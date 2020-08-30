@@ -31,6 +31,14 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+interface Column {
+  [key: string]: {
+    id: string;
+    title: string;
+    description: string;
+  };
+}
+
 interface PropsItem {
   index: number;
   task: {
@@ -75,7 +83,7 @@ export default function Task(props: PropsItem) {
     mouseY: null,
   };
 
-  const [state, setState] = React.useState<{
+  const [coordinateState, setCoordinateState] = React.useState<{
     mouseX: null | number;
     mouseY: null | number;
   }>(initialState);
@@ -91,19 +99,21 @@ export default function Task(props: PropsItem) {
 
   const handleCloseForm = () => {
     setShowForm(false);
+    //for move as well
+    setShowMoveForm(false);
   };
   /* --------------------------------------- */
 
   const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
-    setState({
+    setCoordinateState({
       mouseX: event.clientX - 2,
       mouseY: event.clientY - 4,
     });
   };
 
   const handleCloseContextMenu = () => {
-    setState(initialState);
+    setCoordinateState(initialState);
   };
 
   // Right-click context menu code above
@@ -113,7 +123,7 @@ export default function Task(props: PropsItem) {
     task: { id, title, description },
     index,
   } = props;
-  const { dispatch } = useContext(BoardContext);
+  const { state, dispatch } = useContext(BoardContext);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -134,6 +144,28 @@ export default function Task(props: PropsItem) {
   //handlers for expand
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  //for move modal
+  const [showMoveForm, setShowMoveForm] = useState<boolean>(false);
+
+  //current info
+  let columnTitles: Column[] = [];
+  let startColumn: string = "";
+  for (let column in state.columns) {
+    if (state.columns[column].taskIds.includes(id)) {
+      startColumn = column;
+    }
+  }
+
+  for (let column in state.columns) {
+    if (column !== startColumn) {
+      columnTitles.push(state.columns[column]);
+    }
+  }
+
+  const handleMoveCard = () => {
+    setShowMoveForm(true);
   };
 
   return (
@@ -159,7 +191,7 @@ export default function Task(props: PropsItem) {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleCloseContextMenu}>Edit task</MenuItem>
-                <MenuItem onClick={handleCloseContextMenu}>Move task</MenuItem>
+                <MenuItem onClick={handleMoveCard}>Move task</MenuItem>
                 <MenuItem onClick={handleDelete}>Delete task</MenuItem>
               </Menu>
 
@@ -223,20 +255,41 @@ export default function Task(props: PropsItem) {
                   </Button>
                 </DialogContent>
               </Dialog>
+              {/* below is dialog form for moving cards */}
+              <Dialog
+                open={showMoveForm}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleCloseForm}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogContent>
+                  {columnTitles.map((column) => {
+                    return (
+                      <DialogContentText>{column.title}</DialogContentText>
+                    );
+                  })}
+                </DialogContent>
+              </Dialog>
               {/*  below is right click menu*/}
               <Menu
                 keepMounted
-                open={state.mouseY !== null}
+                open={coordinateState.mouseY !== null}
                 onClose={handleCloseContextMenu}
                 anchorReference="anchorPosition"
                 anchorPosition={
-                  state.mouseY !== null && state.mouseX !== null
-                    ? { top: state.mouseY, left: state.mouseX }
+                  coordinateState.mouseY !== null &&
+                  coordinateState.mouseX !== null
+                    ? {
+                        top: coordinateState.mouseY,
+                        left: coordinateState.mouseX,
+                      }
                     : undefined
                 }
               >
                 <MenuItem onClick={handleCloseContextMenu}>Edit</MenuItem>
-                <MenuItem onClick={handleCloseContextMenu}>Move</MenuItem>
+                <MenuItem onClick={handleMoveCard}>Move</MenuItem>
                 <MenuItem onClick={handleOpenForm}>Add image</MenuItem>
                 <MenuItem onClick={handleDelete}>Delete</MenuItem>
               </Menu>
