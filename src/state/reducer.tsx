@@ -12,7 +12,10 @@ export default function reducer(state: State, action: Action) {
       return state;
     }
     case "deleteTask": {
+      //id of task to delete
       const id = action.payload;
+
+      //update tasks
       const newTasks: Tasks = {};
       for (const key in state.tasks) {
         if (key !== id) {
@@ -26,8 +29,7 @@ export default function reducer(state: State, action: Action) {
           (taskId) => taskId !== id
         );
       }
-      console.log("new tasks", newTasks);
-      console.log("new columns", newColumns);
+
       return { ...state, columns: newColumns, tasks: newTasks };
     }
     default: {
