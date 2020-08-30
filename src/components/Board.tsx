@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import BoardContext from "../state/BoardContext";
 import Column from "./Column";
 // import Button from "@material-ui/core/Button";
@@ -22,9 +22,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 export default function Board() {
   const classes = useStyles();
-
   const { state, dispatch } = useContext(BoardContext);
-  const [istate, setState] = useState(state);
 
   //need to update
   function onDragEnd(result: any) {
@@ -35,8 +33,8 @@ export default function Board() {
       return;
     }
 
-    const start = istate.columns[source.droppableId];
-    const finish = istate.columns[destination.droppableId];
+    const start = state.columns[source.droppableId];
+    const finish = state.columns[destination.droppableId];
 
     //if these are true the user dropped the card back in the original position
     //check that it's not the same position in a different column
@@ -50,15 +48,14 @@ export default function Board() {
 
     //if type is a column then a column is being moved
     if (type === "column") {
-      const newColumnOrder = Array.from(istate.columnOrder);
+      const newColumnOrder = Array.from(state.columnOrder);
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
 
       const newState = {
-        ...istate,
+        ...state,
         columnOrder: newColumnOrder,
       };
-      setState(newState);
       dispatch({ type: "moveColumns", payload: newState });
       return;
     }
@@ -75,10 +72,9 @@ export default function Board() {
 
       //update state
       const newState = {
-        ...istate,
-        columns: { ...istate.columns, [newColumn.id]: newColumn },
+        ...state,
+        columns: { ...state.columns, [newColumn.id]: newColumn },
       };
-      setState(newState);
       dispatch({ type: "moveTasks", payload: newState });
       return;
     }
@@ -97,14 +93,13 @@ export default function Board() {
       taskIds: finishTaskIds,
     };
     const newState = {
-      ...istate,
+      ...state,
       columns: {
-        ...istate.columns,
+        ...state.columns,
         [newStart.id]: newStart,
         [newFinish.id]: newFinish,
       },
     };
-    setState(newState);
     dispatch({ type: "moveTasks", payload: newState });
     return;
   }
