@@ -3,7 +3,6 @@ import Task from "./Task";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 //experiment
@@ -13,11 +12,14 @@ import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 
 const useStyles = makeStyles((theme: any) => ({
   paper: {
-    height: 500,
+    minHeight: 500,
     width: 250,
     margin: 20,
     display: "flex",
     flexDirection: "column",
+    // variant: "elevated5",
+    // square: "true",
+    // elevation={3}
   },
 }));
 
@@ -84,6 +86,7 @@ export default function Column(props: PropItem) {
             <Draggable draggableId={props.column.id} index={props.index}>
               {(provided) => (
                 <Paper
+                  elevation={4}
                   className={classes.paper}
                   {...provided.draggableProps}
                   ref={provided.innerRef}
