@@ -11,26 +11,30 @@ export const initialState: State = isInLocalStorage
       tasks: {
         "task-1": {
           id: "task-1",
-          title: "Take out garbage",
-          description: "Make sure to do recycling",
+          title: "Start Reading These Cards!",
+          description:
+            "These cards provide information on how to use The True Kanban Board",
           imageId: "null",
         },
         "task-2": {
           id: "task-2",
-          title: "Code",
-          description: "Hackathon Friday-Monday",
+          title: "Create and Delete Cards",
+          description:
+            "You can create, delete, and move cards by clicking on each card's menu in it's upper right corner. You can also access all these options by right clicking anywhere on the card.",
           imageId: "null",
         },
         "task-3": {
           id: "task-3",
-          title: "Clean",
-          description: "Vacuum and mop, clean bathroom",
+          title: "Move Cards Between Columns",
+          description:
+            "You can move cards by clicking and draging them to a new column. You can also move them by selecting Move in the card's menu and selection which column you want the card to go to.",
           imageId: "null",
         },
         "task-4": {
           id: "task-4",
-          title: "Apply for job",
-          description: "Work on resume",
+          title: "Create, Delete, and Move Columns",
+          description:
+            "Columns can be deleted by accessing the column menu at the top left corner of each column. To create a column click the purple + button, then give your new column a new title! Drag the column to a new position by click-and-holding the column header.",
           imageId: "null",
         },
       },
