@@ -227,65 +227,69 @@ export default function Board() {
     : `url(${BackgroundTile})`;
 
   return (
-    <div style={{ backgroundImage: `${bgImage}` }}>
-      <DialogUpload
-        showForm={showForm}
-        handleCloseForm={handleCloseForm}
-        handleFileSubmit={handleFileSubmit}
-        message={"Choose a background picture for your board"}
-      />
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable
-          droppableId="all-columns"
-          direction="horizontal"
-          type="column"
+    <div>
+      <div>
+        <SpeedDial
+          ariaLabel="Board actions"
+          className={classes.speedDial}
+          icon={<SpeedDialIcon openIcon={<EditIcon />} />}
+          open={true}
         >
-          {(provided) => (
-            <div
-              className={classes.root}
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={{ backgroundImage: `${bgImage}` }}
-            >
-              {state.columnOrder.map((columnId: string, index: number) => {
-                const column = state.columns[columnId];
-                const tasks = column.taskIds.map(
-                  (taskId: string) => state.tasks[taskId]
-                );
-                return (
-                  <Column
-                    key={column.id}
-                    column={column}
-                    tasks={tasks}
-                    index={index}
-                  />
-                );
-              })}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-      {/* <Tooltip title="Add a column" aria-label="add">
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+              onClick={action.handler}
+            />
+          ))}
+        </SpeedDial>
+      </div>
+      <div style={{ backgroundImage: `${bgImage}` }}>
+        <DialogUpload
+          showForm={showForm}
+          handleCloseForm={handleCloseForm}
+          handleFileSubmit={handleFileSubmit}
+          message={"Choose a background picture for your board"}
+        />
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable
+            droppableId="all-columns"
+            direction="horizontal"
+            type="column"
+          >
+            {(provided) => (
+              <div
+                className={classes.root}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                style={{ backgroundImage: `${bgImage}` }}
+              >
+                {state.columnOrder.map((columnId: string, index: number) => {
+                  const column = state.columns[columnId];
+                  const tasks = column.taskIds.map(
+                    (taskId: string) => state.tasks[taskId]
+                  );
+                  return (
+                    <Column
+                      key={column.id}
+                      column={column}
+                      tasks={tasks}
+                      index={index}
+                    />
+                  );
+                })}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+        {/* <Tooltip title="Add a column" aria-label="add">
 <Fab color="primary" className={classes.fab} onClick={addNewColumn}>
 <AddIcon />
 </Fab>
 </Tooltip> */}
-      <SpeedDial
-        ariaLabel="Board actions"
-        className={classes.speedDial}
-        icon={<SpeedDialIcon openIcon={<EditIcon />} />}
-        open={true}
-      >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-            onClick={action.handler}
-          />
-        ))}
-      </SpeedDial>
+      </div>
     </div>
   );
 }
