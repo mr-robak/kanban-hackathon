@@ -183,6 +183,60 @@ export default function LandingPage() {
           );
         })}
       </Grid>
+      <Grid
+        container
+        md={12}
+        style={{
+          marginTop: 30,
+          // position: "relative",
+          backgroundColor: "#79bbf7",
+          height: 100,
+        }}
+      >
+        <Grid
+          item
+          md={4}
+          style={
+            {
+              // position: "absolute",
+              // left: "2em",
+              // top: "2em",
+            }
+          }
+        >
+          <div>
+            <a
+              style={{
+                fontSize: "1.1em",
+                color: "white",
+                textDecoration: "none",
+              }}
+              href="#top"
+            >
+              Home
+            </a>
+            <div>
+              <br />
+              <Link
+                style={{
+                  fontSize: "1.1em",
+                  color: "white",
+                  textDecoration: "none",
+                }}
+                to="/board"
+              >
+                The True Kanban Board
+              </Link>
+            </div>
+          </div>
+        </Grid>
+        <Grid item md={4}>
+          middle
+        </Grid>
+        <Grid item md={4}>
+          right
+        </Grid>
+      </Grid>
     </Grid>
   );
 }
