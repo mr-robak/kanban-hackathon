@@ -65,21 +65,21 @@ export default function Column(props: PropItem) {
 
   // Menu button handlers end
 
-  function setToEdit(event: MouseEvent) {
+  const setToEdit = (event: MouseEvent) => {
     event.preventDefault();
     setEditTitle(true);
-  }
+  };
 
-  function setToNotEdit(event: FormEvent) {
+  const setToNotEdit = (event: FormEvent) => {
     event.preventDefault();
     setEditTitle(false);
     dispatch({
       type: "newTitle",
       payload: { ...props.column, title },
     });
-  }
+  };
 
-  //experiment with delele
+  //delete column
 
   function deleteTheColumn(event: MouseEvent) {
     event.preventDefault();
