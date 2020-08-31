@@ -114,10 +114,8 @@ export default function reducer(state: State, action: Action) {
       for (let col in currentColumns) {
         if (col === column.id) {
           const newTasks = [...currentColumns[col].taskIds, id];
-          console.log(newTasks);
           newColumns[col] = { ...currentColumns[col], taskIds: newTasks };
         } else if (col === startColumn) {
-          console.log("Hello");
           const updateTasks = [...currentColumns[col].taskIds].filter(
             (task) => task !== id
           );
