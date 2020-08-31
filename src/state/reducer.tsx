@@ -180,6 +180,22 @@ export default function reducer(state: State, action: Action) {
       }
       return { ...state, tasks: { ...newTasks } };
     }
+    case "newCardDescription": {
+      const { id, newDescription } = action.payload;
+      const currentTasks = { ...state.tasks };
+      const newTasks: Task = {};
+      for (let task in currentTasks) {
+        if (task === id) {
+          newTasks[task] = {
+            ...currentTasks[task],
+            description: newDescription,
+          };
+        } else {
+          newTasks[task] = { ...currentTasks[task] };
+        }
+      }
+      return { ...state, tasks: { ...newTasks } };
+    }
     default: {
       return state;
     }

@@ -242,6 +242,7 @@ export default function Task(props: PropsItem) {
 
   const [editText, setEditText] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
+  const [newDescription, setNewDescription] = useState(description);
 
   function setToEdit(event: MouseEvent) {
     event.preventDefault();
@@ -251,10 +252,18 @@ export default function Task(props: PropsItem) {
   function setToNotEdit(event: FormEvent) {
     event.preventDefault();
     setEditText(false);
-    dispatch({
-      type: "newCardTitle",
-      payload: { newTitle, id },
-    });
+    if (title !== newTitle) {
+      dispatch({
+        type: "newCardTitle",
+        payload: { newTitle, id },
+      });
+    }
+    if (description !== newDescription) {
+      dispatch({
+        type: "newCardDescription",
+        payload: { newDescription, id },
+      });
+    }
   }
 
   return (
@@ -344,7 +353,24 @@ export default function Task(props: PropsItem) {
 
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                   <CardContent>
-                    <Typography paragraph>{description}</Typography>
+                    {editText ? (
+                      <form onSubmit={setToNotEdit}>
+                        <TextField
+                          style={{
+                            textAlign: "center",
+                            fontSize: "1.4em",
+                            padding: "8px",
+                          }}
+                          id="standard-basic"
+                          value={newDescription}
+                          onChange={(event) =>
+                            setNewDescription(event.target.value)
+                          }
+                        />
+                      </form>
+                    ) : (
+                      <Typography paragraph>{description}</Typography>
+                    )}
                   </CardContent>
                 </Collapse>
               </Card>
