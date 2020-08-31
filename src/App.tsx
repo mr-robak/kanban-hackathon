@@ -1,4 +1,4 @@
-import React, { useMemo, useReducer, useEffect } from "react";
+import React, { useMemo, useReducer, useEffect, useState } from "react";
 import BoardContext, { initialState } from "./state/BoardContext";
 
 import reducer from "./state/reducer";
