@@ -20,7 +20,7 @@ export const initialState: State = isInLocalStorage
           id: "task-2",
           title: "Create and Delete Cards",
           description:
-            "You can create, delete, and move cards by clicking on each card's menu in it's upper right corner. You can also access all these options by right clicking anywhere on the card.",
+            "You can create new cards using the column menu. Delete, edit, and move cards by clicking on each card's menu in it's upper right corner. You can also access all these options by right clicking anywhere on the card.",
           imageId: "null",
         },
         "task-3": {
