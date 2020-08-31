@@ -37,9 +37,9 @@ We are a group of passionate developers who enjoy a good challenge. We are all g
 
 If you have a developer position opening or you know of one and think one of us (or all) would be a match, we would love to hear from you!
 
-**Marcin Robak** - [_github_](https://github.com/mr-robak), [_linkedin_](https://www.linkedin.com/in/marcin-robak-a98a3b1/)
-
 **Nadine Grant** - [_github_](https://github.com/nmegrant), [_linkedin_](https://www.linkedin.com/in/nadine-g-b7158519a/)
+
+**Marcin Robak** - [_github_](https://github.com/mr-robak), [_linkedin_](https://www.linkedin.com/in/mr-robak/)
 
 **Max Ziegler** - [_github_](https://github.com/contexD), [_linkedin_](https://www.linkedin.com/in/max-z-389a44198/)
 
@@ -57,7 +57,7 @@ If you have a developer position opening or you know of one and think one of us 
 
 ### Challenges
 
-![](https://github.com/mr-robak/kanban-hackathon/blob/readme/readme_assets/olympics.png)
+![](https://github.com/mr-robak/kanban-hackathon/blob/readme/readme_assets/olympics.jpg)
 
 As a part of [Javascript Bootcamp Olympics](https://sites.google.com/mintbean.io/javascriptbootcampolympics/home)! hosted by [Mintbean](https://www.mintbean.io/).
 
