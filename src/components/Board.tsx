@@ -191,15 +191,15 @@ export default function Board() {
   /* ----------------------------- */
   /* Speed dial handlers, state... */
   /* ----------------------------- */
-  const [open, setOpen] = useState<boolean>(false);
+  // const [open, setOpen] = useState<boolean>(true);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // // const handleOpen = () => {
+  // //   setOpen(true);
+  // // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // // const handleClose = () => {
+  // //   setOpen(false);
+  // // };
 
   const actions = [
     { icon: <Add />, name: "Add column", handler: addNewColumn },
@@ -274,9 +274,7 @@ export default function Board() {
         ariaLabel="Board actions"
         className={classes.speedDial}
         icon={<SpeedDialIcon openIcon={<EditIcon />} />}
-        onClose={handleClose}
-        onOpen={handleOpen}
-        open={open}
+        open={true}
       >
         {actions.map((action) => (
           <SpeedDialAction
