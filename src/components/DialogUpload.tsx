@@ -26,6 +26,7 @@ interface propItems {
   showForm: boolean;
   handleCloseForm: () => void;
   handleFileSubmit: (event: any) => void;
+  message: string;
 }
 
 export default function DialogUpload(props: propItems) {
@@ -41,7 +42,7 @@ export default function DialogUpload(props: propItems) {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogContent>
-          <DialogContentText>Choose an image for your task</DialogContentText>
+          <DialogContentText>{props.message}</DialogContentText>
           <Button
             variant="contained"
             color="default"

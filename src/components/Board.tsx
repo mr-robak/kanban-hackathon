@@ -211,8 +211,8 @@ export default function Board() {
     {
       icon: <RotateLeft />,
       name: "Reset board",
-      handler: () => {
-        localStorage.clear();
+      handler: async () => {
+        await localStorage.clear();
         dispatch({ type: "reset", payload: "" });
       },
     },
@@ -232,6 +232,7 @@ export default function Board() {
         showForm={showForm}
         handleCloseForm={handleCloseForm}
         handleFileSubmit={handleFileSubmit}
+        message={"Choose a background picture for your board"}
       />
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable

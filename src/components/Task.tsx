@@ -381,6 +381,7 @@ export default function Task(props: PropsItem) {
                 showForm={showForm}
                 handleCloseForm={handleCloseForm}
                 handleFileSubmit={handleFileSubmit}
+                message={"Choose an image to add to your task"}
               ></DialogUpload>
 
               {/* below is dialog form for moving cards */}
