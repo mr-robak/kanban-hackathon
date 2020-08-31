@@ -1,5 +1,7 @@
 # [The True Kanban Board](https://the-true-kanban-board.netlify.app/)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ee04dc74-4a50-43dd-9785-c2ba004b6aa9/deploy-status)](https://app.netlify.com/sites/the-true-kanban-board/deploys)
+
 ## The only board you will ever need to help you keep tabs on your project!
 
 Simply create your board, add columns and cards to organize your workflow, and prioritize your tasks! In just few clicks you are up and running! All this for free and available as an open source.
@@ -144,7 +146,11 @@ Suggestions to help with the challenge:
 
 ---
 
-## Technologies used:
+![](https://github.com/mr-robak/kanban-hackathon/blob/readme/readme_assets/Zoom-meeting-compressed-resized.gif)
+
+---
+
+## Technologies used
 
 - [React](https://github.com/facebook/react)
 
