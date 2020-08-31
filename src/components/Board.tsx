@@ -145,6 +145,48 @@ export default function Board() {
     return;
   }
 
+  /* --------------------------------------- */
+  /* LOGIC FOR ADDING/REMOVING IMAGES        */
+  /* --------------------------------------- */
+  const bgImg = "bg-img";
+  const [showForm, setShowForm] = useState<boolean>(false);
+  const [refresh, setRefresh] = useState<boolean>(false);
+
+  const handleOpenForm = () => {
+    setShowForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowForm(false);
+  };
+
+  const handleFileSubmit = (event: any) => {
+    handleCloseForm();
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      //console.log(event.target.files[0]);
+      //console.log(event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, ""));
+
+      //src to pass to props
+      const srcImg = `data:${event.target.files[0].type};base64,`;
+      //save source in localStorage
+      localStorage.setItem(bgImg, srcImg);
+
+      const handleFileRead = (event: ProgressEvent<FileReader>) => {
+        const imgData: any = reader.result;
+
+        localStorage[bgImg] += btoa(imgData);
+        setRefresh(!refresh);
+      };
+
+      reader.onloadend = handleFileRead;
+      reader.readAsBinaryString(event.target.files[0]);
+    }
+  };
+  /* --------------------------------------- */
+  /* --------------------------------------- */
+  /* --------------------------------------- */
+
   /* ----------------------------- */
   /* Speed dial handlers, state... */
   /* ----------------------------- */
