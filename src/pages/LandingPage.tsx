@@ -71,25 +71,21 @@ export default function LandingPage() {
         style={{ textAlign: "right", padding: 30 }}
       >
         <Typography variant="h6" style={{ margin: 5 }}>
-          The only board you will ever need to help you keep your tabs on the
-          project! Simple create your board, add columns and cards to organize
-          your workflow and prioritize your tasks! In just few clicks you are up
-          and running! All this for totally zero moneys and full on{" "}
+          The only board you will ever need to help you keep tabs on your
+          project! Simply create your board, add columns and cards to organize
+          your workflow, and prioritize your tasks! In just few clicks you are
+          up and running! All this for free and available as an
           <strong>
-            open source (
+            {" "}
             <a
               href="https://github.com/mr-robak/kanban-hackathon"
               target="blank"
               style={{ textDecoration: "none" }}
             >
-              GitHub repo
+              open source
             </a>
-            )
           </strong>
           .
-        </Typography>{" "}
-        <Typography variant="h6" style={{ margin: 5 }}>
-          <strong>YOU ARE WELCOME :)</strong>
         </Typography>
         <Typography variant="h6"></Typography>
         <Button
@@ -149,7 +145,7 @@ export default function LandingPage() {
           style={{ textAlign: "right", padding: 20 }}
         >
           We are a group of passionate developers who enjoy a good challenge. We
-          are all graduates of elite{" "}
+          are all graduates of the elite{" "}
           <a
             href="https://codaisseur.com/hire-developers/"
             target="blank"
@@ -157,9 +153,9 @@ export default function LandingPage() {
           >
             <strong>Codaisseur Academy</strong>
           </a>{" "}
-          and come armed with the cutting edge technologies and skills. Every
-          each one of us will be an invaluable addition to any Developer Team,
-          and guess what?
+          and come armed with knowledge of cutting edge technologies and highly
+          sought after skills. Any one of us is an invaluable addition to any
+          Development Team, and guess what?
         </Typography>
         <Typography
           variant="h5"
