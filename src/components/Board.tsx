@@ -211,8 +211,8 @@ export default function Board() {
     {
       icon: <RotateLeft />,
       name: "Reset board",
-      handler: () => {
-        localStorage.clear();
+      handler: async () => {
+        await localStorage.clear();
         dispatch({ type: "reset", payload: "" });
       },
     },
