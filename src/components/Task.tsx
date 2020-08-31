@@ -2,12 +2,11 @@ import React, { useState, useContext } from "react";
 import BoardContext from "../state/BoardContext";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import CardMedia from "@material-ui/core/CardMedia";
 import Collapse from "@material-ui/core/Collapse";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -24,6 +23,9 @@ import { TransitionProps } from "@material-ui/core/transitions";
 import { Draggable } from "react-beautiful-dnd";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 import { Tooltip, Zoom } from "@material-ui/core";
+
+import { SingleTask } from "../models/index";
+import DialogUpload from "./DialogUpload";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -43,11 +45,7 @@ interface Column {
 
 interface PropsItem {
   index: number;
-  task: {
-    id: string;
-    title: string;
-    description: string;
-  };
+  task: SingleTask;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
+    margin: "5%",
   },
   expand: {
     transform: "rotate(0deg)",
@@ -93,6 +92,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Task(props: PropsItem) {
+  const imgId = `img-${props.task.id.slice(-1)}`;
+  const altText = `${imgId}-alt`;
   // Right-click context menu code below:
   // some event handlers might be redundant since
   // they can be shared with other expandable menu popup (...)
@@ -108,8 +109,10 @@ export default function Task(props: PropsItem) {
   }>(initialState);
 
   /* --------------------------------------- */
-  //show dialog form for uploading image
+  /* LOGIC FOR ADDING/REMOVING IMAGES        */
+  /* --------------------------------------- */
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   const handleOpenForm = () => {
     handleCloseContextMenu();
@@ -121,6 +124,48 @@ export default function Task(props: PropsItem) {
     //for move as well
     setShowMoveForm(false);
   };
+
+  const handleFileSubmit = (event: any) => {
+    handleCloseForm();
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      //console.log(event.target.files[0]);
+      //console.log(event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, ""));
+
+      //src to pass to props
+      const srcImg = `data:${event.target.files[0].type};base64,`;
+      //save source in localStorage
+      localStorage.setItem(imgId, srcImg);
+      //alt text for image (stripped file name)
+      localStorage.setItem(
+        altText,
+        event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, "")
+      );
+
+      const handleFileRead = (event: ProgressEvent<FileReader>) => {
+        const imgData: any = reader.result;
+
+        localStorage[imgId] += btoa(imgData);
+        dispatch({
+          type: "addImgToTask",
+          payload: { taskId: props.task.id, imgId },
+        });
+        setRefresh(!refresh);
+      };
+
+      reader.onloadend = handleFileRead;
+      reader.readAsBinaryString(event.target.files[0]);
+    }
+  };
+
+  const handleDeleteImg = () => {
+    handleCloseContextMenu();
+    localStorage.removeItem(imgId);
+    localStorage.removeItem(altText);
+    setRefresh(!refresh);
+  };
+  /* --------------------------------------- */
+  /* ABOVE LOGIC FOR ADDING/REMOVING IMAGES  */
   /* --------------------------------------- */
 
   const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -238,6 +283,13 @@ export default function Task(props: PropsItem) {
                   }
                   title={title}
                 />
+                {localStorage[imgId] ? (
+                  <CardMedia
+                    className={classes.media}
+                    image={localStorage[imgId]}
+                    title={localStorage[altText]}
+                  />
+                ) : null}
 
                 <CardActions>
                   <IconButton
@@ -259,35 +311,12 @@ export default function Task(props: PropsItem) {
                 </Collapse>
               </Card>
 
-              {/* below is dialog form for adding images */}
-              <Dialog
-                open={showForm}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleCloseForm}
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
-              >
-                <DialogContent>
-                  <DialogContentText>
-                    Choose an image for your task
-                  </DialogContentText>
-                  <Button
-                    variant="contained"
-                    color="default"
-                    component="label"
-                    className={classes.button}
-                    startIcon={<CloudUploadIcon />}
-                  >
-                    Upload file
-                    <input
-                      type="file"
-                      style={{ display: "none" }}
-                      onChange={handleCloseForm}
-                    />
-                  </Button>
-                </DialogContent>
-              </Dialog>
+              <DialogUpload
+                showForm={showForm}
+                handleCloseForm={handleCloseForm}
+                handleFileSubmit={handleFileSubmit}
+              ></DialogUpload>
+
               {/* below is dialog form for moving cards */}
               <Dialog
                 open={showMoveForm}
@@ -329,7 +358,11 @@ export default function Task(props: PropsItem) {
               >
                 <MenuItem onClick={handleCloseContextMenu}>Edit</MenuItem>
                 <MenuItem onClick={handleMoveCard}>Move</MenuItem>
-                <MenuItem onClick={handleOpenForm}>Add image</MenuItem>
+                {localStorage[imgId] ? (
+                  <MenuItem onClick={handleDeleteImg}>Delete image</MenuItem>
+                ) : (
+                  <MenuItem onClick={handleOpenForm}>Add image</MenuItem>
+                )}
                 <MenuItem onClick={handleDelete}>Delete</MenuItem>
               </Menu>
             </div>

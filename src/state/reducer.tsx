@@ -1,4 +1,5 @@
 import { Action, State, Tasks, Columns, SingleTask } from "../models/index";
+import { initialState } from "./BoardContext";
 
 const usedIds = [1, 2, 3];
 
@@ -162,6 +163,9 @@ export default function reducer(state: State, action: Action) {
         }
       }
       return { ...state, columns: newColumns, tasks: newTasks };
+    }
+    case "reset": {
+      return initialState;
     }
     default: {
       return state;
