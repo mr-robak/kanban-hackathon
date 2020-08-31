@@ -11,6 +11,7 @@ import Add from "@material-ui/icons/Add";
 import Panorama from "@material-ui/icons/Panorama";
 import RotateLeft from "@material-ui/icons/RotateLeft";
 import EditIcon from "@material-ui/icons/Edit";
+import DialogUpload from "./DialogUpload";
 
 // import AddIcon from "@material-ui/icons/Add";
 // import Fab from "@material-ui/core/Fab";
@@ -145,22 +146,68 @@ export default function Board() {
     return;
   }
 
+  /* --------------------------------------- */
+  /* LOGIC FOR ADDING/REMOVING IMAGES        */
+  /* --------------------------------------- */
+  const bgImg = "bg-img";
+  const [showForm, setShowForm] = useState<boolean>(false);
+  const [refresh, setRefresh] = useState<boolean>(false);
+
+  const handleOpenForm = () => {
+    setShowForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowForm(false);
+  };
+
+  const handleFileSubmit = (event: any) => {
+    handleCloseForm();
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      //console.log(event.target.files[0]);
+      //console.log(event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, ""));
+
+      //src to pass to props
+      const srcImg = `data:${event.target.files[0].type};base64,`;
+      //save source in localStorage
+      localStorage.setItem(bgImg, srcImg);
+
+      const handleFileRead = (event: ProgressEvent<FileReader>) => {
+        const imgData: any = reader.result;
+
+        localStorage[bgImg] += btoa(imgData);
+        setRefresh(!refresh);
+      };
+
+      reader.onloadend = handleFileRead;
+      reader.readAsBinaryString(event.target.files[0]);
+    }
+  };
+  /* --------------------------------------- */
+  /* --------------------------------------- */
+  /* --------------------------------------- */
+
   /* ----------------------------- */
   /* Speed dial handlers, state... */
   /* ----------------------------- */
-  const [open, setOpen] = useState<boolean>(false);
+  // const [open, setOpen] = useState<boolean>(true);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // // const handleOpen = () => {
+  // //   setOpen(true);
+  // // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // // const handleClose = () => {
+  // //   setOpen(false);
+  // // };
 
   const actions = [
     { icon: <Add />, name: "Add column", handler: addNewColumn },
-    { icon: <Panorama />, name: "Customize background", handler: handleClose },
+    {
+      icon: <Panorama />,
+      name: "Customize background",
+      handler: handleOpenForm,
+    },
     {
       icon: <RotateLeft />,
       name: "Reset board",
@@ -174,8 +221,18 @@ export default function Board() {
   /* ----------------------------- */
   /* ----------------------------- */
 
+  //determine which background image to use
+  const bgImage = localStorage[bgImg]
+    ? `url(${localStorage[bgImg]})`
+    : `url(${BackgroundTile})`;
+
   return (
-    <div style={{ backgroundImage: `url(${BackgroundTile})` }}>
+    <div style={{ backgroundImage: `${bgImage}` }}>
+      <DialogUpload
+        showForm={showForm}
+        handleCloseForm={handleCloseForm}
+        handleFileSubmit={handleFileSubmit}
+      />
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable
           droppableId="all-columns"
@@ -187,6 +244,7 @@ export default function Board() {
               className={classes.root}
               {...provided.droppableProps}
               ref={provided.innerRef}
+              style={{ backgroundImage: `${bgImage}` }}
             >
               {state.columnOrder.map((columnId: string, index: number) => {
                 const column = state.columns[columnId];
@@ -216,9 +274,7 @@ export default function Board() {
         ariaLabel="Board actions"
         className={classes.speedDial}
         icon={<SpeedDialIcon openIcon={<EditIcon />} />}
-        onClose={handleClose}
-        onOpen={handleOpen}
-        open={open}
+        open={true}
       >
         {actions.map((action) => (
           <SpeedDialAction
