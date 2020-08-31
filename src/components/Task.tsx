@@ -20,6 +20,7 @@ import TextField from "@material-ui/core/TextField";
 
 // import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 
 import { Draggable } from "react-beautiful-dnd";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
@@ -231,6 +232,7 @@ export default function Task(props: PropsItem) {
 
   const handleMoveCard = () => {
     setShowMoveForm(true);
+    handleClose();
   };
 
   const moveCards = (column: Column) => {
@@ -247,6 +249,7 @@ export default function Task(props: PropsItem) {
   function setToEdit(event: MouseEvent) {
     event.preventDefault();
     setEditText(true);
+    handleClose();
   }
 
   function setToNotEdit(event: FormEvent) {
@@ -355,7 +358,7 @@ export default function Task(props: PropsItem) {
                   <CardContent>
                     {editText ? (
                       <form onSubmit={setToNotEdit}>
-                        <TextField
+                        <TextareaAutosize
                           style={{
                             textAlign: "center",
                             fontSize: "1.4em",
