@@ -4,7 +4,7 @@
 
 Simply create your board, add columns and cards to organize your workflow, and prioritize your tasks! In just few clicks you are up and running! All this for free and available as an open source.
 
-![Kanban Board Gif](https://github.com/mr-robak/kanban-hackathon/blob/readme/readme_assets/THE-TRUE-KANBAN.gif)
+![](https://github.com/mr-robak/kanban-hackathon/blob/readme/readme_assets/THE-TRUE-KANBAN.gif)
 
 #### See the site deployed here: [https://the-true-kanban-board.netlify.app/](https://the-true-kanban-board.netlify.app/)
 
@@ -31,7 +31,7 @@ The project was build from scratch by a team of ultra talented developers, over 
 
 ### Who are we?
 
-![](./readme-assets/team.jpg)
+![](https://github.com/mr-robak/kanban-hackathon/blob/readme/readme_assets/team.jpg)
 
 We are a group of passionate developers who enjoy a good challenge. We are all graduates of elite [Codaisseur Academy](https://codaisseur.com/hire-developers/) and come armed with the cutting edge technologies and skills. Every each one of us will be an invaluable addition to any Developer Team.
 
@@ -57,7 +57,7 @@ If you have a developer position opening or you know of one and think one of us 
 
 ### Challenges
 
-![](./readme-assets/olympics.png)
+![](https://github.com/mr-robak/kanban-hackathon/blob/readme/readme_assets/olympics.png)
 
 As a part of [Javascript Bootcamp Olympics](https://sites.google.com/mintbean.io/javascriptbootcampolympics/home)! hosted by [Mintbean](https://www.mintbean.io/).
 
@@ -69,7 +69,7 @@ We were working on the project remotely using Slack our daily stand-ups and put 
 
 Despite crazy pace with this super tight deadline and long ours we had a lot of fun working on this project and we managed to deliver all features requested in the user stories including a big part of the bonus ones!
 
-![](./completed-task-kanban.gif)
+![](https://github.com/mr-robak/kanban-hackathon/blob/readme/readme_assets/completed-task-kanban.gif)
 
 #### User stories
 
@@ -142,8 +142,6 @@ Suggestions to help with the challenge:
    - You must create a landing page for your kanban board that clearly explains your product.
    - promote your project on social media! There will be an award for "Best marketing" so make sure you paste your posts + tweets inside the Discord server! and tag Mintbean!!!
 
-Due to the circumstances during COVID-19 outbreak
-
 ---
 
 ## Technologies used:
@@ -174,7 +172,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+- `npm start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -182,12 +180,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+- `npm test`
 
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+- `npm run build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -197,7 +195,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+- `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -207,7 +205,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+- Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
