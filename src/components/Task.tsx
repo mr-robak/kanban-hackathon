@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, FormEvent, MouseEvent } from "react";
 import BoardContext from "../state/BoardContext";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -16,6 +16,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import TextField from "@material-ui/core/TextField";
 
 // import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
@@ -239,6 +240,23 @@ export default function Task(props: PropsItem) {
     });
   };
 
+  const [editText, setEditText] = useState(false);
+  const [newTitle, setNewTitle] = useState(title);
+
+  function setToEdit(event: MouseEvent) {
+    event.preventDefault();
+    setEditText(true);
+  }
+
+  function setToNotEdit(event: FormEvent) {
+    event.preventDefault();
+    setEditText(false);
+    dispatch({
+      type: "newCardTitle",
+      payload: { newTitle, id },
+    });
+  }
+
   return (
     <Draggable draggableId={id} index={index}>
       {(provided, snapshot) => {
@@ -261,7 +279,12 @@ export default function Task(props: PropsItem) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleCloseContextMenu}>Edit task</MenuItem>
+                <MenuItem onClick={setToEdit}>Edit task</MenuItem>
+                {localStorage[imgId] ? (
+                  <MenuItem onClick={handleDeleteImg}>Delete image</MenuItem>
+                ) : (
+                  <MenuItem onClick={handleOpenForm}>Add image</MenuItem>
+                )}
                 <MenuItem onClick={handleMoveCard}>Move task</MenuItem>
                 <MenuItem onClick={handleDelete}>Delete task</MenuItem>
               </Menu>
@@ -273,16 +296,31 @@ export default function Task(props: PropsItem) {
                   background: isDragging ? "#f5e36c" : "#f5eebf",
                 }}
               >
-                <CardHeader
-                  action={
-                    <Tooltip title="Manage task">
-                      <IconButton aria-label="settings" onClick={handleClick}>
-                        <MoreHorizOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
-                  }
-                  title={title}
-                />
+                {editText ? (
+                  <form onSubmit={setToNotEdit}>
+                    <TextField
+                      style={{
+                        textAlign: "center",
+                        fontSize: "1.4em",
+                        padding: "8px",
+                      }}
+                      id="standard-basic"
+                      value={newTitle}
+                      onChange={(event) => setNewTitle(event.target.value)}
+                    />
+                  </form>
+                ) : (
+                  <CardHeader
+                    action={
+                      <Tooltip title="Manage task">
+                        <IconButton aria-label="settings" onClick={handleClick}>
+                          <MoreHorizOutlinedIcon />
+                        </IconButton>
+                      </Tooltip>
+                    }
+                    title={title}
+                  />
+                )}
                 {localStorage[imgId] ? (
                   <CardMedia
                     className={classes.media}
@@ -356,7 +394,7 @@ export default function Task(props: PropsItem) {
                     : undefined
                 }
               >
-                <MenuItem onClick={handleCloseContextMenu}>Edit</MenuItem>
+                <MenuItem onClick={setToEdit}>Edit</MenuItem>
                 <MenuItem onClick={handleMoveCard}>Move</MenuItem>
                 {localStorage[imgId] ? (
                   <MenuItem onClick={handleDeleteImg}>Delete image</MenuItem>
