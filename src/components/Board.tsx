@@ -21,7 +21,7 @@ import EditIcon from "@material-ui/icons/Edit";
 const useStyles = makeStyles((theme: any) => ({
   root: {
     position: "relative",
-    height: "100vh",
+    minHeight: "100vh",
     display: "inline-flex",
     // justifyContent: "center",
     justifyContent: "flex-start",
@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme: any) => ({
     overflowY: "hidden",
     backgroundImage: `url(${BackgroundTile})`,
     backgroundRepeat: "repeat",
+    // msOverflowStyle: "none",
+    // scrollbarWidth: "none",
   },
   button: {
     height: "60px",
