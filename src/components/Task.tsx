@@ -2,13 +2,11 @@ import React, { useState, useContext } from "react";
 import BoardContext from "../state/BoardContext";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import CardMedia from "@material-ui/core/CardMedia";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Collapse from "@material-ui/core/Collapse";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -27,6 +25,7 @@ import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 import { Tooltip, Zoom } from "@material-ui/core";
 
 import { SingleTask } from "../models/index";
+import DialogUpload from "./DialogUpload";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -312,37 +311,12 @@ export default function Task(props: PropsItem) {
                 </Collapse>
               </Card>
 
-              {/* below is dialog form for adding images */}
-              <Dialog
-                open={showForm}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleCloseForm}
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
-              >
-                <DialogContent>
-                  <DialogContentText>
-                    Choose an image for your task
-                  </DialogContentText>
-                  <Button
-                    variant="contained"
-                    color="default"
-                    component="label"
-                    className={classes.button}
-                    startIcon={<CloudUploadIcon />}
-                  >
-                    Upload file
-                    <input
-                      type="file"
-                      accept="image/jpeg image/png image/jpg"
-                      id="file"
-                      style={{ display: "none" }}
-                      onChange={handleFileSubmit}
-                    />
-                  </Button>
-                </DialogContent>
-              </Dialog>
+              <DialogUpload
+                showForm={showForm}
+                handleCloseForm={handleCloseForm}
+                handleFileSubmit={handleFileSubmit}
+              ></DialogUpload>
+
               {/* below is dialog form for moving cards */}
               <Dialog
                 open={showMoveForm}

@@ -1,15 +1,22 @@
-import React, { useContext, MouseEvent } from "react";
+import React, { useContext, useState, MouseEvent } from "react";
 import BoardContext from "../state/BoardContext";
 import Column from "./Column";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 import BackgroundTile from "../assets/hip-square.png";
+import SpeedDial from "@material-ui/lab/SpeedDial";
+import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
+import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
+import Add from "@material-ui/icons/Add";
+import Panorama from "@material-ui/icons/Panorama";
+import RotateLeft from "@material-ui/icons/RotateLeft";
+import EditIcon from "@material-ui/icons/Edit";
 
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import IconButton from '@material-ui/core/IconButton';
-import Tooltip from "@material-ui/core/Tooltip";
+// import AddIcon from "@material-ui/icons/Add";
+// import Fab from "@material-ui/core/Fab";
+// // import DeleteIcon from '@material-ui/icons/Delete';
+// // import IconButton from '@material-ui/core/IconButton';
+// import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -37,6 +44,11 @@ const useStyles = makeStyles((theme: any) => ({
     right: 0,
     margin: "15px",
     // width: "200px",
+  },
+  speedDial: {
+    position: "absolute",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
 }));
 
@@ -131,6 +143,35 @@ export default function Board() {
     return;
   }
 
+  /* ----------------------------- */
+  /* Speed dial handlers, state... */
+  /* ----------------------------- */
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const actions = [
+    { icon: <Add />, name: "Add column", handler: addNewColumn },
+    { icon: <Panorama />, name: "Customize background", handler: handleClose },
+    {
+      icon: <RotateLeft />,
+      name: "Reset board",
+      handler: () => {
+        localStorage.clear();
+        dispatch({ type: "reset", payload: "" });
+      },
+    },
+  ];
+  /* ----------------------------- */
+  /* ----------------------------- */
+  /* ----------------------------- */
+
   return (
     <div style={{ backgroundImage: `url(${BackgroundTile})` }}>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -164,11 +205,28 @@ export default function Board() {
           )}
         </Droppable>
       </DragDropContext>
-      <Tooltip title="Add a column" aria-label="add">
+      {/* <Tooltip title="Add a column" aria-label="add">
         <Fab color="primary" className={classes.fab} onClick={addNewColumn}>
           <AddIcon />
         </Fab>
-      </Tooltip>
+      </Tooltip> */}
+      <SpeedDial
+        ariaLabel="Board actions"
+        className={classes.speedDial}
+        icon={<SpeedDialIcon openIcon={<EditIcon />} />}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        open={open}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            onClick={action.handler}
+          />
+        ))}
+      </SpeedDial>
     </div>
   );
 }
