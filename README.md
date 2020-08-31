@@ -4,9 +4,9 @@
 
 Simply create your board, add columns and cards to organize your workflow, and prioritize your tasks! In just few clicks you are up and running! All this for free and available as an open source.
 
-![](./readme-assets/THE-TRUE-KANBAN.gif)
+![Kanban Board Gif](https://github.com/mr-robak/kanban-hackathon/blob/readme/readme_assets/THE-TRUE-KANBAN.gif)
 
-### See the site deployed here: [https://the-true-kanban-board.netlify.app/](https://the-true-kanban-board.netlify.app/)
+#### See the site deployed here: [https://the-true-kanban-board.netlify.app/](https://the-true-kanban-board.netlify.app/)
 
 ---
 
