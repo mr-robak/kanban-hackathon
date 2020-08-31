@@ -232,6 +232,7 @@ export default function Board() {
         showForm={showForm}
         handleCloseForm={handleCloseForm}
         handleFileSubmit={handleFileSubmit}
+        message={"Choose a background picture for your board"}
       />
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable
