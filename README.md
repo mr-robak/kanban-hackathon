@@ -61,13 +61,13 @@ If you have a developer position opening or you know of one and think one of us 
 
 As a part of [Javascript Bootcamp Olympics](https://sites.google.com/mintbean.io/javascriptbootcampolympics/home)! hosted by [Mintbean](https://www.mintbean.io/).
 
-The event was geared to a fresh graduates of coding bootcamps with a goal of building our portfolio to make our profiles more impressive to employers.
+The event was geared towards fresh graduates of coding bootcamps. One of the goals is building our portfolio to make our profiles more impressive to potential employers.
 
-On friday evening we were presented with the task: to build, refine and explain a personal Kanban board!
+On Friday evening we were presented with the task: to build, refine and explain a personal Kanban board! We also had to factor in a time difference as the event was being hosted in North America - we were the only European team.
 
-We were working on the project remotely using Slack our daily stand-ups and put extra attention to communicating our progress. This is where GithHub's [kanban project board](https://github.com/mr-robak/kanban-hackathon/projects/1) was shining extra bright allowing us to track our progress and plan towards delivering a deployable MVP.
+We worked on the project remotely using Slack our daily stand-ups. We had to put extra effort into communicating our progress, as we could not meet up for the event. This is where GithHub's [kanban project board](https://github.com/mr-robak/kanban-hackathon/projects/1) came into play, allowing us to track our progress and plan towards delivering a deployable MVP. Yes, the irony of relying on a Kanban board while developing a Kanban board.
 
-Despite crazy pace with this super tight deadline and long ours we had a lot of fun working on this project and we managed to deliver all features requested in the user stories including a big part of the bonus ones!
+Despite the crazy pace with this super tight deadline and the long hours, we had a lot of fun working on this project and we managed to deliver all features requested in the user stories including a big part of the bonus ones!
 
 ![](https://github.com/mr-robak/kanban-hackathon/blob/readme/readme_assets/completed-task-kanban.gif)
 
@@ -158,7 +158,7 @@ Suggestions to help with the challenge:
 
 - [Material UI](https://github.com/mui-org/material-ui)
 
-- [Netlify](https://www.netlify.com/) for continuos deployment
+- [Netlify](https://www.netlify.com/) for continous deployment
 
 ---
 
