@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Typography, Button, Divider } from "@material-ui/core";
+import { Typography, Button, Divider, Container } from "@material-ui/core";
 import LinkedInCard from "../components/LinkedInCard";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -185,56 +185,149 @@ export default function LandingPage() {
       </Grid>
       <Grid
         container
-        md={12}
+        xs={12}
+        justify="center"
         style={{
+          display: "flex !important",
+          justifyContent: "right",
+          // flexGrow: 1,
+          // width: "100vw",
+          // alignContent: "center",
+          // position: "fixed",
           marginTop: 30,
-          // position: "relative",
-          backgroundColor: "#79bbf7",
-          height: 100,
+          backgroundColor: "#1688f0",
+          height: 150,
         }}
       >
         <Grid
           item
-          md={4}
-          style={
-            {
-              // position: "absolute",
-              // left: "2em",
-              // top: "2em",
-            }
-          }
+          xs={4}
+          style={{
+            padding: "1.3em",
+          }}
         >
-          <div>
-            <a
+          <Typography
+            style={{
+              alignContent: "center",
+              fontSize: "1.3em",
+              color: "white",
+              marginBottom: 10,
+            }}
+          >
+            Navigation:
+          </Typography>
+          <a
+            style={{
+              // alignSelf: "center",
+
+              fontSize: "1.2em",
+              color: "white",
+              textDecoration: "none",
+              marginLeft: 40,
+            }}
+            href="#top"
+          >
+            Home
+          </a>
+
+          <p>
+            <Link
               style={{
-                fontSize: "1.1em",
+                fontSize: "1em",
                 color: "white",
                 textDecoration: "none",
+                marginLeft: 40,
               }}
-              href="#top"
+              to="/board"
             >
-              Home
+              The True Kanban Board
+            </Link>
+          </p>
+        </Grid>
+        <Grid
+          item
+          xs={4}
+          // align="center"
+          style={{
+            padding: "1.3em",
+            // display: "inline-block",
+            alignItems: "center",
+            alignContent: "center",
+          }}
+        >
+          <a href="https://github.com/mr-robak/kanban-hackathon" target="blank">
+            <img
+              src={require("../assets/Octicons-mark-github.svg")}
+              alt="GitHub icon"
+              style={{ height: "4em", marginTop: 20 }}
+            />
+          </a>
+        </Grid>
+        <Grid
+          item
+          xs={4}
+          style={{
+            padding: "1.3em",
+          }}
+        >
+          <Typography
+            style={{
+              alignContent: "center",
+              fontSize: "1.3em",
+              color: "white",
+              // marginBottom: 10,
+            }}
+          >
+            The team:
+          </Typography>
+          <Typography
+            style={{
+              alignContent: "center",
+              fontSize: "1em",
+              color: "white",
+              marginLeft: 40,
+            }}
+          >
+            <a
+              href="https://www.linkedin.com/in/nadine-g-b7158519a/"
+              target="blank"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Nadine Grant
             </a>
-            <div>
-              <br />
-              <Link
-                style={{
-                  fontSize: "1.1em",
-                  color: "white",
-                  textDecoration: "none",
-                }}
-                to="/board"
-              >
-                The True Kanban Board
-              </Link>
-            </div>
-          </div>
-        </Grid>
-        <Grid item md={4}>
-          middle
-        </Grid>
-        <Grid item md={4}>
-          right
+          </Typography>{" "}
+          <Typography
+            style={{
+              alignContent: "center",
+              fontSize: "1em",
+              color: "white",
+              marginLeft: 40,
+            }}
+          >
+            <a
+              href="https://www.linkedin.com/in/mr-robak/"
+              target="blank"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Marcin Robak
+            </a>
+          </Typography>{" "}
+          <Typography
+            style={{
+              alignContent: "center",
+              fontSize: "1em",
+              color: "white",
+              marginLeft: 40,
+            }}
+          >
+            <a
+              href="https://www.linkedin.com/in/max-z-389a44198/"
+              target="blank"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Max Ziegler
+            </a>
+          </Typography>
         </Grid>
       </Grid>
     </Grid>
