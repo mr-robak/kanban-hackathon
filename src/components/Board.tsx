@@ -1,9 +1,16 @@
-import React, { useContext, MouseEvent } from "react";
+import React, { useContext, useState, MouseEvent } from "react";
 import BoardContext from "../state/BoardContext";
 import Column from "./Column";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/core/styles";
 import BackgroundTile from "../assets/hip-square.png";
+import SpeedDial from "@material-ui/lab/SpeedDial";
+import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
+import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
+import Add from "@material-ui/icons/Add";
+import Panorama from "@material-ui/icons/Panorama";
+import RotateLeft from "@material-ui/icons/RotateLeft";
+import EditIcon from "@material-ui/icons/Edit";
 
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
@@ -38,7 +45,18 @@ const useStyles = makeStyles((theme: any) => ({
     margin: "15px",
     // width: "200px",
   },
+  speedDial: {
+    position: "absolute",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
 }));
+
+const actions = [
+  { icon: <Add />, name: "Add column" },
+  { icon: <Panorama />, name: "Customize background" },
+  { icon: <RotateLeft />, name: "Reset board" },
+];
 
 export default function Board() {
   const classes = useStyles();
@@ -131,6 +149,22 @@ export default function Board() {
     return;
   }
 
+  /* ----------------------------- */
+  /* Speed dial handlers, state... */
+  /* ----------------------------- */
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  /* ----------------------------- */
+  /* ----------------------------- */
+  /* ----------------------------- */
+
   return (
     <div style={{ backgroundImage: `url(${BackgroundTile})` }}>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -169,6 +203,23 @@ export default function Board() {
           <AddIcon />
         </Fab>
       </Tooltip>
+      <SpeedDial
+        ariaLabel="Board actions"
+        className={classes.speedDial}
+        icon={<SpeedDialIcon openIcon={<EditIcon />} />}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        open={open}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            onClick={handleClose}
+          />
+        ))}
+      </SpeedDial>
     </div>
   );
 }
