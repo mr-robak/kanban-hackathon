@@ -20,7 +20,6 @@ import TextField from "@material-ui/core/TextField";
 
 // import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 
 import { Draggable } from "react-beautiful-dnd";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
@@ -358,7 +357,7 @@ export default function Task(props: PropsItem) {
                   <CardContent>
                     {editText ? (
                       <form onSubmit={setToNotEdit}>
-                        <TextareaAutosize
+                        <TextField
                           style={{
                             textAlign: "center",
                             fontSize: "1.4em",
