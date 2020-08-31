@@ -11,6 +11,7 @@ import Add from "@material-ui/icons/Add";
 import Panorama from "@material-ui/icons/Panorama";
 import RotateLeft from "@material-ui/icons/RotateLeft";
 import EditIcon from "@material-ui/icons/Edit";
+import DialogUpload from "./DialogUpload";
 
 // import AddIcon from "@material-ui/icons/Add";
 // import Fab from "@material-ui/core/Fab";
@@ -187,7 +188,7 @@ export default function Board() {
   /* --------------------------------------- */
   /* --------------------------------------- */
 
-   /* ----------------------------- */
+  /* ----------------------------- */
   /* Speed dial handlers, state... */
   /* ----------------------------- */
   const [open, setOpen] = useState<boolean>(false);
@@ -226,7 +227,12 @@ export default function Board() {
     : `url(${BackgroundTile})`;
 
   return (
-    <div style={{ backgroundImage: `url(${BackgroundTile})` }}>
+    <div style={{ backgroundImage: `${bgImage}` }}>
+      <DialogUpload
+        showForm={showForm}
+        handleCloseForm={handleCloseForm}
+        handleFileSubmit={handleFileSubmit}
+      />
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable
           droppableId="all-columns"
