@@ -262,6 +262,11 @@ export default function Task(props: PropsItem) {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleCloseContextMenu}>Edit task</MenuItem>
+                {localStorage[imgId] ? (
+                  <MenuItem onClick={handleDeleteImg}>Delete image</MenuItem>
+                ) : (
+                  <MenuItem onClick={handleOpenForm}>Add image</MenuItem>
+                )}
                 <MenuItem onClick={handleMoveCard}>Move task</MenuItem>
                 <MenuItem onClick={handleDelete}>Delete task</MenuItem>
               </Menu>
