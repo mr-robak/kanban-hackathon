@@ -214,6 +214,7 @@ export default function Board() {
       handler: async () => {
         await localStorage.clear();
         dispatch({ type: "reset", payload: "" });
+        setRefresh(!refresh);
       },
     },
   ];
