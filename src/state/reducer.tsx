@@ -39,6 +39,15 @@ export default function reducer(state: State, action: Action) {
       for (let key in state.tasks) {
         if (!tasksToDelete.includes(key)) {
           newTasks[key] = state.tasks[key];
+        } else {
+          //delete image associated with task
+          //keys of image and altText
+          const imgId = `img-${key.slice(-1)}`;
+          const altText = `${imgId}-alt`;
+          if (localStorage[imgId]) {
+            localStorage.removeItem(imgId);
+            localStorage.removeItem(altText);
+          }
         }
       }
 
@@ -83,6 +92,15 @@ export default function reducer(state: State, action: Action) {
     case "deleteTask": {
       //id of task to delete
       const id = action.payload;
+      //keys of image and altText
+      const imgId = `img-${id.slice(-1)}`;
+      const altText = `${imgId}-alt`;
+
+      //remove task image if it exists
+      if (localStorage[imgId]) {
+        localStorage.removeItem(imgId);
+        localStorage.removeItem(altText);
+      }
 
       //update tasks
       const newTasks: Tasks = {};
@@ -148,6 +166,15 @@ export default function reducer(state: State, action: Action) {
       for (let task in currentTasks) {
         if (!tasksToDelete.includes(task)) {
           newTasks[task] = currentTasks[task];
+        } else {
+          //delete image associated with task
+          //keys of image and altText
+          const imgId = `img-${task.slice(-1)}`;
+          const altText = `${imgId}-alt`;
+          if (localStorage[imgId]) {
+            localStorage.removeItem(imgId);
+            localStorage.removeItem(altText);
+          }
         }
       }
 
