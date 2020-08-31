@@ -208,10 +208,10 @@ export default function Board() {
         </Droppable>
       </DragDropContext>
       {/* <Tooltip title="Add a column" aria-label="add">
-        <Fab color="primary" className={classes.fab} onClick={addNewColumn}>
-          <AddIcon />
-        </Fab>
-      </Tooltip> */}
+<Fab color="primary" className={classes.fab} onClick={addNewColumn}>
+<AddIcon />
+</Fab>
+</Tooltip> */}
       <SpeedDial
         ariaLabel="Board actions"
         className={classes.speedDial}
