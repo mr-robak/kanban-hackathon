@@ -187,7 +187,7 @@ export default function Board() {
   /* --------------------------------------- */
   /* --------------------------------------- */
 
-  /* ----------------------------- */
+   /* ----------------------------- */
   /* Speed dial handlers, state... */
   /* ----------------------------- */
   const [open, setOpen] = useState<boolean>(false);
@@ -202,7 +202,11 @@ export default function Board() {
 
   const actions = [
     { icon: <Add />, name: "Add column", handler: addNewColumn },
-    { icon: <Panorama />, name: "Customize background", handler: handleClose },
+    {
+      icon: <Panorama />,
+      name: "Customize background",
+      handler: handleOpenForm,
+    },
     {
       icon: <RotateLeft />,
       name: "Reset board",
@@ -215,6 +219,11 @@ export default function Board() {
   /* ----------------------------- */
   /* ----------------------------- */
   /* ----------------------------- */
+
+  //determine which background image to use
+  const bgImage = localStorage[bgImg]
+    ? `url(${localStorage[bgImg]})`
+    : `url(${BackgroundTile})`;
 
   return (
     <div style={{ backgroundImage: `url(${BackgroundTile})` }}>
