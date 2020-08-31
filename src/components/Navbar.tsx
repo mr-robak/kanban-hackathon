@@ -11,6 +11,7 @@ import { Button, SvgIcon } from "@material-ui/core";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      display: "flex",
       flexGrow: 1,
     },
     menuButton: {
@@ -28,7 +29,7 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <AppBar
-        position="static"
+        position="fixed"
         style={{
           height: "auto",
           width: "100vw",
@@ -36,7 +37,7 @@ export default function Navbar() {
           justifyContent: "center",
         }}
       >
-        <Toolbar>
+        <Toolbar className={classes.root}>
           {" "}
           <Link to="/board" style={{ textDecoration: "none", color: "white" }}>
             <SvgIcon style={{ fontSize: 40, margin: 10 }}>
@@ -72,6 +73,7 @@ export default function Navbar() {
           </Button>
         </Toolbar>
       </AppBar>
+      <Toolbar />
     </div>
   );
 }
