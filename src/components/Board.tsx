@@ -52,12 +52,6 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const actions = [
-  { icon: <Add />, name: "Add column" },
-  { icon: <Panorama />, name: "Customize background" },
-  { icon: <RotateLeft />, name: "Reset board" },
-];
-
 export default function Board() {
   const classes = useStyles();
   const { state, dispatch } = useContext(BoardContext);
@@ -161,6 +155,19 @@ export default function Board() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const actions = [
+    { icon: <Add />, name: "Add column", handler: addNewColumn },
+    { icon: <Panorama />, name: "Customize background", handler: handleClose },
+    {
+      icon: <RotateLeft />,
+      name: "Reset board",
+      handler: () => {
+        localStorage.clear();
+        dispatch({ type: "refresh", payload: "" });
+      },
+    },
+  ];
   /* ----------------------------- */
   /* ----------------------------- */
   /* ----------------------------- */
@@ -198,11 +205,11 @@ export default function Board() {
           )}
         </Droppable>
       </DragDropContext>
-      <Tooltip title="Add a column" aria-label="add">
+      {/* <Tooltip title="Add a column" aria-label="add">
         <Fab color="primary" className={classes.fab} onClick={addNewColumn}>
           <AddIcon />
         </Fab>
-      </Tooltip>
+      </Tooltip> */}
       <SpeedDial
         ariaLabel="Board actions"
         className={classes.speedDial}
@@ -216,7 +223,7 @@ export default function Board() {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            onClick={handleClose}
+            onClick={action.handler}
           />
         ))}
       </SpeedDial>
