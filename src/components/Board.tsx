@@ -238,6 +238,7 @@ export default function Board() {
               className={classes.root}
               {...provided.droppableProps}
               ref={provided.innerRef}
+              style={{ backgroundImage: `${bgImage}` }}
             >
               {state.columnOrder.map((columnId: string, index: number) => {
                 const column = state.columns[columnId];
