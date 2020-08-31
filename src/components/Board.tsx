@@ -164,7 +164,7 @@ export default function Board() {
       name: "Reset board",
       handler: () => {
         localStorage.clear();
-        dispatch({ type: "refresh", payload: "" });
+        dispatch({ type: "reset", payload: "" });
       },
     },
   ];

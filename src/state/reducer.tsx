@@ -164,7 +164,7 @@ export default function reducer(state: State, action: Action) {
       }
       return { ...state, columns: newColumns, tasks: newTasks };
     }
-    case "refresh": {
+    case "reset": {
       return initialState;
     }
     default: {
