@@ -11,7 +11,7 @@ import LinkedInCard from "../components/LinkedInCard";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      //   flexGrow: 1,
+      // flexGrow: 1,
       maxWidth: "1600px",
       spacing: 1,
 
@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     illustration: {
       width: "100%",
-      //   height: "25%",
+      // height: "25%",
     },
     title: {
-      //   fontFamily: "Architects Daughter",
+      // fontFamily: "Architects Daughter",
     },
     button: {
       backgroundColor: "#fffde7",
@@ -145,7 +145,7 @@ export default function LandingPage() {
           style={{ textAlign: "right", padding: 20 }}
         >
           We are a group of passionate developers who enjoy a good challenge. We
-          are all graduates of the elite{" "}
+          are all graduates of elite{" "}
           <a
             href="https://codaisseur.com/hire-developers/"
             target="blank"
@@ -153,9 +153,9 @@ export default function LandingPage() {
           >
             <strong>Codaisseur Academy</strong>
           </a>{" "}
-          and come armed with knowledge of cutting edge technologies and highly
-          sought after skills. Any one of us is an invaluable addition to any
-          Development Team, and guess what?
+          and come armed with the cutting edge technologies and skills. Every
+          each one of us will be an invaluable addition to any Developer Team,
+          and guess what?
         </Typography>
         <Typography
           variant="h5"
