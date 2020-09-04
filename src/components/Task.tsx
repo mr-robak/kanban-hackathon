@@ -128,13 +128,6 @@ export default function Task(props: PropsItem) {
     setShowMoveForm(false);
   };
 
-  const handleDeleteImg = () => {
-    handleClose();
-    handleCloseContextMenu();
-    localStorage.removeItem(imgId);
-    localStorage.removeItem(altText);
-    setRefresh(!refresh);
-  };
   /* --------------------------------------- */
   /* ABOVE LOGIC FOR ADDING/REMOVING IMAGES  */
   /* --------------------------------------- */
