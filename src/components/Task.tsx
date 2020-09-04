@@ -351,16 +351,10 @@ export default function Task(props: PropsItem) {
               <DialogUpload
                 showForm={showForm}
                 handleCloseForm={handleCloseForm}
-                handleFileSubmit={(event) =>
-                  handleImageSubmit(
-                    event,
-                    handleCloseForm,
-                    refresh,
-                    setRefresh,
-                    imgId,
-                    altText
-                  )
-                }
+                handleFileSubmit={(event) => {
+                  handleCloseForm();
+                  handleImageSubmit(event, imgId, altText, refresh, setRefresh);
+                }}
                 message={"Choose an image to add to your task"}
               ></DialogUpload>
 
