@@ -45,10 +45,7 @@ export function handleImageSubmit(
       if (typeof imgData === "string") {
         localStorage[imgId] += btoa(imgData);
       }
-      // dispatch({
-      //   type: "addImgToTask",
-      //   payload: { taskId: props.task.id, imgId },
-      // });
+
       setRefresh(!refresh);
     };
 
