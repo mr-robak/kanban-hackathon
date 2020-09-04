@@ -54,15 +54,7 @@ export function handleImageSubmit(
   }
 }
 
-export function handleDeleteImg(
-  handleClose: () => void,
-  imgId: string,
-  altText: string,
-  refresh: boolean,
-  setRefresh: React.Dispatch<React.SetStateAction<boolean>>
-) {
-  handleClose();
+export function handleDeleteImg(imgId: string, altText: string) {
   localStorage.removeItem(imgId);
   localStorage.removeItem(altText);
-  setRefresh(!refresh);
 }
