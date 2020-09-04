@@ -18,14 +18,9 @@ export function getState(): State {
 
 export function handleImageSubmit(
   event: React.FormEvent<HTMLInputElement>,
-  handleCloseForm: () => void,
-  refresh: boolean,
-  setRefresh: React.Dispatch<React.SetStateAction<boolean>>,
   imgId: string,
   altText: string
 ) {
-  handleCloseForm();
-
   if (event.currentTarget.files && event.currentTarget.files[0]) {
     const reader = new FileReader();
 
@@ -45,8 +40,6 @@ export function handleImageSubmit(
       if (typeof imgData === "string") {
         localStorage[imgId] += btoa(imgData);
       }
-
-      setRefresh(!refresh);
     };
 
     reader.onloadend = handleFileRead;
