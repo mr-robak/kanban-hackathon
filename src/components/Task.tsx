@@ -27,6 +27,7 @@ import { Tooltip, Zoom } from "@material-ui/core";
 
 import { SingleTask } from "../models/index";
 import DialogUpload from "./DialogUpload";
+import { handleImageSubmit } from "../utils/index";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -117,6 +118,7 @@ export default function Task(props: PropsItem) {
 
   const handleOpenForm = () => {
     handleCloseContextMenu();
+    handleClose();
     setShowForm(true);
   };
 
@@ -160,6 +162,7 @@ export default function Task(props: PropsItem) {
   };
 
   const handleDeleteImg = () => {
+    handleClose();
     handleCloseContextMenu();
     localStorage.removeItem(imgId);
     localStorage.removeItem(altText);
@@ -380,7 +383,16 @@ export default function Task(props: PropsItem) {
               <DialogUpload
                 showForm={showForm}
                 handleCloseForm={handleCloseForm}
-                handleFileSubmit={handleFileSubmit}
+                handleFileSubmit={(event) =>
+                  handleImageSubmit(
+                    event,
+                    handleCloseForm,
+                    refresh,
+                    setRefresh,
+                    imgId,
+                    altText
+                  )
+                }
                 message={"Choose an image to add to your task"}
               ></DialogUpload>
 
