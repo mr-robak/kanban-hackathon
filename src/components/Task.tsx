@@ -402,7 +402,7 @@ export default function Task(props: PropsItem) {
                 {localStorage[imgId] ? (
                   <MenuItem
                     onClick={() => {
-                      handleClose();
+                      handleCloseContextMenu();
                       handleDeleteImg(imgId, altText);
                       setRefresh(!refresh);
                     }}
