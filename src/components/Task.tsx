@@ -27,7 +27,7 @@ import { Tooltip, Zoom } from "@material-ui/core";
 
 import { SingleTask } from "../models/index";
 import DialogUpload from "./DialogUpload";
-import { handleImageSubmit } from "../utils/index";
+import { handleImageSubmit, handleDeleteImg } from "../utils/index";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -255,7 +255,15 @@ export default function Task(props: PropsItem) {
               >
                 <MenuItem onClick={setToEdit}>Edit task</MenuItem>
                 {localStorage[imgId] ? (
-                  <MenuItem onClick={handleDeleteImg}>Delete image</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleCloseContextMenu();
+                      handleDeleteImg(imgId, altText);
+                      setRefresh(!refresh);
+                    }}
+                  >
+                    Delete image
+                  </MenuItem>
                 ) : (
                   <MenuItem onClick={handleOpenForm}>Add image</MenuItem>
                 )}
@@ -398,7 +406,15 @@ export default function Task(props: PropsItem) {
                 <MenuItem onClick={setToEdit}>Edit</MenuItem>
                 <MenuItem onClick={handleMoveCard}>Move</MenuItem>
                 {localStorage[imgId] ? (
-                  <MenuItem onClick={handleDeleteImg}>Delete image</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleClose();
+                      handleDeleteImg(imgId, altText);
+                      setRefresh(!refresh);
+                    }}
+                  >
+                    Delete image
+                  </MenuItem>
                 ) : (
                   <MenuItem onClick={handleOpenForm}>Add image</MenuItem>
                 )}
