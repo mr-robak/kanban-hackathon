@@ -28,8 +28,6 @@ export function handleImageSubmit(
 
   if (event.currentTarget.files && event.currentTarget.files[0]) {
     const reader = new FileReader();
-    //console.log(event.target.files[0]);
-    //console.log(event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, ""));
 
     //src to pass to props
     const srcImg = `data:${event.currentTarget.files[0].type};base64,`;
