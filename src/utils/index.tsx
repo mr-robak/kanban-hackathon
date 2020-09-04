@@ -53,3 +53,16 @@ export function handleImageSubmit(
     reader.readAsBinaryString(event.currentTarget.files[0]);
   }
 }
+
+export function handleDeleteImg(
+  handleClose: () => void,
+  imgId: string,
+  altText: string,
+  refresh: boolean,
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>
+) {
+  handleClose();
+  localStorage.removeItem(imgId);
+  localStorage.removeItem(altText);
+  setRefresh(!refresh);
+}
