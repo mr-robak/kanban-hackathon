@@ -128,39 +128,6 @@ export default function Task(props: PropsItem) {
     setShowMoveForm(false);
   };
 
-  const handleFileSubmit = (event: any) => {
-    handleCloseForm();
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      //console.log(event.target.files[0]);
-      //console.log(event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, ""));
-
-      //src to pass to props
-      const srcImg = `data:${event.target.files[0].type};base64,`;
-      //save source in localStorage
-      localStorage.setItem(imgId, srcImg);
-      //alt text for image (stripped file name)
-      localStorage.setItem(
-        altText,
-        event.target.files[0].name.replace(/(.jpeg|.png|.jpg)/g, "")
-      );
-
-      const handleFileRead = (event: ProgressEvent<FileReader>) => {
-        const imgData: any = reader.result;
-
-        localStorage[imgId] += btoa(imgData);
-        dispatch({
-          type: "addImgToTask",
-          payload: { taskId: props.task.id, imgId },
-        });
-        setRefresh(!refresh);
-      };
-
-      reader.onloadend = handleFileRead;
-      reader.readAsBinaryString(event.target.files[0]);
-    }
-  };
-
   const handleDeleteImg = () => {
     handleClose();
     handleCloseContextMenu();
