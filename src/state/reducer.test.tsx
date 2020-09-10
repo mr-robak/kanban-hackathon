@@ -157,4 +157,58 @@ describe("reducer", () => {
       expect(newState.columns).toEqual(newColumns);
     });
   });
+  describe("if given action type deleteTask", () => {
+    test("return state with task deleted", () => {
+      const newColumns = {
+        "column-1": {
+          id: "column-1",
+          title: "To do",
+          taskIds: ["task-1"],
+        },
+        "column-2": {
+          id: "column-2",
+          title: "In Progress",
+          taskIds: ["task-3", "task-4"],
+        },
+        "column-3": {
+          id: "column-3",
+          title: "Done",
+          taskIds: [],
+        },
+      };
+      const newTasks = {
+        "task-1": {
+          id: "task-1",
+          title: "Start Reading These Cards!",
+          description:
+            "These cards provide information on how to use The True Kanban Board",
+          imageId: "null",
+        },
+
+        "task-3": {
+          id: "task-3",
+          title: "Move Cards Between Columns",
+          description:
+            "You can move cards by clicking and draging them to a new column. You can also move them by selecting Move in the card's menu and selection which column you want the card to go to.",
+          imageId: "null",
+        },
+        "task-4": {
+          id: "task-4",
+          title: "Create, Delete, and Move Columns",
+          description:
+            "Columns can be deleted by accessing the column menu at the top left corner of each column. To create a column click the purple + button, then give your new column a new title! Drag the column to a new position by click-and-holding the column header.",
+          imageId: "null",
+        },
+      };
+
+      const newState = reducer(initialState, {
+        type: "deleteTask",
+        payload: "task-2",
+      });
+      expect(Object.keys(newState.columns)).toHaveLength(3);
+      expect(Object.keys(newState.tasks)).toHaveLength(3);
+      expect(newState.tasks).toEqual(newTasks);
+      expect(newState.columns).toEqual(newColumns);
+    });
+  });
 });
