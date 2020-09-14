@@ -211,7 +211,6 @@ describe("reducer", () => {
       expect(newState.columns).toEqual(newColumns);
     });
   });
-
   describe("if given action type reset", () => {
     test("return initial state", () => {
       const newState = reducer(initialState, {
@@ -223,7 +222,6 @@ describe("reducer", () => {
       expect(newState.tasks).toEqual(initialState.tasks);
     });
   });
-
   describe("if given action type newCardTitle and a valid task-id", () => {
     test("return state with new card title included", () => {
       const newTasks = {
@@ -272,6 +270,62 @@ describe("reducer", () => {
       const newState = reducer(initialState, {
         type: "newCardTitle",
         payload: { id: "task-7", newTitle: "New Title" },
+      });
+
+      expect(newState.columns).toEqual(initialState.columns);
+      expect(newState.columnOrder).toEqual(initialState.columnOrder);
+      expect(newState.tasks).toEqual(initialState.tasks);
+    });
+  });
+
+  describe("if given action type newCardDescription and a valid task-id", () => {
+    test("return state with new card description included", () => {
+      const newTasks = {
+        "task-1": {
+          id: "task-1",
+          title: "Start Reading These Cards!",
+          description:
+            "These cards provide information on how to use The True Kanban Board",
+          imageId: "null",
+        },
+        "task-2": {
+          id: "task-2",
+          title: "Create and Delete Cards",
+          description:
+            "You can create new cards using the column menu. Delete, edit, and move cards by clicking on each card's menu in it's upper right corner. You can also access all these options by right clicking anywhere on the card.",
+          imageId: "null",
+        },
+        "task-3": {
+          id: "task-3",
+          title: "Move Cards Between Columns",
+          description: "Edited.",
+          imageId: "null",
+        },
+        "task-4": {
+          id: "task-4",
+          title: "Create, Delete, and Move Columns",
+          description:
+            "Columns can be deleted by accessing the column menu at the top left corner of each column. To create a column click the purple + button, then give your new column a new title! Drag the column to a new position by click-and-holding the column header.",
+          imageId: "null",
+        },
+      };
+
+      const newState = reducer(initialState, {
+        type: "newCardDescription",
+        payload: { id: "task-3", newDescription: "Edited." },
+      });
+
+      expect(Object.keys(newState.tasks)).toHaveLength(4);
+      expect(newState.columns).toEqual(initialState.columns);
+      expect(newState.columnOrder).toEqual(initialState.columnOrder);
+      expect(newState.tasks).toEqual(newTasks);
+    });
+  });
+  describe("if given action type newCardDescription and an ivalid task-id", () => {
+    test("return task state unchanged", () => {
+      const newState = reducer(initialState, {
+        type: "newCardTitle",
+        payload: { id: "task-10", newTitle: "New Title" },
       });
 
       expect(newState.columns).toEqual(initialState.columns);
