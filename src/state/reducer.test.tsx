@@ -380,4 +380,37 @@ describe("reducer", () => {
       expect(newState.tasks).toEqual(initialState.tasks);
     });
   });
+
+  describe("if given action type newTitle and a valid column-id", () => {
+    test("return state with new column title included", () => {
+      const newColumns = {
+        "column-1": {
+          id: "column-1",
+          title: "Edited Title Change.",
+          taskIds: ["task-1", "task-2"],
+        },
+        "column-2": {
+          id: "column-2",
+          title: "In Progress",
+          taskIds: ["task-3", "task-4"],
+        },
+        "column-3": {
+          id: "column-3",
+          title: "Done",
+          taskIds: [],
+        },
+      };
+
+      const newState = reducer(initialState, {
+        type: "newTitle",
+        payload: {
+          id: "column-1",
+          title: "Edited Title Change.",
+          taskIds: ["task-1", "task-2"],
+        },
+      });
+      expect(newState.columns).toEqual(newColumns);
+      expect(newState.columns["column-1"].title).toBe("Edited Title Change.");
+    });
+  });
 });
