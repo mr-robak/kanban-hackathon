@@ -222,6 +222,53 @@ describe("reducer", () => {
       expect(newState.tasks).toEqual(initialState.tasks);
     });
   });
+  describe("if given action type clearColumn", () => {
+    test("return state with column cleared of tasks", () => {
+      const afterState = {
+        tasks: {
+          "task-3": {
+            id: "task-3",
+            title: "Move Cards Between Columns",
+            description:
+              "You can move cards by clicking and draging them to a new column. You can also move them by selecting Move in the card's menu and selection which column you want the card to go to.",
+            imageId: "null",
+          },
+          "task-4": {
+            id: "task-4",
+            title: "Create, Delete, and Move Columns",
+            description:
+              "Columns can be deleted by accessing the column menu at the top left corner of each column. To create a column click the purple + button, then give your new column a new title! Drag the column to a new position by click-and-holding the column header.",
+            imageId: "null",
+          },
+        },
+        columns: {
+          "column-1": {
+            id: "column-1",
+            title: "To do",
+            taskIds: [],
+          },
+          "column-2": {
+            id: "column-2",
+            title: "In Progress",
+            taskIds: ["task-3", "task-4"],
+          },
+          "column-3": {
+            id: "column-3",
+            title: "Done",
+            taskIds: [],
+          },
+        },
+      };
+
+      const newState = reducer(initialState, {
+        type: "clearColumn",
+        payload: "column-1",
+      });
+      expect(newState.columns).toEqual(afterState.columns);
+      expect(newState.columns["column-1"].taskIds).toEqual([]);
+    });
+  });
+
   describe("if given action type newCardTitle and a valid task-id", () => {
     test("return state with new card title included", () => {
       const newTasks = {
