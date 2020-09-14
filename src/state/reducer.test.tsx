@@ -211,4 +211,16 @@ describe("reducer", () => {
       expect(newState.columns).toEqual(newColumns);
     });
   });
+
+  describe("if given action type reset", () => {
+    test("return initial state", () => {
+      const newState = reducer(initialState, {
+        type: "reset",
+        payload: null,
+      });
+      expect(newState.columns).toEqual(initialState.columns);
+      expect(newState.columnOrder).toEqual(initialState.columnOrder);
+      expect(newState.tasks).toEqual(initialState.tasks);
+    });
+  });
 });
